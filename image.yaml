@@ -232,7 +232,7 @@ cct:
           - cct_module.os-java-run:
                 - install_as_root:
 dogen:
-    version: 2.4.1
+    version: 2.4.3
     plugins:
         cct:
             verbose: true
