@@ -1,0 +1,4 @@
+osbs:
+  repository:
+    name: containers/redhat-openjdk-18
+    branch: jb-openjdk-1.8-openshift-dev-rhel-7
