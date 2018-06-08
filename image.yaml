@@ -1,78 +1,31 @@
 schema_version: 1
 
+from: "rhel7:7.5-released"
+
 name: "redhat-openjdk-18/openjdk18-openshift"
 description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 1.8"
 version: "1.6"
+
 labels:
-    - name: "com.redhat.component"
-      value: "redhat-openjdk-18-openjdk18-openshift-container"
-    - name: "io.openshift.s2i.scripts-url"
-      value: "image:///usr/local/s2i"
-    - name: io.k8s.description
-      value: "Platform for building and running plain Java applications (fat-jar and flat classpath)"
-    - name: io.k8s.display-name
-      value: "Java Applications"
-    - name: io.openshift.tags
-      value: "builder,java"
-    - name: io.openshift.s2i.destination
-      value: "/tmp"
-    - name: org.jboss.deployments-dir
-      value: "/deployments"
-    - name: usage
-      value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
-from: "jboss/openjdk18-rhel7:1.1"
+- name: "com.redhat.component"
+  value: "redhat-openjdk-18-openjdk18-openshift-container"
+- name: io.k8s.description
+  value: "Platform for building and running plain Java applications (fat-jar and flat classpath)"
+- name: io.k8s.display-name
+  value: "Java Applications"
+- name: io.openshift.tags
+  value: "builder,java"
+- name: usage
+  value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
+
 envs:
-    - name: PATH
-      value: $PATH:"/usr/local/s2i"
-    - name: JAVA_DATA_DIR
-      value: "/deployments/data"
-      example: "true"
-    - name: JAVA_APP_DIR
-      description: The directory where the application resides. All paths in your application are relative to this directory.
-      example: "myapplication/"
-    - name: JAVA_LIB_DIR
-      description: Directory holding the Java jar files as well an optional `classpath` file which holds the classpath. Either as a single line classpath (colon separated) or with jar files listed line-by-line. If not set **JAVA_LIB_DIR** is the same as **JAVA_APP_DIR**.
-    - name: JAVA_OPTIONS
-      description: JVM options passed to the `java` command.
-      example: "-verbose:class"
-    - name: JAVA_ARGS
-      description: Arguments passed to the `java` application.
-    - name: JAVA_MAIN_CLASS
-      description: A main class to use as argument for `java`. When this environment variable is given, all jar files in **JAVA_APP_DIR** are added to the classpath as well as **JAVA_LIB_DIR**.
-    - name: JAVA_APP_JAR
-      description: A jar file with an appropriate manifest so that it can be started with `java -jar` if no **JAVA_MAIN_CLASS** is set. In all cases this jar file is added to the classpath, too.
-    - name: JAVA_APP_NAME
-      description: Name to use for the process.
-      example: "demo-app"
-    - name: JAVA_CLASSPATH
-      description: The classpath to use. If not given, the startup script checks for a file `**JAVA_APP_DIR/classpath**` and use its content literally as classpath. If this file doesn't exists all jars in the app dir are added (`classes:**JAVA_APP_DIR/***`).
-    - name: JAVA_DEBUG
-      description: If set remote debugging will be switched on. **Disabled by default.**
-      example: "true"
-    - name: JAVA_DEBUG_PORT
-      description: Port used for remote debugging. Defaults to *5005*.
-      example: "8787"
-    - name: https_proxy
-      description: The location of the https proxy. This takes precedence over **HTTPS_PROXY**, **http_proxy**, and **HTTP_PROXY**, and will be used for both Maven builds and Java runtime.
-      example: "myuser:mypass@127.0.0.1:8080"
-    - name: HTTPS_PROXY
-      description: The location of the https proxy. This takes precedence over **http_proxy** and **HTTP_PROXY**, and will be used for both Maven builds and Java runtime.
-      example: "myuser@127.0.0.1:8080"
-    - name: http_proxy
-      description: The location of the http proxy. This takes precedence over **HTTP_PROXY** and will be used for both Maven builds and Java runtime.
-      example: "http://127.0.0.1:8080"
-    - name: HTTP_PROXY
-      description: The location of the http proxy. This will be used for both Maven builds and Java runtime.
-      example: "127.0.0.1:8080"
-    - name: no_proxy
-      description: A comman separated lists of hosts, IP addresses or domains that can be accessed directly. This takes precedence over **NO_PROXY** and will be used for both Maven builds and Java runtime.
-      example: "*.example.com"
-    - name: NO_PROXY
-      description: A comman separated lists of hosts, IP addresses or domains that can be accessed directly. This will be used for both Maven builds and Java runtime.
-      example: "foo.example.com,bar.example.com"
+- name: PATH
+  value: $PATH:"/usr/local/s2i"
+
 ports:
-    - value: 8080
-    - value: 8443
+- value: 8080
+- value: 8443
+
 packages:
       repositories:
             # Below two repositories are required to be defined to generate proper
@@ -87,26 +40,17 @@ packages:
           - name: jboss-rhscl
             id: rhel-server-rhscl-7-rpms
 modules:
-      repositories:
-          - git:
-                  url: https://github.com/jboss-openshift/cct_module.git
-                  ref: master
-      install:
-          - name: s2i-common
-          - name: os-java-misc
-          - name: os-java-s2i
-          - name: os-java-jolokia
-          - name: os-java-hawkular
-          - name: os-java-run
-          - name: openshift-passwd
-          - name: jboss-maven
-run:
-      user: 185
-      cmd:
-# Use the run script as default since we are working as an hybrid image which can be
-# used directly to. (If we were a plain s2i image we would print the usage info here)
-          - "/usr/local/s2i/run"
+  repositories:
+  - name: cct_module
+    git:
+      url: https://github.com/jboss-openshift/cct_module.git
+      ref: master
+  install:
+  - name: jboss.container.openjdk.jdk
+    version: "8"
+  - name: jboss.container.java.s2i.bash
+
 osbs:
-      repository:
-            name: containers/redhat-openjdk-18
-            branch: jb-openjdk-1.8-openshift-rhel-7
+  repository:
+    name: containers/redhat-openjdk-18
+    branch: jb-openjdk-1.8-openshift-rhel-7

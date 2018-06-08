@@ -272,6 +272,13 @@ Feature: Openshift OpenJDK S2I tests
        | variable           | value                                            |
        | MAVEN_ARGS         | -e package                                       |
 
+  Scenario: Ensure legacy ARTIFACT_COPY_ARGS works as it used to
+    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
+       | variable             | value                |
+       | ARTIFACT_COPY_ARGS   | undertow-servlet.jar |
+       | JAVA_ARGS            | Hello from CTF test  |
+    Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
+
   # CLOUD-579
   Scenario: Test that maven is executed in batch mode
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple

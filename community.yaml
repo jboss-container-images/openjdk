@@ -1,0 +1,2 @@
+from: "centos:7"
+name: "centos/openjdk-18-centos7"
