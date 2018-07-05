@@ -1,6 +1,3 @@
-# Use latest development image
-from: "jboss/openjdk18-rhel7:dev"
-
 # Use the correct development branch
 osbs:
   repository:
