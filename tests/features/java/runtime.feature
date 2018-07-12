@@ -1,4 +1,5 @@
 @redhat-openjdk-18
+@centos/openjdk-18-centos7
 Feature: Openshift OpenJDK Runtime tests
 
   Scenario: Ensure JVM_ARGS is no longer present in the run script

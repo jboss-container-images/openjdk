@@ -1,4 +1,5 @@
 @redhat-openjdk-18
+@centos/openjdk-18-centos7
 Feature: tests for all openshift images
 
   Scenario: Check that labels are correctly set

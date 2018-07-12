@@ -1,4 +1,5 @@
 @redhat-openjdk-18
+@centos/openjdk-18-centos7
 Feature: Openshift OpenJDK GC tests
 
   Scenario: Check default GC configuration
@@ -45,6 +46,6 @@ Feature: Openshift OpenJDK GC tests
     Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
        | variable             | value        |
        | GC_CONTAINER_OPTIONS | -XX:+UseG1GC |
-    Then s2i build log should contain Setting MAVEN_OPTS to -XX:+UseG1GC
+    Then s2i build log should contain Using MAVEN_OPTS -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:+UseG1GC
     And container log should contain -XX:+UseG1GC
     And container log should not contain -XX:+UseParallelOldGC
