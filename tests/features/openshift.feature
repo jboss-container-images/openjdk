@@ -1,4 +1,4 @@
-@redhat-openjdk-18/openjdk18-openshift
+@redhat-openjdk-18
 Feature: tests for all openshift images
 
   Scenario: Check that labels are correctly set
