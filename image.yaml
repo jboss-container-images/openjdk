@@ -73,6 +73,12 @@ envs:
 ports:
     - value: 8080
     - value: 8443
+packages:
+      repositories:
+          - name: base
+            id: rhel-7-server-rpms
+          - name: jboss-rhscl
+            id: rhel-server-rhscl-7-rpms
 modules:
       repositories:
           - git:
