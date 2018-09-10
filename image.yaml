@@ -75,8 +75,15 @@ ports:
     - value: 8443
 packages:
       repositories:
+            # Below two repositories are required to be defined to generate proper
+            # configuration files for OSBS
           - name: base
             id: rhel-7-server-rpms
+          - name: scl
+            id: rhel-server-rhscl-7-rpms
+            # This definition is currently required, because the one of the used
+            # modules uses the "jboss-rhscl" name. This will be removed once the module
+            # will be updated.
           - name: jboss-rhscl
             id: rhel-server-rhscl-7-rpms
 modules:
