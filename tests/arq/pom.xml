@@ -202,7 +202,7 @@
                         <template.branch>master</template.branch>
                         <!-- URL to the OpenShift image streams that are officially added to OCP. These image streams are added to every test project run on OpenShift -->
                         <openshift.imageStreams>
-                            https://raw.githubusercontent.com/openshift/origin/v3.9.0/examples/image-streams/image-streams-rhel7.json
+                            https://raw.githubusercontent.com/openshift/origin/v3.10.0/examples/image-streams/image-streams-rhel7.json
                         </openshift.imageStreams>
                     </systemPropertyVariables>
                 </configuration>
