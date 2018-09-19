@@ -90,7 +90,7 @@ modules:
       repositories:
           - git:
                   url: https://github.com/jboss-openshift/cct_module.git
-                  ref: sprint-19
+                  ref: master
       install:
           - name: s2i-common
           - name: os-java-misc
