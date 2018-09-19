@@ -30,6 +30,7 @@ public abstract class OpenJDKTest {
         war.addClass(OpenJDKWebBasicTest.class);
         war.addClass(UnsafeOkHttpClient.class);
         war.addAsLibraries(Libraries.transitive("com.squareup.okhttp3", "okhttp"));
+        war.addAsLibraries(Libraries.transitive("org.jboss.logmanager", "jboss-logmanager"));
         return war;
     }
 

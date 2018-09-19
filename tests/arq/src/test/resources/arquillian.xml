@@ -25,7 +25,7 @@
     <extension qualifier="openshift">
         <!-- The file containing the pod definition. Used to instantiate the JBoss instance. -->
         <property name="namespace.prefix">arq-openjdk</property>
-        <property name="definitionsFile">src/test/resources/testrunner-pod.json</property>
+        <property name="definitionsFile">src/test/resources/${arquillian.testrunner.file}</property>
         <property name="proxiedContainerPorts">testrunner:9999,testrunner:9990,testrunner:8080</property>
         <!-- Fetch the logs from Openshift and pods, and save them into target/surefire-reports -->
         <property name="logs.copy">true</property>

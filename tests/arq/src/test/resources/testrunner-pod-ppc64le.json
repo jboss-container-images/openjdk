@@ -19,7 +19,7 @@
             "port": 9990
           }
         },
-        "image": "docker.io/goldmann/wildfly-testrunner:x86_64",
+        "image": "docker.io/goldmann/wildfly-testrunner:ppc64le",
         "ports": [
           {
             "containerPort": 8080,
