@@ -14,6 +14,6 @@ Feature: Tests for all openshift images
   @centos/openjdk-18-centos7
   Scenario: Check that common labels are correctly set
     Given image is built
-    And the image should contain label version
+    Then the image should contain label version
     And the image should contain label name
     And the image should contain label io.openshift.s2i.scripts-url with value image:///usr/local/s2i
