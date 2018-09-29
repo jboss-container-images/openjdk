@@ -4,15 +4,19 @@
 
 ## RHEL Based Image
 
-cekit --overrides-file=rhel-overrides.yaml build
+```
+cekit --overrides-file=product-overrides.yaml build
+```
 
-This will produce an image named redhat-openjdk-8/openjdk18-openshift
+This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
 
 ## CentOS Based Image
 
-cekit --overrides-file=centos-overrides.yaml build
+```
+cekit build
+```
 
-This will produce an image named centos/openjdk-18-centos7
+This will produce an image named `centos/openjdk-18-centos7`
 
 # License
 
