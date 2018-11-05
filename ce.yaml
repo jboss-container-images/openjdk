@@ -1,0 +1,29 @@
+builds:
+  # Community builds
+  - name: "community-centos-jdk8"
+    descriptor: "image.yaml"
+    product: false
+
+  - name: "community-centos-jdk11"
+    descriptor: "image.yaml"
+    product: false
+    overrides:
+      - "centos7-jdk11-overrides.yaml"
+
+  - name: "community-fedora-jdk10"
+    descriptor: "image.yaml"
+    product: false
+    overrides:
+      - "fedora-jdk10-overrides.yaml"
+
+  # Product builds
+  - name: "product-jdk8"
+    descriptor: "image.yaml"
+    overrides:
+      - "product-overrides.yaml"
+
+  - name: "product-jdk11"
+    descriptor: "image.yaml"
+    overrides:
+      - "rhel7-jdk11-overrides.yaml"
+
