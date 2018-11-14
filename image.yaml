@@ -1,9 +1,9 @@
 schema_version: 1
 
 from: "centos:7"
-name: "centos/openjdk-18-centos7"
+name: "centos/openjdk-8-centos7"
 version: "1.6"
-description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 1.8"
+description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 8"
 
 labels:
 - name: "io.k8s.description"

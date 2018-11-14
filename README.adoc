@@ -1,17 +1,20 @@
-# Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 1.8
+# Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK
 
-This is the OpenShift Source to Image (S2I) image for OpenJDK 1.8, based
-on CentOS.
+This is the OpenShift Source to Image (S2I) image for OpenJDK.
 
-## Building
+## Community images
+
+### CentOS JDK 8
 
 ```
 cekit build
 ```
 
-This will produce an image named `centos/openjdk-18-centos7`
+This will produce an image named `centos/openjdk-8-centos7`
 
-### JDK 11
+### CentOS JDK 11
+
+NOTE: This image will be available to build after CentOS 7.6 release.
 
 ```
 cekit --overrides-file=centos7-jdk11-overrides.yaml build
@@ -19,21 +22,25 @@ cekit --overrides-file=centos7-jdk11-overrides.yaml build
 
 This will produce an image named `centos/openjdk-11-centos7`
 
-### RHEL-Based Image
+## Product images
 
-#### JDK 8
+NOTE: Product images for JDK > 8 are renamed.
+
+### RHEL JDK 8
+
 ```
-cekit --overrides-file=product-overrides.yaml build
+cekit --overrides-file=rhel7-jdk8-overrides.yaml build
 ```
 
 This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
 
-#### JDK 11
+### RHEL JDK 11
+
 ```
-cekit --overrides-file=product-overrides.yaml --overrides-file=rhel7-jdk11-overrides.yaml build
+cekit --overrides-file=rhel7-jdk8-overrides.yaml --overrides-file=rhel7-jdk11-overrides.yaml build
 ```
 
-This will produce an image named `redhat-openjdk-11/openjdk11-openshift`
+This will produce an image named `openjdk/openjdk-11-rhel7`
 
 ## License
 
