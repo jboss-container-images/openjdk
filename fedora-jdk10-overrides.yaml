@@ -1,7 +1,0 @@
-from: "fedora:28"
-name: "fedora/openjdk-10-fedora28"
-
-modules:
-  install:
-  - name: jboss.container.openjdk.jdk
-    version: "10"

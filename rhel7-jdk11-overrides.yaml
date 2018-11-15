@@ -1,11 +1,12 @@
 schema_version: 1
 
-name: &name "redhat-openjdk-11/openjdk11-openshift"
+name: &name "openjdk/openjdk-11-rhel7"
 version: &version "1.0"
+description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 11"
 
 labels:
 - name: "com.redhat.component"
-  value: "redhat-openjdk-11-openjdk11-openshift-container"
+  value: "openjdk-openjdk-11-rhel7-container"
 
 envs:
 - name: "JBOSS_IMAGE_NAME"
@@ -20,5 +21,5 @@ modules:
 
 osbs:
   repository:
-    name: containers/redhat-openjdk-11
-    branch: jb-openjdk-11.0-openshift-rhel-7
+    name: containers/openjdk
+    branch: openjdk-11-rhel7
