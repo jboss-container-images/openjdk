@@ -17,15 +17,11 @@ envs:
   value: "1.6"
 
 packages:
-  repositories:
-    # Below two repositories are required to be defined to generate proper
-    # configuration files for OSBS
-  - name: base
-    id: rhel-7-server-rpms
-  - name: scl
-    id: rhel-server-rhscl-7-rpms
+  content_sets_file: content_sets.yml
 
 osbs:
+  configuration:
+    container_file: container.yaml
   repository:
     name: containers/redhat-openjdk-18
     branch: jb-openjdk-1.8-openshift-rhel-7

@@ -23,15 +23,11 @@ modules:
     version: "11"
 
 packages:
-  repositories:
-    # Below two repositories are required to be defined to generate proper
-    # configuration files for OSBS
-  - name: base
-    id: rhel-7-server-rpms
-  - name: scl
-    id: rhel-server-rhscl-7-rpms
+  content_sets_file: content_sets.yml
 
 osbs:
+  configuration:
+    container_file: container.yaml
   repository:
     name: containers/openjdk
     branch: openjdk-11-rhel7
