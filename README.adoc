@@ -2,6 +2,8 @@
 
 This is the OpenShift Source to Image (S2I) image for OpenJDK.
 
+You need to https://cekit.readthedocs.io/en/develop/installation.html[install Cekit] to build these images.
+
 ## Community images
 
 ### CentOS JDK 8
