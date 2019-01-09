@@ -1,8 +1,22 @@
-@redhat-openjdk-18
+@openjdk
+@centos/openjdk-8-centos7 @centos/openjdk-11-centos7
 Feature: Openshift OpenJDK S2I tests
 # NOTE: these tests should be usable with the other images once we have refactored the JDK scripts.
 # These builds do not actually run maven. This is important, because the proxy
 # options supplied do not specify a valid HTTP proxy.
+
+  # test incremental builds
+  Scenario: Check incremental builds cache .m2
+    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
+        | variable    | value               |
+        | JAVA_ARGS   | Hello from CTF test |
+    Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
+     And s2i build log should contain Downloading:
+    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet with env and incremental
+        | variable    | value               |
+        | JAVA_ARGS   | Hello from CTF test |
+    Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
+     And s2i build log should not contain Downloading:
 
   # handles mirror/repository configuration; proxy configuration
   Scenario: run the s2i and check the maven mirror and proxy have been initialised in the default settings.xml, uses http_proxy
@@ -265,12 +279,19 @@ Feature: Openshift OpenJDK S2I tests
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.1'][ns:port='8080'][ns:nonProxyHosts='foo.example.com|bar.example.com']
 
   Scenario: run an S2I build that depends on com.redhat.xpaas.repo.redhatga being defined
-    Given s2i build https://github.com/jmtd/openshift-examples from spring-boot-sample-simple using openjdk-enforce-profile
+    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
 
   Scenario: run an S2I that should fail as MAVEN_ARGS does not define com.redhat.xpaas.repo.redhatga
-    Given failing s2i build https://github.com/jmtd/openshift-examples from spring-boot-sample-simple using openjdk-enforce-profile
+    Given failing s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple using openjdk-enforce-profile
        | variable           | value                                            |
        | MAVEN_ARGS         | -e package                                       |
+
+  Scenario: Ensure legacy ARTIFACT_COPY_ARGS works as it used to
+    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
+       | variable             | value                |
+       | ARTIFACT_COPY_ARGS   | undertow-servlet.jar |
+       | JAVA_ARGS            | Hello from CTF test  |
+    Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
 
   # CLOUD-579
   Scenario: Test that maven is executed in batch mode

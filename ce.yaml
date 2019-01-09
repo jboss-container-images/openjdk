@@ -1,0 +1,29 @@
+builds:
+  # Community builds
+  - name: "community-jdk8"
+    descriptor: "image.yaml"
+    product: false
+
+  - name: "community-jdk11"
+    descriptor: "image.yaml"
+    product: false
+    overrides:
+      - "centos7-jdk11-overrides.yaml"
+
+  # Product builds
+  - name: "product-jdk8"
+    descriptor: "image.yaml"
+    overrides:
+      - "rhel7-jdk8-overrides.yaml"
+    tags:
+      - "latest"
+      - "dev"
+
+  - name: "product-jdk11"
+    descriptor: "image.yaml"
+    overrides:
+      - "rhel7-jdk11-overrides.yaml"
+    tags:
+      - "latest"
+      - "dev"
+

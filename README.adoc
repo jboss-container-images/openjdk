@@ -1,7 +1,47 @@
-# Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 1.8
+# Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK
 
-NOTE: Extends link:https://github.com/jboss-container-images/jboss-openjdk-image[JBoss OpenJDK image]
+This is the OpenShift Source to Image (S2I) image for OpenJDK.
 
-# License
+## Community images
+
+### CentOS JDK 8
+
+```
+cekit build
+```
+
+This will produce an image named `centos/openjdk-8-centos7`
+
+### CentOS JDK 11
+
+NOTE: This image will be available to build after CentOS 7.6 release.
+
+```
+cekit --overrides-file=centos7-jdk11-overrides.yaml build
+```
+
+This will produce an image named `centos/openjdk-11-centos7`
+
+## Product images
+
+NOTE: Product images for JDK > 8 are renamed.
+
+### RHEL JDK 8
+
+```
+cekit --overrides-file=rhel7-jdk8-overrides.yaml build
+```
+
+This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
+
+### RHEL JDK 11
+
+```
+cekit --overrides-file=rhel7-jdk11-overrides.yaml build
+```
+
+This will produce an image named `openjdk/openjdk-11-rhel7`
+
+## License
 
 See link:LICENSE[LICENSE] file.

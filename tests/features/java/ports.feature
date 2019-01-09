@@ -1,4 +1,5 @@
-@redhat-openjdk-18
+@openjdk
+@centos/openjdk-8-centos7 @centos/openjdk-11-centos7
 Feature: Openshift OpenJDK port tests
 
   Scenario: Check ports are available
