@@ -1,4 +1,5 @@
 @openjdk
+@redhat/openjdk-8-rhel7
 @centos/openjdk-8-centos7 @centos/openjdk-11-centos7
 Feature: Openshift OpenJDK Jolokia tests
 
