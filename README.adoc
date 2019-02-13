@@ -16,8 +16,6 @@ This will produce an image named `centos/openjdk-8-centos7`
 
 ### CentOS JDK 11
 
-NOTE: This image will be available to build after CentOS 7.6 release.
-
 ```
 cekit --overrides-file=centos7-jdk11-overrides.yaml build
 ```
