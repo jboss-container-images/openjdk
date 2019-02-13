@@ -2,11 +2,13 @@
 
 This is the OpenShift Source to Image (S2I) image for OpenJDK.
 
+## How to develop on and contribute to it
+
 You need to https://cekit.readthedocs.io/en/develop/installation.html[install Cekit] to build these images.
 
-## Community images
+### Community images
 
-### CentOS JDK 8
+#### CentOS JDK 8
 
 ```
 cekit build
@@ -14,7 +16,7 @@ cekit build
 
 This will produce an image named `centos/openjdk-8-centos7`
 
-### CentOS JDK 11
+#### CentOS JDK 11
 
 ```
 cekit --overrides-file=centos7-jdk11-overrides.yaml build
@@ -22,11 +24,11 @@ cekit --overrides-file=centos7-jdk11-overrides.yaml build
 
 This will produce an image named `centos/openjdk-11-centos7`
 
-## Product images
+### Product images
 
 NOTE: Product images for JDK > 8 are renamed.
 
-### RHEL JDK 8
+#### RHEL JDK 8
 
 ```
 cekit --overrides-file=rhel7-jdk8-overrides.yaml build
@@ -34,13 +36,24 @@ cekit --overrides-file=rhel7-jdk8-overrides.yaml build
 
 This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
 
-### RHEL JDK 11
+#### RHEL JDK 11
 
 ```
 cekit --overrides-file=rhel7-jdk11-overrides.yaml build
 ```
 
 This will produce an image named `openjdk/openjdk-11-rhel7`
+
+### Testing
+
+This project includes a suit of tests which verify the S2I Builder images, which can be run like this:
+
+    sudo dnf install python3-behave python3-lxml
+    cekit test
+
+These tests are written with https://concreate.readthedocs.io/en/latest/test.html[Cekit's test support]
+which is based on https://github.com/behave/behave[behave BDD, Python style].
+
 
 ## License
 
