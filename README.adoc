@@ -6,7 +6,7 @@ This is the OpenShift Source to Image (S2I) image for OpenJDK.
 
 ### From https://access.redhat.com/containers/[Red Hat Container Catalog]
 
-This is the subscription supported product version.  It's but free and a subscription is not required to get the image.
+This is the subscription supported product version.
 
 see https://access.redhat.com/containers/?tab=images&platform=openshift#/registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift[redhat-openjdk-18/openjdk18-openshift] and https://access.redhat.com/containers/?tab=images&platform=openshift#/registry.access.redhat.com/openjdk/openjdk-11-rhel7[openjdk/openjdk-11-rhel7].
 
@@ -52,17 +52,6 @@ cekit --overrides-file=rhel7-jdk11-overrides.yaml build
 ```
 
 This will produce an image named `openjdk/openjdk-11-rhel7`
-
-### Testing
-
-This project includes a suit of tests which verify the S2I Builder images, which can be run like this:
-
-    sudo dnf install python3-behave python3-lxml
-    cekit test
-
-These tests are written with https://concreate.readthedocs.io/en/latest/test.html[Cekit's test support]
-which is based on https://github.com/behave/behave[behave BDD, Python style].
-
 
 ## License
 
