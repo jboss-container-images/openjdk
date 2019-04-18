@@ -13,7 +13,7 @@ Feature: Container only has one OpenJDK version installed
   @centos/openjdk-11-centos7
   @openjdk/openjdk-11-rhel7
   @openjdk/openjdk-11-rhel8
-  Scenario: Check that only OpenJDK 8 is installed
+  Scenario: Check that only OpenJDK 11 is installed
     When container is started with args
     | arg     | value   |
     | command | rpm -qa |
