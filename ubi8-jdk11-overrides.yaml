@@ -35,6 +35,7 @@ osbs:
     branch: openjdk-11-ubi8
 
 packages:
+  manager: dnf
   content_sets:
     x86_64:
       - rhel-8-for-x86_64-baseos-rpms
