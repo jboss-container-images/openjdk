@@ -4,7 +4,7 @@
     "metadata": {
         "name": "openjdk18-image-stream",
         "annotations": {
-            "description": "ImageStream definition for Red Hat OpenJDK 8.",
+            "description": "ImageStream definition for Red Hat OpenJDK.",
             "openshift.io/provider-display-name": "Red Hat, Inc."
         }
     },
@@ -213,7 +213,7 @@
             "metadata": {
                 "name": "java",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat OpenJDK 8",
+                    "openshift.io/display-name": "Red Hat OpenJDK",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.17"
                 }
