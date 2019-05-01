@@ -1,13 +1,13 @@
 schema_version: 1
 
 from: "ubi8:latest"
-name: &name "openjdk/openjdk-1.8-ubi8"
+name: &name "openjdk/openjdk-11-rhel8"
 version: &version "1.0"
 description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 11"
 
 labels:
 - name: "com.redhat.component"
-  value: "openjdk-1.8-ubi8-container"
+  value: "openjdk-11-rhel8-container"
 - name: "usage"
   value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
 
@@ -19,6 +19,8 @@ envs:
 
 modules:
   install:
+  - name: jboss.container.openjdk.jdk
+    version: "11"
   - name: jboss.container.maven.35.bash
     version: "3.5"
 
@@ -30,7 +32,7 @@ osbs:
         include_unpublished_pulp_repos: true
   repository:
     name: containers/openjdk
-    branch: openjdk-1.8-ubi8
+    branch: openjdk-11-rhel8
 
 packages:
   manager: dnf
