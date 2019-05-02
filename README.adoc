@@ -2,9 +2,22 @@
 
 This is the OpenShift Source to Image (S2I) image for OpenJDK.
 
-## Community images
+## How to get it
 
-### CentOS JDK 8
+### From https://access.redhat.com/containers/[Red Hat Container Catalog]
+
+This is the subscription supported product version.
+
+see https://access.redhat.com/containers/?tab=images&platform=openshift#/registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift[redhat-openjdk-18/openjdk18-openshift] and https://access.redhat.com/containers/?tab=images&platform=openshift#/registry.access.redhat.com/openjdk/openjdk-11-rhel7[openjdk/openjdk-11-rhel7].
+
+
+## How to develop on and contribute to it
+
+You need to https://cekit.readthedocs.io/en/develop/installation.html[install Cekit] to build these images.
+
+### Community images
+
+#### CentOS JDK 8
 
 ```
 cekit build
@@ -12,9 +25,7 @@ cekit build
 
 This will produce an image named `centos/openjdk-8-centos7`
 
-### CentOS JDK 11
-
-NOTE: This image will be available to build after CentOS 7.6 release.
+#### CentOS JDK 11
 
 ```
 cekit --overrides-file=centos7-jdk11-overrides.yaml build
@@ -22,11 +33,11 @@ cekit --overrides-file=centos7-jdk11-overrides.yaml build
 
 This will produce an image named `centos/openjdk-11-centos7`
 
-## Product images
+### Product images
 
 NOTE: Product images for JDK > 8 are renamed.
 
-### RHEL JDK 8
+#### RHEL JDK 8
 
 ```
 cekit --overrides-file=rhel7-jdk8-overrides.yaml build
@@ -34,7 +45,7 @@ cekit --overrides-file=rhel7-jdk8-overrides.yaml build
 
 This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
 
-### RHEL JDK 11
+#### RHEL JDK 11
 
 ```
 cekit --overrides-file=rhel7-jdk11-overrides.yaml build

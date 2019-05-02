@@ -1,4 +1,5 @@
 @openjdk
+@redhat-openjdk-18
 @centos/openjdk-8-centos7 @centos/openjdk-11-centos7
 Feature: Openshift OpenJDK S2I tests
 # NOTE: these tests should be usable with the other images once we have refactored the JDK scripts.
@@ -307,6 +308,6 @@ Feature: Openshift OpenJDK S2I tests
     And  run find /deployments in container and check its output for spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
 
   Scenario: Check java perf dir owned by jboss (CLOUD-2070)
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-    Then run sh -c 'pgrep -x java | xargs -I{} jstat -gc {} 1000 1' in container and check its output for S0C
-    And run sh -c 'stat --printf="%U %G" /tmp/hsperfdata_jboss/' in container and check its output for jboss root
+    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
+    Then run jstat -gc 1 1000 1 in container and check its output for S0C
+    And run stat --printf="%U %G" /tmp/hsperfdata_jboss/ in container and check its output for jboss root

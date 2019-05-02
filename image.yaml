@@ -31,9 +31,11 @@ modules:
   - name: cct_module
     git:
       url: https://github.com/jboss-openshift/cct_module.git
-      ref: sprint-27
+      ref: sprint-35
   install:
   - name: jboss.container.openjdk.jdk
     version: "8"
   - name: jboss.container.java.s2i.bash
 
+help:
+  add: true
