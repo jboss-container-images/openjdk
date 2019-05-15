@@ -1,6 +1,6 @@
 schema_version: 1
 
-from: "ubi8:latest"
+from: "ubi8:8.0-released"
 name: &name "openjdk/openjdk-8-rhel8"
 version: &version "1.1"
 description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 1.8"
