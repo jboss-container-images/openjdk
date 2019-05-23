@@ -29,7 +29,6 @@ osbs:
     container:
       compose:
         pulp_repos: true
-        include_unpublished_pulp_repos: true
   repository:
     name: containers/openjdk
     branch: openjdk-11-rhel8
