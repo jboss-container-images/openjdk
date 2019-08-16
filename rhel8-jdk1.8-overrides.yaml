@@ -44,3 +44,6 @@ packages:
     aarch64:
       - rhel-8-for-aarch64-baseos-rpms
       - rhel-8-for-aarch64-appstream-rpms
+    s390x:
+      - rhel-8-for-s390x-baseos-rpms
+      - rhel-8-for-s390x-appstream-rpms
