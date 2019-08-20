@@ -4,3 +4,6 @@ ppc64le:
 x86_64:
 - rhel-server-rhscl-7-rpms
 - rhel-7-server-rpms
+s390x:
+- rhel-7-for-system-z-rpms
+- rhel-7-server-for-system-z-rhscl-rpms
