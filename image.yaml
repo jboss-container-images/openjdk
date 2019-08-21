@@ -1,3 +1,6 @@
+# This is an Image descriptor for Cekit
+# we are currently using Cekit 3.3.1
+
 schema_version: 1
 
 from: "centos:7"
