@@ -16,6 +16,11 @@ envs:
 - name: "JBOSS_IMAGE_VERSION"
   value: "1.6"
 
+modules:
+  install:
+  - name: jboss.container.maven.35.bash
+    version: "3.5scl"
+
 packages:
   content_sets_file: content_sets.yml
 
