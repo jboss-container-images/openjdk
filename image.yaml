@@ -12,6 +12,8 @@ labels:
   value: "Java Applications"
 - name: "io.openshift.tags"
   value: "builder,java"
+- name: "maintainer"
+  value: "Red Hat OpenJDK <openjdk@redhat.com>"
 
 envs:
 - name: PATH
