@@ -18,10 +18,10 @@
                     "openshift.io/display-name": "Red Hat OpenJDK 8",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.17"
+                },
+                "labels": {
+                    "xpaas": "1.4.17"
                 }
-            },
-            "labels": {
-                "xpaas": "1.4.17"
             },
             "spec": {
                 "tags": [
@@ -177,10 +177,10 @@
                     "openshift.io/display-name": "Red Hat OpenJDK 11",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.17"
+                },
+                "labels": {
+                    "xpaas": "1.4.17"
                 }
-            },
-            "labels": {
-                "xpaas": "1.4.17"
             },
             "spec": {
                 "tags": [
@@ -216,10 +216,10 @@
                     "openshift.io/display-name": "Red Hat OpenJDK 1.8 (RHEL8)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.17"
+                },
+                "labels": {
+                    "xpaas": "1.4.17"
                 }
-            },
-            "labels": {
-                "xpaas": "1.4.17"
             },
             "spec": {
                 "tags": [
@@ -254,10 +254,10 @@
                     "openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL8)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.17"
+                },
+                "labels": {
+                    "xpaas": "1.4.17"
                 }
-            },
-            "labels": {
-                "xpaas": "1.4.17"
             },
             "spec": {
                 "tags": [
@@ -292,10 +292,10 @@
                     "openshift.io/display-name": "Red Hat OpenJDK",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.17"
+                },
+                "labels": {
+                    "xpaas": "1.4.17"
                 }
-            },
-            "labels": {
-                "xpaas": "1.4.17"
             },
             "spec": {
                 "tags": [
