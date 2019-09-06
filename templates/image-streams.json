@@ -211,7 +211,7 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "openjdk-1.8-rhel8",
+                "name": "openjdk-8-rhel8",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat OpenJDK 1.8 (RHEL8)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -239,7 +239,7 @@
                         },
                         "from": {
                             "kind": "DockerImage",
-                            "name": "registry.redhat.io/openjdk/openjdk-1.8-rhel8:1.0"
+                            "name": "registry.redhat.io/openjdk/openjdk-8-rhel8:1.0"
                         }
                     }
                 ]
