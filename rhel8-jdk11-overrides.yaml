@@ -2,7 +2,7 @@ schema_version: 1
 
 from: "ubi8:8.0-released"
 name: &name "openjdk/openjdk-11-rhel8"
-version: &version "1.0"
+version: &version "1.1"
 description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 11"
 
 labels:
@@ -29,7 +29,6 @@ osbs:
     container:
       compose:
         pulp_repos: true
-        include_unpublished_pulp_repos: true
   repository:
     name: containers/openjdk
     branch: openjdk-11-rhel8

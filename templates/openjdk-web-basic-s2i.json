@@ -13,11 +13,11 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
+        "labels": {
+            "template": "openjdk-web-basic-s2i",
+            "xpaas": "1.4.17"
+        },
         "name": "openjdk-web-basic-s2i"
-    },
-    "labels": {
-        "template": "openjdk-web-basic-s2i",
-        "xpaas": "1.4.17"
     },
     "message": "A new java application has been created in your project.",
     "parameters": [
