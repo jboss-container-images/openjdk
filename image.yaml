@@ -41,11 +41,11 @@ modules:
   repositories:
   - name: cct_module
     git:
-      url: https://github.com/jboss-openshift/cct_module.git
-      ref: 0.38.0
+      url: https://github.com/jmtd/cct_module.git
+      ref: openj9
   install:
   - name: jboss.container.openjdk.jdk
-    version: "8"
+    version: "openj9-8"
   - name: jboss.container.java.s2i.bash
   - name: jboss.container.maven.35.bash
     version: "3.5scl"
