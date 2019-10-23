@@ -1,3 +1,6 @@
+# This is an Image descriptor for Cekit
+# we are currently using Cekit 3.3.1
+
 schema_version: 1
 
 from: "centos:7"
@@ -12,6 +15,8 @@ labels:
   value: "Java Applications"
 - name: "io.openshift.tags"
   value: "builder,java"
+- name: "maintainer"
+  value: "Red Hat OpenJDK <openjdk@redhat.com>"
 
 envs:
 - name: PATH
@@ -31,7 +36,7 @@ modules:
   - name: cct_module
     git:
       url: https://github.com/jboss-openshift/cct_module.git
-      ref: sprint-35
+      ref: 0.38.0
   install:
   - name: jboss.container.openjdk.jdk
     version: "8"
