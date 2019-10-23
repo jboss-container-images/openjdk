@@ -1,13 +1,13 @@
 schema_version: 1
 
 from: "ubi8:8.0-released"
-name: &name "adoptopenjdk/openj9-8-rhel8"
+name: &name "adoptopenjdk/openj9-11-rhel8"
 version: &version "1.1"
-description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJ9 1.8"
+description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJ9 11"
 
 labels:
 - name: "com.redhat.component"
-  value: "openj9-8-rhel8-container"
+  value: "openj9-11-rhel8-container"
 - name: "usage"
   value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
 
@@ -31,7 +31,7 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/openjdk
-    branch: private-jdowland-openj9-jdk8-rhel8
+    branch: private-jdowland-openj9-jdk11-rhel8
 
 packages:
 # use the following extra override to build:
