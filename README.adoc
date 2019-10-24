@@ -29,7 +29,7 @@ This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
 ### RHEL 7 JDK 11
 
 ```
-cekit --overrides-file=rhel7-jdk11-overrides.yaml build
+cekit --descriptor openjdk-11-rhel7.yaml build
 ```
 
 This will produce an image named `openjdk/openjdk-11-rhel7`
@@ -37,7 +37,7 @@ This will produce an image named `openjdk/openjdk-11-rhel7`
 ### RHEL 8 JDK 8
 
 ```
-cekit --overrides-file=rhel8-jdk8-overrides.yaml build
+cekit --descriptor openjdk-8-rhel8.yaml build
 ```
 
 This will produce an image named `openjdk/openjdk-8-rhel8`
@@ -45,7 +45,7 @@ This will produce an image named `openjdk/openjdk-8-rhel8`
 ### RHEL 8 JDK 11
 
 ```
-cekit --overrides-file=rhel8-jdk11-overrides.yaml build
+cekit --descriptor openjdk-11-rhel8.yaml build
 ```
 
 This will produce an image named `openjdk/openjdk-11-rhel8`
