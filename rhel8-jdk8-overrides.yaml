@@ -31,16 +31,4 @@ osbs:
 
 packages:
   manager: dnf
-  content_sets:
-    x86_64:
-      - rhel-8-for-x86_64-baseos-rpms
-      - rhel-8-for-x86_64-appstream-rpms
-    ppc64le:
-      - rhel-8-for-ppc64le-baseos-rpms
-      - rhel-8-for-ppc64le-appstream-rpms
-    aarch64:
-      - rhel-8-for-aarch64-baseos-rpms
-      - rhel-8-for-aarch64-appstream-rpms
-    s390x:
-      - rhel-8-for-s390x-baseos-rpms
-      - rhel-8-for-s390x-appstream-rpms
+  content_sets_file: content_sets_rhel8.yml
