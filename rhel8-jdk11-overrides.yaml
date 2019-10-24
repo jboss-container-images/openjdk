@@ -8,8 +8,6 @@ description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJD
 labels:
 - name: "com.redhat.component"
   value: "openjdk-11-rhel8-container"
-- name: "usage"
-  value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
 
 envs:
 - name: "JBOSS_IMAGE_NAME"

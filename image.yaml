@@ -3,9 +3,9 @@
 
 schema_version: 1
 
-from: "centos:7"
-name: "centos/openjdk-8-centos7"
-version: "1.6"
+from: "rhel7:7-released"
+name: &name "redhat-openjdk-18/openjdk18-openshift"
+version: &version "1.7"
 description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 8"
 
 labels:
@@ -17,19 +17,25 @@ labels:
   value: "builder,java"
 - name: "maintainer"
   value: "Red Hat OpenJDK <openjdk@redhat.com>"
+- name: "com.redhat.component"
+  value: "redhat-openjdk-18-openjdk18-openshift-container"
+- name: "usage"
+  value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
 
 envs:
 - name: PATH
   value: $PATH:"/usr/local/s2i"
+- name: "JBOSS_IMAGE_NAME"
+  value: *name
+- name: "JBOSS_IMAGE_VERSION"
+  value: *version
 
 ports:
 - value: 8080
 - value: 8443
 
 packages:
-  repositories:
-  - name: scl
-    rpm: centos-release-scl
+  content_sets_file: content_sets.yml
 
 modules:
   repositories:
@@ -41,6 +47,15 @@ modules:
   - name: jboss.container.openjdk.jdk
     version: "8"
   - name: jboss.container.java.s2i.bash
+  - name: jboss.container.maven.35.bash
+    version: "3.5scl"
 
 help:
   add: true
+
+osbs:
+  configuration:
+    container_file: container.yaml
+  repository:
+    name: containers/redhat-openjdk-18
+    branch: jb-openjdk-1.8-openshift-rhel-7
