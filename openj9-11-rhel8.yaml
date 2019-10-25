@@ -50,7 +50,7 @@ modules:
       ref: openj9
   install:
   - name: jboss.container.openjdk.jdk
-    version: "openj9-8"
+    version: "openj9-11"
   - name: jboss.container.java.s2i.bash
   - name: jboss.container.maven.35.bash
     version: "3.5"
