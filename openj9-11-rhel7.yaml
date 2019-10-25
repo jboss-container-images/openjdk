@@ -37,7 +37,6 @@ ports:
 - value: 8443
 
 packages:
-  manager: dnf
   repositories:
     - name: openj9
       id: openj9
