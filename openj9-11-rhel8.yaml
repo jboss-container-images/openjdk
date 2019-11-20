@@ -68,5 +68,5 @@ osbs:
           - x86_64
           - s390x
   repository:
-    name: containers/openjdk
-    branch: private-jdowland-openj9-jdk11-rhel8
+    name: containers/openj9
+    branch: openj9-11-rhel8
