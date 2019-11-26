@@ -1,7 +1,7 @@
 # This is an Image descriptor for Cekit
-# we are currently using Cekit 3.5.0
+# we are currently using Cekit 3.6.0
 # use the following extra override to build:
-# --overrides '{"packages": {"repositories": [{"name": "openj9", "url": {"repository": "http://internal/openj9.repo"}}]}}'
+# --overrides "{ 'osbs': { 'configuration': { 'container': { 'platforms': { 'only': [ 's390x' ] }, 'compose': { 'pulp_repos': true, 'signing_intent': 'unsigned', 'packages': [ 'java-11-openj9', 'java-11-openj9-devel', 'java-11-openj9-headless' ], 'inherit': true } } } } }"
 
 schema_version: 1
 
@@ -37,9 +37,7 @@ ports:
 - value: 8443
 
 packages:
-  repositories:
-    - name: openj9
-      id: openj9
+  content_sets_file: content_sets_rhel7.yml
 
 modules:
   repositories:
@@ -59,13 +57,21 @@ help:
   add: true
 
 osbs:
-  koji_target: openjdk-11-rhel7-containers-candidate
   configuration:
     container:
       platforms:
         only:
-          - x86_64
           - s390x
+      compose:
+        # used for requesting ODCS compose of type "tag"
+        packages:
+          - java-11-openj9
+          - java-11-openj9-headless
+          - java-11-openj9-devel
+        signing_intent: release
+        # used for inheritance of yum repos and ODCS composes from baseimage build
+        inherit: true
+        pulp_repos: true
   repository:
     name: containers/openj9
     branch: openj9-11-rhel7
