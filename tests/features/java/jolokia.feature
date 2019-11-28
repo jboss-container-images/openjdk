@@ -1,6 +1,6 @@
 @openjdk
 @redhat-openjdk-18
-@adoptopenjdk
+@openj9
 Feature: Openshift OpenJDK Jolokia tests
 
   Scenario: Check Environment variable is correct

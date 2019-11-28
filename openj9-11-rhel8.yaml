@@ -6,7 +6,7 @@
 schema_version: 1
 
 from: "ubi8:8.0-released"
-name: &name "adoptopenjdk/openj9-11-rhel8"
+name: &name "openj9/openj9-11-rhel8"
 version: &version "1.1"
 description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJ9 11"
 
