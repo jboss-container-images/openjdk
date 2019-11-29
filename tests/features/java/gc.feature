@@ -1,5 +1,6 @@
 @openjdk
 @redhat-openjdk-18
+@openj9
 Feature: Openshift OpenJDK GC tests
 
   Scenario: Check default GC configuration
