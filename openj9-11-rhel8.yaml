@@ -1,7 +1,7 @@
 # This is an Image descriptor for Cekit
 # we are currently using Cekit 3.6.0
 # use the following extra override to build:
-# --overrides "{ 'osbs': { 'configuration': { 'container': { 'platforms': { 'only': [ 's390x' ] }, 'compose': { 'signing_intent': 'unsigned', 'packages': [ 'java-11-openj9', 'java-11-openj9-devel', 'java-11-openj9-headless' ], 'inherit': true } } } } }"
+# --overrides "{ 'osbs': { 'configuration': { 'container': { 'platforms': { 'only': [ 's390x' ] }, 'compose': { 'signing_intent': 'release', 'packages': [ 'java-11-openj9', 'java-11-openj9-devel', 'java-11-openj9-headless' ], 'inherit': true } } } } }"
 
 schema_version: 1
 
