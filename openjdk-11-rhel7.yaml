@@ -44,8 +44,10 @@ modules:
   - name: jboss.container.openjdk.jdk
     version: "11"
   - name: jboss.container.java.s2i.bash
-  - name: jboss.container.maven.35.bash
-    version: "3.5scl"
+  - name: jboss.container.maven.default.bash
+    version: '0!3.6'
+  - name: jboss.container.maven.36.bash
+    version: "3.6scl"
 
 help:
   add: true
