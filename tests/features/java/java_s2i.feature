@@ -1,23 +1,10 @@
 @openjdk
 @redhat-openjdk-18
-@centos/openjdk-8-centos7 @centos/openjdk-11-centos7
+@openj9
 Feature: Openshift OpenJDK S2I tests
 # NOTE: these tests should be usable with the other images once we have refactored the JDK scripts.
 # These builds do not actually run maven. This is important, because the proxy
 # options supplied do not specify a valid HTTP proxy.
-
-  # test incremental builds
-  Scenario: Check incremental builds cache .m2
-    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
-        | variable    | value               |
-        | JAVA_ARGS   | Hello from CTF test |
-    Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
-     And s2i build log should contain Downloading:
-    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet with env and incremental
-        | variable    | value               |
-        | JAVA_ARGS   | Hello from CTF test |
-    Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
-     And s2i build log should not contain Downloading:
 
   # handles mirror/repository configuration; proxy configuration
   Scenario: run the s2i and check the maven mirror and proxy have been initialised in the default settings.xml, uses http_proxy
@@ -306,8 +293,3 @@ Feature: Openshift OpenJDK S2I tests
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple/target
     Then s2i build log should not contain skipping directory .
     And  run find /deployments in container and check its output for spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
-
-  Scenario: Check java perf dir owned by jboss (CLOUD-2070)
-    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
-    Then run jstat -gc 1 1000 1 in container and check its output for S0C
-    And run stat --printf="%U %G" /tmp/hsperfdata_jboss/ in container and check its output for jboss root

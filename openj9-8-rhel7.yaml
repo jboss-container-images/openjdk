@@ -1,12 +1,14 @@
 # This is an Image descriptor for Cekit
-# we are currently using Cekit 3.5.0
+# we are currently using Cekit 3.6.0
+# use the following extra override to build:
+# --overrides "{ 'osbs': { 'configuration': { 'container': { 'platforms': { 'only': [ 's390x' ] }, 'compose': { 'pulp_repos': true, 'signing_intent': 'release', 'packages': [ 'java-1.8.0-openj9', 'java-1.8.0-openj9-devel', 'java-1.8.0-openj9-headless' ], 'inherit': true } } } } }"
 
 schema_version: 1
 
 from: "rhel7:7-released"
-name: &name "redhat-openjdk-18/openjdk18-openshift"
-version: &version "1.8"
-description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 8"
+name: &name "openj9/openj9-8-rhel7"
+version: &version "1.1"
+description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJ9 1.8"
 
 labels:
 - name: "io.k8s.description"
@@ -18,7 +20,7 @@ labels:
 - name: "maintainer"
   value: "Red Hat OpenJDK <openjdk@redhat.com>"
 - name: "com.redhat.component"
-  value: "redhat-openjdk-18-openjdk18-openshift-container"
+  value: "openj9-8-rhel7-container"
 - name: "usage"
   value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
 
@@ -35,7 +37,7 @@ ports:
 - value: 8443
 
 packages:
-  content_sets_file: content_sets.yml
+  content_sets_file: content_sets_rhel7.yml
 
 modules:
   repositories:
@@ -43,22 +45,35 @@ modules:
     git:
       url: https://github.com/jboss-openshift/cct_module.git
       ref: 1668f62d797e4eb75ad35544c8de9adf4325ec22
-
   install:
   - name: jboss.container.openjdk.jdk
-    version: "8"
+    version: "openj9-8"
   - name: jboss.container.java.s2i.bash
   - name: jboss.container.maven.default.bash
     version: '0!3.6'
   - name: jboss.container.maven.36.bash
     version: "3.6scl"
+  - name: jboss.container.java.rm-openjdk
 
 help:
   add: true
 
 osbs:
   configuration:
-    container_file: container.yaml
+    container:
+      platforms:
+        only:
+          - s390x
+      compose:
+        # used for requesting ODCS compose of type "tag"
+        packages:
+          - java-1.8.0-openj9
+          - java-1.8.0-openj9-headless
+          - java-1.8.0-openj9-devel
+        signing_intent: release
+        # used for inheritance of yum repos and ODCS composes from baseimage build
+        inherit: true
+        pulp_repos: true
   repository:
-    name: containers/redhat-openjdk-18
-    branch: jb-openjdk-1.8-openshift-rhel-7
+    name: containers/openj9
+    branch: openj9-8-rhel7

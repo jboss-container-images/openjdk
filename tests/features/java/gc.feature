@@ -1,6 +1,6 @@
 @openjdk
 @redhat-openjdk-18
-@centos/openjdk-8-centos7 @centos/openjdk-11-centos7
+@openj9
 Feature: Openshift OpenJDK GC tests
 
   Scenario: Check default GC configuration
