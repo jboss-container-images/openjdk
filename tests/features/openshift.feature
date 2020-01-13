@@ -1,9 +1,11 @@
 @openjdk
+@ubi8
 @redhat/openjdk-8-rhel7
 @openj9
 Feature: Tests for all openshift images
 
   @openjdk
+@ubi8
   @redhat-openjdk-18
   @openj9
   Scenario: Check that product labels are correctly set
@@ -16,6 +18,7 @@ Feature: Tests for all openshift images
     And the image should contain label architecture with value x86_64
 
   @openjdk
+@ubi8
   @redhat-openjdk-18
   @openj9
   Scenario: Check that common labels are correctly set
