@@ -48,6 +48,7 @@ modules:
     version: '0!3.6'
   - name: jboss.container.maven.36.bash
     version: "3.6scl"
+  - name: jboss.container.java.singleton-jdk
 
 help:
   add: true
