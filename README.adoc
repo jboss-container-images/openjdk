@@ -16,40 +16,59 @@ link:https://access.redhat.com/containers/#/registry.access.redhat.com/openjdk/o
 
 You need to https://cekit.readthedocs.io/en/develop/installation.html[install Cekit] to build these images.
 
+These sources are prepared and tested for Cekit 3.6.0.
+
 ## Image versions
 
-### RHEL 7 JDK 8
+### RHEL 7 OpenJDK 8
 
-```
-cekit build
-```
+    cekit --redhat build podman
 
 This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
 
-### RHEL 7 JDK 11
+### RHEL 7 OpenJDK 11
 
-```
-cekit --descriptor openjdk-11-rhel7.yaml build
-```
+    cekit --redhat --descriptor openjdk-11-rhel7.yaml build podman
 
 This will produce an image named `openjdk/openjdk-11-rhel7`
 
-### RHEL 8 JDK 8
+### RHEL 8 OpenJDK 8
 
-```
-cekit --descriptor openjdk-8-rhel8.yaml build
-```
+    cekit --redhat --descriptor openjdk-8-rhel8.yaml build podman
 
 This will produce an image named `openjdk/openjdk-8-rhel8`
 
-### RHEL 8 JDK 11
+### RHEL 8 OpenJDK 11
 
-```
-cekit --descriptor openjdk-11-rhel8.yaml build
-```
+    cekit --redhat --descriptor openjdk-11-rhel8.yaml build podman
 
 This will produce an image named `openjdk/openjdk-11-rhel8`
 
+### RHEL 7 OpenJ9 8
+
+    cekit --redhat --descriptor openj9-8-rhel7.yaml build podman
+
+This will produce an image named `openj9/openj9-8-rhel7`.
+
+### RHEL 7 OpenJ9 11
+
+    cekit --redhat --descriptor openj9-11-rhel7.yaml build podman
+
+This will produce an image named `openj9/openj9-11-rhel7`.
+
+### RHEL 8 OpenJ9 8
+
+    cekit --redhat --descriptor openj9-8-rhel8.yaml build podman
+
+This will produce an image named `openj9/openj9-8-rhel8`.
+
+### RHEL 8 OpenJ9 11
+
+    cekit --redhat --descriptor openj9-11-rhel8.yaml build podman
+
+This will produce an image named `openj9/openj9-11-rhel8`.
+
 ## License
 
-See link:LICENSE[LICENSE] file.
+© 2020 Red Hat, Inc. Distributed under the terms of the Apache License,
+Version 2.0. See link:LICENSE[LICENSE] file.
