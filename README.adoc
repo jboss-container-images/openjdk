@@ -20,33 +20,25 @@ You need to https://cekit.readthedocs.io/en/develop/installation.html[install Ce
 
 ### RHEL 7 JDK 8
 
-```
-cekit build
-```
+    cekit --redhat build podman
 
 This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
 
 ### RHEL 7 JDK 11
 
-```
-cekit --descriptor openjdk-11-rhel7.yaml build
-```
+    cekit --redhat --descriptor openjdk-11-rhel7.yaml build podman
 
 This will produce an image named `openjdk/openjdk-11-rhel7`
 
 ### RHEL 8 JDK 8
 
-```
-cekit --descriptor openjdk-8-rhel8.yaml build
-```
+    cekit --redhat --descriptor openjdk-8-rhel8.yaml build podman
 
 This will produce an image named `openjdk/openjdk-8-rhel8`
 
 ### RHEL 8 JDK 11
 
-```
-cekit --descriptor openjdk-11-rhel8.yaml build
-```
+    cekit --redhat --descriptor openjdk-11-rhel8.yaml build podman
 
 This will produce an image named `openjdk/openjdk-11-rhel8`
 
