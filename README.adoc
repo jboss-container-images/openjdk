@@ -16,6 +16,8 @@ link:https://access.redhat.com/containers/#/registry.access.redhat.com/openjdk/o
 
 You need to https://cekit.readthedocs.io/en/develop/installation.html[install Cekit] to build these images.
 
+These sources are prepared and tested for Cekit 3.6.0.
+
 ## Image versions
 
 ### RHEL 7 OpenJDK 8
