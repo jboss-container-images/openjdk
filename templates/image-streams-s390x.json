@@ -218,26 +218,6 @@
                             "kind": "DockerImage",
                             "name": "registry.redhat.io/openj9/openj9-11-rhel7:latest"
                         }
-                    },
-                    {
-                        "name": "latest",
-                        "annotations": {
-                            "openshift.io/display-name": "OpenJ9 11",
-                            "description": "Build and run Java applications using Maven and OpenJ9 11.",
-                            "iconClass": "icon-rh-openj9",
-                            "tags": "builder,java,openj9",
-                            "supports": "java:11,java",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-                            "sampleContextDir": "undertow-servlet",
-                            "version": "latest"
-                        },
-                        "referencePolicy": {
-                            "type": "Local"
-                        },
-                        "from": {
-                            "kind": "ImageStreamTag",
-                            "name": "11"
-                        }
                     }
                 ]
             }
