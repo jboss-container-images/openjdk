@@ -15,7 +15,7 @@
             "metadata": {
                 "name": "openj9-8-rhel7",
                 "annotations": {
-                    "openshift.io/display-name": "OpenJ9 8",
+                    "openshift.io/display-name": "OpenJ9 1.8.0",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.17"
                 },
@@ -28,8 +28,8 @@
                     {
                         "name": "1.1",
                         "annotations": {
-                            "openshift.io/display-name": "OpenJ9 8",
-                            "description": "Build and run Java applications using Maven and OpenJ9 8.",
+                            "openshift.io/display-name": "OpenJ9 1.8.0",
+                            "description": "Build and run Java applications using Maven and OpenJ9 1.8.0.",
                             "iconClass": "icon-rh-openj9",
                             "tags": "builder,java,openj9,hidden",
                             "supports": "java:8",
@@ -93,7 +93,7 @@
             "metadata": {
                 "name": "openj9-8-rhel8",
                 "annotations": {
-                    "openshift.io/display-name": "OpenJ9 1.8 (RHEL8)",
+                    "openshift.io/display-name": "OpenJ9 1.8.0 (RHEL8)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "version": "1.4.17"
                 },
@@ -106,8 +106,8 @@
                     {
                         "name": "1.1",
                         "annotations": {
-                            "openshift.io/display-name": "OpenJ9 1.8 (RHEL8)",
-                            "description": "Build and run Java applications using Maven and OpenJ9 1.8 upon RHEL8.",
+                            "openshift.io/display-name": "OpenJ9 1.8.0 (RHEL8)",
+                            "description": "Build and run Java applications using Maven and OpenJ9 1.8.0 upon RHEL8.",
                             "iconClass": "icon-rh-openj9",
                             "tags": "builder,java,openj9,ubi8,hidden",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -182,8 +182,8 @@
                     {
                         "name": "8",
                         "annotations": {
-                            "openshift.io/display-name": "OpenJ9 8",
-                            "description": "Build and run Java applications using Maven and OpenJ9 8.",
+                            "openshift.io/display-name": "OpenJ9 1.8.0",
+                            "description": "Build and run Java applications using Maven and OpenJ9 1.8.0.",
                             "iconClass": "icon-rh-openj9",
                             "tags": "builder,java,openj9",
                             "supports": "java:8,java",
