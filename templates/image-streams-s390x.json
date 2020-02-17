@@ -129,7 +129,7 @@
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-                "name": "openjdk-11-rhel8",
+                "name": "openj9-11-rhel8",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL8)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -202,10 +202,10 @@
                     {
                         "name": "11",
                         "annotations": {
-                            "openshift.io/display-name": "Red Hat OpenJDK 11",
-                            "description": "Build and run Java applications using Maven and OpenJDK 11.",
-                            "iconClass": "icon-rh-openjdk",
-                            "tags": "builder,java,openjdk",
+                            "openshift.io/display-name": "Red Hat OpenJ9 11",
+                            "description": "Build and run Java applications using Maven and OpenJ9 11.",
+                            "iconClass": "icon-rh-openj9",
+                            "tags": "builder,java,openj9",
                             "supports": "java:11,java",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
                             "sampleContextDir": "undertow-servlet",
