@@ -43,13 +43,17 @@ modules:
   - name: cct_module
     git:
       url: https://github.com/jboss-openshift/cct_module.git
-      ref: b41f89355be15ee5fd687c850c21d95c925b540e
+      ref: 0.41.0
   install:
   - name: jboss.container.openjdk.jdk
     version: "openj9-11"
+  - name: jboss.container.prometheus
+    version: "7"
+  - name: jboss.container.jolokia
+    version: "7"
   - name: jboss.container.java.s2i.bash
-  - name: jboss.container.maven.35.bash
-    version: "3.5"
+  - name: jboss.container.maven
+    version: "8.0.3.5"
   - name: jboss.container.java.singleton-jdk
 
 help:
