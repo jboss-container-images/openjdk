@@ -60,12 +60,14 @@ osbs:
     container:
       compose:
         pulp_repos: true
+        inherit: true
   repository:
     name: containers/openjdk
     branch: openjdk-8-ubi8
 
 packages:
   manager: microdnf
+  content_sets_file: content_sets_rhel8.yml
   repositories:
     - name: rhel8.2-beta
       id: rhel8.2-beta
