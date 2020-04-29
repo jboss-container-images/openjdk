@@ -68,6 +68,3 @@ osbs:
 packages:
   manager: microdnf
   content_sets_file: content_sets_rhel8.yml
-  repositories:
-    - name: rhel8.2-beta
-      id: rhel8.2-beta
