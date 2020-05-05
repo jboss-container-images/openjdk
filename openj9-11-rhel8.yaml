@@ -1,5 +1,4 @@
 # This is an Image descriptor for Cekit
-# we are currently using Cekit 3.6.0
 # use the following extra override to build:
 # --overrides "{ 'osbs': { 'configuration': { 'container': { 'platforms': { 'only': [ 's390x' ] }, 'compose': { 'signing_intent': 'release', 'packages': [ 'java-11-openj9', 'java-11-openj9-devel', 'java-11-openj9-headless' ], 'inherit': true } } } } }"
 
@@ -44,14 +43,18 @@ modules:
   - name: cct_module
     git:
       url: https://github.com/jboss-openshift/cct_module.git
-      ref: 0.39.0
+      ref: 0.41.0
   install:
   - name: jboss.container.openjdk.jdk
     version: "openj9-11"
+  - name: jboss.container.prometheus
+    version: "7"
+  - name: jboss.container.jolokia
+    version: "7"
   - name: jboss.container.java.s2i.bash
-  - name: jboss.container.maven.35.bash
-    version: "3.5"
-  - name: jboss.container.java.rm-openjdk
+  - name: jboss.container.maven
+    version: "8.0.3.5"
+  - name: jboss.container.java.singleton-jdk
 
 help:
   add: true
