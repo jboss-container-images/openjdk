@@ -1,11 +1,10 @@
 # This is an Image descriptor for Cekit
-# we are currently using Cekit 3.5.0
 
 schema_version: 1
 
-from: "ubi8:8-released"
-name: &name "openjdk/openjdk-8-rhel8"
-version: &version "1.2"
+from: "ubi8-minimal:8-released"
+name: &name "ubi8/openjdk-8"
+version: &version "1.3"
 description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 1.8"
 
 labels:
@@ -18,9 +17,11 @@ labels:
 - name: "maintainer"
   value: "Red Hat OpenJDK <openjdk@redhat.com>"
 - name: "com.redhat.component"
-  value: "openjdk-8-rhel8-container"
+  value: "openjdk-8-ubi8-container"
 - name: "usage"
   value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
+- name: "com.redhat.license_terms"
+  value: "https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 envs:
 - name: PATH
@@ -39,13 +40,17 @@ modules:
   - name: cct_module
     git:
       url: https://github.com/jboss-openshift/cct_module.git
-      ref: 0.38.0
+      ref: 0.41.0
   install:
+  - name: jboss.container.microdnf-bz-workaround
   - name: jboss.container.openjdk.jdk
     version: "8"
+  - name: jboss.container.prometheus
+  - name: jboss.container.jolokia
+  - name: jboss.container.dnf
+  - name: jboss.container.maven
+    version: "8.2.3.6.8"
   - name: jboss.container.java.s2i.bash
-  - name: jboss.container.maven.35.bash
-    version: "3.5"
 
 help:
   add: true
@@ -55,10 +60,11 @@ osbs:
     container:
       compose:
         pulp_repos: true
+        inherit: true
   repository:
     name: containers/openjdk
-    branch: openjdk-1.8-rhel8
+    branch: openjdk-8-ubi8
 
 packages:
-  manager: dnf
+  manager: microdnf
   content_sets_file: content_sets_rhel8.yml
