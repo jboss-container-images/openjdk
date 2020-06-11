@@ -454,11 +454,6 @@
                                 ],
                                 "ports": [
                                     {
-                                        "name": "jolokia",
-                                        "containerPort": 8778,
-                                        "protocol": "TCP"
-                                    },
-                                    {
                                         "name": "http",
                                         "containerPort": 8080,
                                         "protocol": "TCP"
