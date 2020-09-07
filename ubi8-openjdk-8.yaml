@@ -42,7 +42,6 @@ modules:
       url: https://github.com/jboss-openshift/cct_module.git
       ref: 0.41.0
   install:
-  - name: jboss.container.microdnf-bz-workaround
   - name: jboss.container.openjdk.jdk
     version: "8"
   - name: jboss.container.prometheus
