@@ -1,0 +1,33 @@
+name: OpenJDK 11 S2I Image CI
+on: [push, pull_request]
+env:
+  LANG: en_US.UTF-8
+  CEKIT_VERSION: 3.6.0
+jobs:
+  openjdkci:
+    name: OpenJDK S2I Build and Test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: Verify latest UBI image is present
+        run: |
+          docker pull registry.access.redhat.com/ubi8/ubi-minimal:latest
+          docker tag  registry.access.redhat.com/ubi8/ubi-minimal:latest registry.redhat.io/ubi8/ubi-minimal:latest
+          docker image ls | grep ubi8
+      - name: Setup required system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y krb5-multidev virtualenv
+      - name: Setup virtualenv and install cekit and required packages
+        run: |
+          mkdir ~/cekit${{ env.CEKIT_VERSION }}
+          virtualenv ~/cekit${{ env.CEKIT_VERSION }}
+          . ~/cekit${{ env.CEKIT_VERSION }}/bin/activate
+          pip install cekit==${{ env.CEKIT_VERSION }} docker docker-squash odcs behave lxml
+      - name: Build
+        run: |
+          . ~/cekit${{ env.CEKIT_VERSION }}/bin/activate
+          cekit -v --descriptor ubi8-openjdk-11.yaml build --overrides '{"packages": {"content_sets_file": null }}' docker
+          docker image ls
