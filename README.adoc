@@ -1,8 +1,8 @@
 # Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK
 
-This is the OpenShift Source to Image (S2I) image for OpenJDK.
+These are the OpenJDK Source to Image (S2I) images for Red Hat OpenShift.
 
-## How to get it
+## Acquiring the Images
 
 ### From https://access.redhat.com/containers/[Red Hat Container Catalog]
 
@@ -18,7 +18,24 @@ You need to https://cekit.readthedocs.io/en/develop/installation.html[install Ce
 
 These sources are prepared and tested for Cekit 3.6.0.
 
-## Image versions
+## Red Hat Universal Base Image 8 versions
+
+### Red Hat Universal Base Image 8 with OpenJDK 8
+
+    cekit --descriptor ubi8-openjdk-8.yaml build podman
+
+This will produce an image named `ubi8/openjdk-8`.
+
+### Red Hat Universal Base Image 8 with OpenJDK 11
+
+    cekit --descriptor ubi8-openjdk-11.yaml build podman
+
+This will produce an image named `ubi8/openjdk-11`.
+
+## Red Hat Enterprise Linux 7 Image versions
+
+You will need an active Red Hat subscription on the host you use to
+build these images.
 
 ### RHEL 7 OpenJDK 8
 
@@ -32,17 +49,7 @@ This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
 
 This will produce an image named `openjdk/openjdk-11-rhel7`
 
-### UBI 8 JDK 8
-
-    cekit --descriptor ubi8-openjdk-8.yaml build podman
-
-This will produce an image named `ubi8/openjdk-8`.
-
-### UBI 8 OpenJDK 11
-
-    cekit --descriptor ubi8-openjdk-11.yaml build podman
-
-This will produce an image named `ubi8/openjdk-11`.
+## OpenJ9 Image Versions
 
 ### RHEL 7 OpenJ9 8
 
