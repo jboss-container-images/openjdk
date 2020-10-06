@@ -19,6 +19,8 @@ You need to https://cekit.readthedocs.io/en/develop/installation.html[install Ce
 
 These sources are prepared and tested for Cekit 3.6.0.
 
+For building within Red Hat, the instructions vary slightly, see link:redhat/README.adoc[].
+
 ## Red Hat Universal Base Image 8 versions
 
 ### Red Hat Universal Base Image 8 with OpenJDK 8
