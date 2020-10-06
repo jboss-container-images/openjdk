@@ -19,13 +19,13 @@ This will produce an image named `ubi8/openjdk-11`.
 
 ### RHEL 7 OpenJDK 8
 
-    cekit --redhat --descriptor openjdk18-openshift.yaml build podman
+    cekit --redhat --descriptor openjdk18-openshift.yaml --overrides-file redhat/openjdk18-openshift.yaml build podman
 
 This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
 
 ### RHEL 7 OpenJDK 11
 
-    cekit --redhat --descriptor openjdk-11-rhel7.yaml build podman
+    cekit --redhat --descriptor openjdk-11-rhel7.yaml build --overrides-file redhat/openjdk-11-rhel7.yaml build podman
 
 This will produce an image named `openjdk/openjdk-11-rhel7`
 
