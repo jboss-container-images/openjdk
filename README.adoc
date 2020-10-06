@@ -8,9 +8,10 @@ These are the OpenJDK Source to Image (S2I) images for Red Hat OpenShift.
 
 This is the subscription supported product version.
 
-see https://access.redhat.com/containers/?tab=images&platform=openshift#/registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift[redhat-openjdk-18/openjdk18-openshift], https://access.redhat.com/containers/?tab=images&platform=openshift#/registry.access.redhat.com/openjdk/openjdk-11-rhel7[openjdk/openjdk-11-rhel7], 
-link:https://access.redhat.com/containers/#/registry.access.redhat.com/openjdk/openjdk-11-rhel8[openjdk/openjdk-11-rhel8] and 
-link:https://access.redhat.com/containers/#/registry.access.redhat.com/openjdk/openjdk-8-rhel8[openjdk/openjdk-8-rhel8].
+see link:https://catalog.redhat.com/software/containers/redhat-openjdk-18/openjdk18-openshift/58ada5701fbe981673cd6b10[redhat-openjdk-18/openjdk18-openshift], link:https://catalog.redhat.com/software/containers/openjdk/openjdk-11-rhel7/5bf57185dd19c775cddc4ce5[openjdk/openjdk-11-rhel7],
+link:https://catalog.redhat.com/software/containers/ubi8/openjdk-8/5dd6a48dbed8bd164a09589a[ubi8/openjdk-8]
+and
+link:https://catalog.redhat.com/software/containers/ubi8/openjdk-11/5dd6a4b45a13461646f677f4[ubi8/openjdk-11].
 
 ## How to develop on and contribute to it
 
