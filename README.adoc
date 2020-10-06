@@ -34,13 +34,13 @@ This will produce an image named `openjdk/openjdk-11-rhel7`
 
 ### UBI 8 JDK 8
 
-    cekit --redhat --descriptor ubi8-openjdk-8.yaml build podman
+    cekit --descriptor ubi8-openjdk-8.yaml build podman
 
 This will produce an image named `ubi8/openjdk-8`.
 
 ### UBI 8 OpenJDK 11
 
-    cekit --redhat --descriptor ubi8-openjdk-11.yaml build podman
+    cekit --descriptor ubi8-openjdk-11.yaml build podman
 
 This will produce an image named `ubi8/openjdk-11`.
 
