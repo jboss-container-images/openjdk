@@ -22,7 +22,7 @@ These sources are prepared and tested for Cekit 3.6.0.
 
 ### RHEL 7 OpenJDK 8
 
-    cekit --redhat build podman
+    cekit --redhat --descriptor openjdk18-openshift.yaml build podman
 
 This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
 
