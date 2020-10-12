@@ -12,7 +12,9 @@ packages:
 
 osbs:
   configuration:
-    container_file: container.yaml
+    container:
+      compose:
+        pulp_repos: true
   repository:
     name: containers/redhat-openjdk-18
     branch: jb-openjdk-1.8-openshift-rhel-7
