@@ -29,4 +29,3 @@ Feature: Openshift OpenJDK Runtime tests
        | JAVA_DIAGNOSTICS | true                |
     Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
       And container log should contain -XX:NativeMemoryTracking=summary
-      And container log should contain Jolokia: Agent started
