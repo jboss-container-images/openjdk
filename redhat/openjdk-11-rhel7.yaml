@@ -1,6 +1,8 @@
 osbs:
   configuration:
-    container_file: container.yaml
+    container:
+      compose:
+        pulp_repos: true
   repository:
     name: containers/openjdk
     branch: openjdk-11-rhel7
