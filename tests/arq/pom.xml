@@ -21,7 +21,7 @@
         <version.arquillian>1.4.0.Final</version.arquillian>
         <version.arquillian.cube>1.16.0</version.arquillian.cube>
         <version.json-simple>1.1.1</version.json-simple>
-        <version.junit>4.12</version.junit>
+        <version.junit>4.13.1</version.junit>
         <version.wildfly.arquillian>2.1.1.Final</version.wildfly.arquillian>
         <version.jboss.logmanager>2.1.4.Final</version.jboss.logmanager>
         <version.xnio>3.6.5.Final</version.xnio>
