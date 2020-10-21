@@ -29,5 +29,5 @@ jobs:
       - name: Build
         run: |
           . ~/cekit${{ env.CEKIT_VERSION }}/bin/activate
-          cekit -v --descriptor ubi8-openjdk-11.yaml build --overrides '{"packages": {"content_sets_file": null }}' docker
+          cekit -v --descriptor ubi8-openjdk-11.yaml build docker
           docker image ls
