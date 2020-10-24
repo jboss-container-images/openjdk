@@ -40,9 +40,11 @@ packages:
     s390x:
     - rhel-7-for-system-z-rpms
     - rhel-7-server-for-system-z-rhscl-rpms
+    - openj9-1-for-rhel-7-server-for-system-z-rpms
     ppc64le:
     - rhel-7-server-for-power-le-rhscl-rpms
     - rhel-7-for-power-le-rpms
+    - openj9-1-for-rhel-7-server-for-power-le-rpms
 
 modules:
   repositories:

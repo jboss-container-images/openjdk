@@ -41,10 +41,12 @@ packages:
     - rhel-7-for-system-z-rpms
     - rhel-7-for-system-z-optional-rpms
     - rhel-7-server-for-system-z-rhscl-rpms
+    - openj9-1-for-rhel-7-server-for-system-z-rpms
     ppc64le:
     - rhel-7-server-for-power-le-rhscl-rpms
     - rhel-7-for-power-le-rpms
     - rhel-7-for-power-le-optional-rpms
+    - openj9-1-for-rhel-7-server-for-power-le-rpms
 
 modules:
   repositories:
