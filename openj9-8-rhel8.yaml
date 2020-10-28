@@ -83,14 +83,10 @@ osbs:
           - s390x
           - ppc64le
       compose:
-        # used for requesting ODCS compose of type "tag"
-        packages:
-          - java-1.8.0-openj9
-          - java-1.8.0-openj9-headless
-          - java-1.8.0-openj9-devel
         signing_intent: release
         # used for inheritance of yum repos and ODCS composes from baseimage build
         inherit: true
+        pulp_repos: true
   repository:
     name: containers/openj9
     branch: openj9-8-rhel8
