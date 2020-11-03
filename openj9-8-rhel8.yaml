@@ -44,12 +44,14 @@ packages:
     ppc64le:
     - rhel-8-for-ppc64le-baseos-rpms
     - rhel-8-for-ppc64le-appstream-rpms
+    - openj9-1-for-rhel-8-ppc64le-rpms
     aarch64:
     - rhel-8-for-aarch64-baseos-rpms
     - rhel-8-for-aarch64-appstream-rpms
     s390x:
     - rhel-8-for-s390x-baseos-rpms
     - rhel-8-for-s390x-appstream-rpms
+    - openj9-1-for-rhel-8-s390x-rpms
 
 modules:
   repositories:
@@ -89,6 +91,7 @@ osbs:
         signing_intent: release
         # used for inheritance of yum repos and ODCS composes from baseimage build
         inherit: true
+        pulp_repos: true
   repository:
     name: containers/openj9
     branch: openj9-8-rhel8
