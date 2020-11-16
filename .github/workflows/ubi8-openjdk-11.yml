@@ -15,7 +15,6 @@ jobs:
       - name: Verify latest UBI image is present
         run: |
           docker pull registry.access.redhat.com/ubi8/ubi-minimal:latest
-          docker tag  registry.access.redhat.com/ubi8/ubi-minimal:latest registry.redhat.io/ubi8/ubi-minimal:latest
           docker image ls | grep ubi8
       - name: Setup required system packages
         run: |
