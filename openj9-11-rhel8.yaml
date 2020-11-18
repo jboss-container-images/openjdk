@@ -30,6 +30,8 @@ envs:
   value: *name
 - name: "JBOSS_IMAGE_VERSION"
   value: *version
+- name: "MAVEN_SKIP_RC"
+  value: true
 
 ports:
 - value: 8080
@@ -37,6 +39,8 @@ ports:
 
 packages:
   manager: microdnf
+  install:
+    - findutils
   content_sets:
     x86_64:
     - rhel-8-for-x86_64-baseos-rpms
@@ -58,7 +62,7 @@ modules:
   - name: cct_module
     git:
       url: https://github.com/jboss-openshift/cct_module.git
-      ref: 0.42.0
+      ref: 0.41.1
   install:
   - name: jboss.container.openjdk.jdk
     version: "openj9-11"
