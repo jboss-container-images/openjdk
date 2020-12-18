@@ -4,6 +4,10 @@ osbs:
       compose:
         pulp_repos: true
         inherit: true
+        packages:
+        - java-11-openjdk
+        - java-11-openjdk-devel
+        - java-11-openjdk-headless
   repository:
     name: containers/openjdk
     branch: openjdk-11-ubi8

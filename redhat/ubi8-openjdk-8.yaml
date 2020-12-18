@@ -4,6 +4,10 @@ osbs:
       compose:
         pulp_repos: true
         inherit: true
+        packages:
+        - java-1.8.0-openjdk
+        - java-1.8.0-openjdk-devel
+        - java-1.8.0-openjdk-headless
   repository:
     name: containers/openjdk
     branch: openjdk-8-ubi8
