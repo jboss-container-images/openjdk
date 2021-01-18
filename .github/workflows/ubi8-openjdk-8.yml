@@ -23,9 +23,9 @@ jobs:
       - name: Setup virtualenv and install cekit and required packages
         run: |
           mkdir ~/cekit${{ env.CEKIT_VERSION }}
-          virtualenv ~/cekit${{ env.CEKIT_VERSION }}
+          virtualenv -p python3.6 ~/cekit${{ env.CEKIT_VERSION }}
           . ~/cekit${{ env.CEKIT_VERSION }}/bin/activate
-          pip install cekit==${{ env.CEKIT_VERSION }} docker docker-squash odcs behave lxml
+          pip3 install cekit==${{ env.CEKIT_VERSION }} docker docker-squash odcs behave lxml
       - name: Build
         run: |
           . ~/cekit${{ env.CEKIT_VERSION }}/bin/activate
