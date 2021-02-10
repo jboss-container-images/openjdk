@@ -13,6 +13,7 @@ osbs:
     branch: openjdk-8-ubi8
 
 packages:
+  manager: microdnf
   content_sets:
     x86_64:
     - rhel-8-for-x86_64-baseos-rpms
