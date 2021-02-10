@@ -3,7 +3,6 @@ osbs:
     container:
       compose:
         pulp_repos: true
-        inherit: true
         packages:
         - java-11-openjdk
         - java-11-openjdk-devel

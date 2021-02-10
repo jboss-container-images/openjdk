@@ -3,7 +3,6 @@ osbs:
     container:
       compose:
         pulp_repos: true
-        inherit: true
         packages:
         - java-1.8.0-openjdk
         - java-1.8.0-openjdk-devel
