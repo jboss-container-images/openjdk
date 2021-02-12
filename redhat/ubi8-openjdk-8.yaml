@@ -3,7 +3,6 @@ osbs:
     container:
       compose:
         pulp_repos: true
-        inherit: true
         packages:
         - java-1.8.0-openjdk
         - java-1.8.0-openjdk-devel
@@ -14,6 +13,7 @@ osbs:
     branch: openjdk-8-ubi8
 
 packages:
+  manager: microdnf
   content_sets:
     x86_64:
     - rhel-8-for-x86_64-baseos-rpms
