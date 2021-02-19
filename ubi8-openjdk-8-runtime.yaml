@@ -3,7 +3,7 @@
 schema_version: 1
 
 from: "registry.access.redhat.com/ubi8/ubi-minimal"
-name: &name "ubi8/openjdk-8-headless"
+name: &name "ubi8/openjdk-8-runtime"
 version: &version "1.3"
 description: "Image for Red Hat OpenShift providing OpenJDK 1.8 runtime"
 
