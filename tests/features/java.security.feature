@@ -1,5 +1,6 @@
 @openjdk
-@ubi8
+@ubi8/openjdk-8
+@ubi8/openjdk-11
 @redhat-openjdk-18
 Feature: Openshift S2I tests
   Scenario: Check networkaddress.cache.negative.ttl has been set correctly
