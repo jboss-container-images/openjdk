@@ -1,7 +1,8 @@
 Feature: Openshift OpenJDK Runtime tests
 
   @openjdk
-  @ubi8
+  @ubi8/openjdk-8
+  @ubi8/openjdk-11
   @redhat-openjdk-18
   @openj9
   Scenario: Ensure JVM_ARGS is no longer present in the run script
@@ -9,7 +10,8 @@ Feature: Openshift OpenJDK Runtime tests
     Then file /usr/local/s2i/run should not contain JVM_ARGS
 
   @openjdk
-  @ubi8
+  @ubi8/openjdk-8
+  @ubi8/openjdk-11
   @redhat-openjdk-18
   @openj9
   Scenario: Ensure JAVA_ARGS are passed through to the running java application
@@ -19,7 +21,8 @@ Feature: Openshift OpenJDK Runtime tests
     Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
 
   @openjdk
-  @ubi8
+  @ubi8/openjdk-8
+  @ubi8/openjdk-11
   @redhat-openjdk-18
   # Not @openj9 yet, we do not set any specific options for it yet
   Scenario: Ensure diagnostic options work correctly

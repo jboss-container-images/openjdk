@@ -1,8 +1,10 @@
 @openjdk
-@ubi8
+@ubi8/openjdk-8
+@ubi8/openjdk-11
 @redhat-openjdk-18
 Feature: Tests for all openshift images
 
+  @ubi8
   Scenario: Check that product labels are correctly set
     # We don't set 'release' or 'architecture' on CI builds, but it's set on OSBS builds
     # Since we base on an image which has it already set, it's kind of meaningless

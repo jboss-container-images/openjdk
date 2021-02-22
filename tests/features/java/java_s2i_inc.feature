@@ -1,5 +1,6 @@
 @openjdk
-@ubi8
+@ubi8/openjdk-8
+@ubi8/openjdk-11
 @redhat-openjdk-18
 @openj9
 Feature: Openshift OpenJDK S2I tests
