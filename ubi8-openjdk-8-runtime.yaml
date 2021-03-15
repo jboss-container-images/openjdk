@@ -24,8 +24,6 @@ labels:
   value: "https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 envs:
-- name: PATH
-  value: $PATH:"/usr/local/s2i"
 - name: "JBOSS_IMAGE_NAME"
   value: *name
 - name: "JBOSS_IMAGE_VERSION"
