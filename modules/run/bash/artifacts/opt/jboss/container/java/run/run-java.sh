@@ -217,11 +217,10 @@ get_exec_args() {
   fi
 }
 
+# Ensure that the running UID has the "jboss" passwd metadata
 # XXX: Maybe we should make this an entrypoint for the image?
 function configure_passwd() {
-  sed "/^jboss/s/[^:]*/$(id -u)/3" /etc/passwd > /tmp/passwd
-  cat /tmp/passwd > /etc/passwd
-  rm /tmp/passwd
+  sed "/^jboss/s/[^:]*/$(id -u)/3" /etc/passwd > "$HOME/passwd"
 }
 
 # Start JVM
