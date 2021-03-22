@@ -41,7 +41,7 @@ modules:
   - name: cct_module
     git:
       url: https://github.com/jboss-openshift/cct_module.git
-      ref: 0.41.1
+      ref: 0.41.3
 
   install:
   - name: jboss.container.openjdk.jdk
