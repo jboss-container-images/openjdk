@@ -118,7 +118,7 @@ run_java_options() {
   if [ -f "/opt/run-java-options" ]; then
     echo `sh /opt/run-java-options`
   else
-    which run-java-options >/dev/null 2>&1
+    type -p run-java-options >/dev/null 2>&1
     if [ $? = 0 ]; then
       echo `run-java-options`
     fi
