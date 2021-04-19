@@ -59,7 +59,14 @@ help:
 
 osbs:
   configuration:
-    container_file: container.yaml
+    container:
+      compose:
+        pulp_repos: true
+        packages:
+        - java-1.8.0-openjdk
+        - java-1.8.0-openjdk-devel
+        - java-1.8.0-openjdk-headless
+        signing_intent: release
   repository:
     name: containers/redhat-openjdk-18
     branch: jb-openjdk-1.8-openshift-rhel-7

@@ -56,7 +56,14 @@ help:
 
 osbs:
   configuration:
-    container_file: container.yaml
+    container:
+      compose:
+        pulp_repos: true
+        packages:
+        - java-11-openjdk
+        - java-11-openjdk-devel
+        - java-11-openjdk-headless
+        signing_intent: release
   repository:
     name: containers/openjdk
     branch: openjdk-11-rhel7
