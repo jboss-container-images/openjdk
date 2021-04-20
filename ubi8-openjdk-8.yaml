@@ -64,6 +64,8 @@ osbs:
         - java-1.8.0-openjdk
         - java-1.8.0-openjdk-devel
         - java-1.8.0-openjdk-headless
+        - nettle
+        - gnutls
         signing_intent: release
   repository:
     name: containers/openjdk
@@ -72,3 +74,6 @@ osbs:
 packages:
   manager: microdnf
   content_sets_file: content_sets_rhel8.yml
+  install:
+    - nettle
+    - gnutls
