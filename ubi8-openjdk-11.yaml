@@ -43,6 +43,7 @@ modules:
   - name: jboss.container.openjdk.jdk
     version: "11"
   - name: jboss.container.prometheus
+  - name: jboss.container.jolokia
   - name: jboss.container.maven
     version: "8.2.3.6"
   - name: jboss.container.java.s2i.bash
