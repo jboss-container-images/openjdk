@@ -6,7 +6,7 @@ schema_version: 1
 
 from: "registry.redhat.io/ubi8/ubi-minimal"
 name: &name "openj9/openj9-11-rhel8"
-version: &version "1.2"
+version: &version "1.9"
 description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJ9 11"
 
 labels:
