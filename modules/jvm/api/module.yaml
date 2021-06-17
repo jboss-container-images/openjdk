@@ -19,7 +19,7 @@ envs:
   description: Is used when no `-Xms` option is given in **JAVA_OPTS**. This is used to calculate a default initial heap memory based on the maximum heap memory. If used in a container without any memory constraints for the container then this option has no effect. If there is a memory constraint then `-Xms` is set to a ratio of the `-Xmx` memory as set here. The default is `25` which means 25% of the `-Xmx` is used as the initial heap size. You can skip this mechanism by setting this value to `0` in which case no `-Xms` option is added.
   example: "25"
 - name: JAVA_MAX_INITIAL_MEM
-  description: Is used when no `-Xms` option is given in **JAVA_OPTS**. This is used to calculate the maximum value of the initial heap memory. If used in a container without any memory constraints for the container then this option has no effect. If there is a memory constraint then `-Xms` is limited to the value set here. The default is 4096Mb which means the calculated value of `-Xms` never will be greater than 4096Mb. The value of this variable is expressed in MB.
+  description: Is used when no `-Xms` option is given in **JAVA_OPTS**. This is used to calculate the maximum value of the initial heap memory. If used in a container without any memory constraints for the container then this option has no effect. If there is a memory constraint then `-Xms` is limited to the value set here. The default is 4096MB which means the calculated value of `-Xms` never will be greater than 4096MB. The value of this variable is expressed in MB.
   example: "4096"
 - name: JAVA_DIAGNOSTICS
   description: Set this to get some diagnostics information to standard output when things are happening. **Disabled by default.**
