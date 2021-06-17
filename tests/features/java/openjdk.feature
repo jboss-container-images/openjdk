@@ -32,3 +32,13 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | arg     | value                                  |
     | command | bash -c "$JAVA_HOME/bin/java -version" |
     Then available container log should contain OpenJDK Runtime Environment
+
+  @ubi8
+  Scenario: Check that certain non-UBI packages are not installed
+    When container is started with args
+    | arg     | value   |
+    | command | rpm -qa |
+    Then available container log should not contain grub
+    Then available container log should not contain dejavu-sans-mono-fonts
+    Then available container log should not contain os-prober
+    Then available container log should not contain rpm-plugin-systemd-inhibit
