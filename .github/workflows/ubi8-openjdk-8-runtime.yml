@@ -31,6 +31,19 @@ jobs:
           . ~/cekit${{ env.CEKIT_VERSION }}/bin/activate
           cekit -v --descriptor ubi8-openjdk-8-runtime.yaml build docker
           docker image ls
+
+# even though we don't run any S2I tests for the runtime images, the test suite
+# will fail to start if the s2i binary is not present.
+      - name: install s2i binary
+        run: |
+          echo ===== Installing s2i from ${{ env.S2I_URL }} =====
+          mkdir /tmp/s2i/ && cd /tmp/s2i/
+          wget ${{ env.S2I_URI }}
+          tar xvf source-to-image*.gz
+          sudo mv s2i /usr/bin
+          which s2i
+          s2i version
+
       - name: Behave Tests
         run: |
           . ~/cekit${{ env.CEKIT_VERSION }}/bin/activate
