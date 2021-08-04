@@ -6,16 +6,25 @@ Feature: Openshift OpenJDK Jolokia tests
     Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
     Then run sh -c 'unzip -q -p /usr/share/java/jolokia-jvm-agent/jolokia-jvm.jar META-INF/maven/org.jolokia/jolokia-jvm/pom.properties | grep -F ${JOLOKIA_VERSION}' in container and check its output for version=
 
-  @jboss-decisionserver-6
-  @jboss-processserver-6
-  @jboss-webserver-3/webserver30-tomcat7-openshift
-  @jboss-webserver-3/webserver31-tomcat7-openshift
-  @jboss-webserver-3/webserver30-tomcat8-openshift
-  @jboss-webserver-3/webserver31-tomcat8-openshift
-  @jboss-amq-6
+  @openjdk
+  @ubi8/openjdk-8
+  @ubi8/openjdk-11
+  @redhat-openjdk-18
   Scenario: Check jolokia port is available
-    When container is ready
+    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
     Then check that port 8778 is open
-    Then inspect container
+    And  inspect container
        | path                    | value       |
        | /Config/ExposedPorts    | 8778/tcp    |
+
+  @openjdk
+  @ubi8/openjdk-8
+  @ubi8/openjdk-11
+  @redhat-openjdk-18
+  Scenario: Ensure Jolokia diagnostic options work correctly
+    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
+       | variable         | value               |
+       | JAVA_ARGS        | Hello from CTF test |
+       | JAVA_DIAGNOSTICS | true                |
+    Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
+      And container log should contain Jolokia: Agent started
