@@ -22,7 +22,7 @@ envs:
   description: Is used when no `-Xms` option is given in **JAVA_OPTS**. This is used to calculate the maximum value of the initial heap memory. If used in a container without any memory constraints for the container then this option has no effect. If there is a memory constraint then `-Xms` is limited to the value set here. The default is 4096MB which means the calculated value of `-Xms` never will be greater than 4096MB. The value of this variable is expressed in MB.
   example: "4096"
 - name: JAVA_DIAGNOSTICS
-  description: Set this to get some diagnostics information to standard output when things are happening. **Disabled by default.**
+  description: Set this to get some diagnostics information to standard output when things are happening. **Note:** This option, if set to true, will set `-XX:+UnlockDiagnosticVMOptions`. **Disabled by default.**
   example: "true"
 - name: JAVA_DEBUG
   description: If set remote debugging will be switched on. **Disabled by default.**
