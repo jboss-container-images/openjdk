@@ -3,6 +3,7 @@
 @openj9
 @ubi8/openjdk-8
 @ubi8/openjdk-11
+@ubi8/openjdk-17
 Feature: Prometheus agent tests
 
   Scenario: Verify API and defaults

@@ -12,6 +12,7 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | arg     | value   |
     | command | rpm -qa |
     Then available container log should not contain java-11
+    Then available container log should not contain java-17
 
   @openjdk/openjdk-11-rhel7
   @openjdk/openjdk-11-ubi8
@@ -23,6 +24,15 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | arg     | value   |
     | command | rpm -qa |
     Then available container log should not contain java-1.8.0
+    Then available container log should not contain java-17
+
+  @ubi8/openjdk-17
+  Scenario: Check that only OpenJDK 17 is installed
+    When container is started with args
+    | arg     | value   |
+    | command | rpm -qa |
+    Then available container log should not contain java-1.8.0
+    Then available container log should not contain java-11
 
   @ubi8
   @openjdk
