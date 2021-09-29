@@ -37,6 +37,23 @@
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/ubi8/openjdk-8-runtime:1.9"
                         }
+                    },
+                    {
+                        "name": "1.10",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 1.8 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 1.8 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            "version": "1.10"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-8-runtime:1.10"
+                        }
                     }
                 ]
             }
@@ -70,6 +87,25 @@
                         "from": {
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/ubi8/openjdk-11-runtime:1.9"
+                        }
+                    },
+                    {
+                        "name": "1.10",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 11 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 11 upon RHEL8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+                            "sampleContextDir": "undertow-servlet",
+                            "version": "1.10"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-11-runtime:1.10"
                         }
                     }
                 ]
