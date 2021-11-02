@@ -1,5 +1,5 @@
 schema_version: 1
-name: jboss.container.java.run.bash
+name: jboss.container.java.run
 version: '1.0'
 description: ^
   Provides support for running Java applications.  Basic usage is
