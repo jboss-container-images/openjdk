@@ -52,3 +52,27 @@ Feature: Miscellaneous OpenJDK-related unit tests
     Then available container log should not contain dejavu-sans-mono-fonts
     Then available container log should not contain os-prober
     Then available container log should not contain rpm-plugin-systemd-inhibit
+
+  @ubi8/openjdk-8
+  Scenario: Check that directories from other JDKs are not present (JDK8)
+    When container is started with args
+    | arg     | value   |
+    | command | ls -1 /usr/lib/jvm |
+    Then available container log should not contain java-11
+    And  available container log should not contain java-17
+
+  @ubi8/openjdk-11
+  Scenario: Check that directories from other JDKs are not present (JDK11)
+    When container is started with args
+    | arg     | value   |
+    | command | ls -1 /usr/lib/jvm |
+    Then available container log should not contain java-1.8.0
+    Then available container log should not contain java-17
+
+  @ubi8/openjdk-17
+  Scenario: Check that directories from other JDKs are not present (JDK17)
+    When container is started with args
+    | arg     | value   |
+    | command | ls -1 /usr/lib/jvm |
+    Then available container log should not contain java-1.8.0
+    Then available container log should not contain java-11
