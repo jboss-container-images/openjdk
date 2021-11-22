@@ -35,3 +35,15 @@ Feature: Openshift OpenJDK Runtime tests
        | JAVA_DIAGNOSTICS | true                |
     Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
       And container log should contain -XX:NativeMemoryTracking=summary
+
+  @openjdk
+  @ubi8/openjdk-8
+  @ubi8/openjdk-11
+  @ubi8/openjdk-17
+  @redhat-openjdk-18
+  @openj9
+  Scenario: OPENJDK-474 to ensure JAVA_ARGS is not duplicated in the java command line
+    Given container is started with env
+    | variable  | value  |
+    | JAVA_ARGS | unique |
+  Then container log should not contain unique unique
