@@ -18,8 +18,6 @@ labels:
   value: "Red Hat OpenJDK <openjdk@redhat.com>"
 - name: "com.redhat.component"
   value: "openjdk-11-runtime-ubi8-container"
-- name: "usage"
-  value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
 - name: "com.redhat.license_terms"
   value: "https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
