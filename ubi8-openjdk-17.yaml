@@ -30,6 +30,8 @@ envs:
   value: *name
 - name: "JBOSS_IMAGE_VERSION"
   value: *version
+- name: "LANG"
+  value: "C.utf8"
 
 ports:
 - value: 8080
