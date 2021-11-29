@@ -76,3 +76,15 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | command | ls -1 /usr/lib/jvm |
     Then available container log should not contain java-1.8.0
     Then available container log should not contain java-11
+
+  @ubi8/openjdk-8
+  @ubi8/openjdk-8-runtime
+  @ubi8/openjdk-11
+  @ubi8/openjdk-11-runtime
+  @ubi8/openjdk-17
+  @ubi8/openjdk-17-runtime
+  Scenario: Ensure LANG is defined and contains UTF-8
+    When container is started with args
+    | arg     | value                                  |
+    | command | bash -c "$JAVA_HOME/bin/java -XshowSettings:properties -version" |
+    Then available container log should contain file.encoding = UTF-8
