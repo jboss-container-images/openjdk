@@ -7,4 +7,4 @@ Feature: Miscellaneous general settings unit tests
     When container is started with args
     | arg     | value            |
     | command | stat /home/jboss |
-    Then available container log should contain Access: (0771/drwxrwx--x)
+    Then available container log should contain Access: (0770/drwxrwx---)
