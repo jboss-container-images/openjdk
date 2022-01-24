@@ -53,3 +53,20 @@ Feature: Openshift OpenJDK GC tests
     Then s2i build log should contain Using MAVEN_OPTS -XX:+UseG1GC
     And container log should contain -XX:+UseG1GC
     And container log should not contain -XX:+UseParallelGC
+
+  Scenario: Check GC_METASPACE_SIZE GC configuration
+    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
+       | variable                 | value  |
+       | GC_METASPACE_SIZE    | 120    |
+    Then s2i build log should contain -XX:MetaspaceSize=120m
+    And container log should contain -XX:MetaspaceSize=120m
+    And container log should not contain integer expression expected
+
+  Scenario: Check GC_METASPACE_SIZE constrained by GC_MAX_METASPACE_SIZE GC configuration
+    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
+       | variable                 | value  |
+       | GC_METASPACE_SIZE    | 120    |
+       | GC_MAX_METASPACE_SIZE    | 90    |
+    Then s2i build log should contain -XX:MaxMetaspaceSize=90m -XX:MetaspaceSize=90m
+    And container log should contain -XX:MaxMetaspaceSize=90m -XX:MetaspaceSize=90m
+
