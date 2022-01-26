@@ -144,9 +144,11 @@ gc_config() {
 
   if [ -n "${GC_METASPACE_SIZE}" ]; then
     metaspaceSize=${GC_METASPACE_SIZE}
-    # clamp the max size of metaspaceSize to be <= maxMetaspaceSize
-    if [ "${metaspaceSize}" -gt "${maxMetaspaceSize}" ]; then
-      metaspaceSize=${maxMetaspaceSize}
+    if [ -n "${maxMetaspaceSize}" ]; then
+      # clamp the max size of metaspaceSize to be <= maxMetaspaceSize
+      if [ "${metaspaceSize}" -gt "${maxMetaspaceSize}" ]; then
+        metaspaceSize=${maxMetaspaceSize}
+      fi
     fi
   fi
 
