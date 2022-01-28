@@ -1,0 +1,34 @@
+schema_version: 1
+
+name: "jboss.container.openjdk.jdk"
+description: "Installs the JDK for OpenJ9 11."
+version: "semeru-11-certified"
+
+labels:
+- name: "org.jboss.product"
+  value: "openjdk"
+- name: "org.jboss.product.version"
+  value: "11"
+- name: "org.jboss.product.openjdk.version"
+  value: "11"
+
+envs:
+- name: "JAVA_HOME"
+  value: "/opt/ibm/ibm-semeru-certified-11-jdk"
+- name: "JAVA_VENDOR"
+  value: "IBM"
+- name: "JAVA_VERSION"
+  value: "11"
+- name: "PATH"
+  value: "$PATH:/opt/ibm/ibm-semeru-certified-11-jdk/bin"
+
+packages:
+  install:
+  - ibm-semeru-certified-11-jdk
+
+modules:
+  install:
+  - name: jboss.container.user
+
+execute:
+- script: configure.sh
