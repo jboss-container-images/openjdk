@@ -21,7 +21,7 @@ labels:
 - name: "com.redhat.component"
   value: "openj9-11-rhel8-container"
 - name: "usage"
-  value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
+  value: "https://access.redhat.com/documentation/en-us/openjdk/11/html/using_openjdk_11_source-to-image_for_openshift/index"
 
 envs:
 - name: PATH
@@ -38,16 +38,10 @@ ports:
 packages:
   manager: microdnf
   content_sets:
-    x86_64:
-    - rhel-8-for-x86_64-baseos-rpms
-    - rhel-8-for-x86_64-appstream-rpms
     ppc64le:
     - rhel-8-for-ppc64le-baseos-rpms
     - rhel-8-for-ppc64le-appstream-rpms
     - openj9-1-for-rhel-8-ppc64le-rpms
-    aarch64:
-    - rhel-8-for-aarch64-baseos-rpms
-    - rhel-8-for-aarch64-appstream-rpms
     s390x:
     - rhel-8-for-s390x-baseos-rpms
     - rhel-8-for-s390x-appstream-rpms
