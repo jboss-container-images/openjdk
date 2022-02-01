@@ -1,0 +1,83 @@
+# This is an Image descriptor for Cekit
+# use the following extra override to build:
+# --overrides "{ 'osbs': { 'configuration': { 'container': { 'platforms': { 'only': [ 's390x' ] }, 'compose': { 'signing_intent': 'release', 'packages': [ 'ibm-semeru-open-11-jdk' ], 'inherit': true } } } } }"
+
+schema_version: 1
+
+from: "registry.redhat.io/ubi8/ubi-minimal"
+name: &name "openj9/openj9-11-rhel8"
+version: &version "1.9"
+description: "Source To Image (S2I) image for Red Hat OpenShift providing IBM Semeru Runtime 11"
+
+labels:
+- name: "io.k8s.description"
+  value: "Platform for building and running plain Java applications (fat-jar and flat classpath)"
+- name: "io.k8s.display-name"
+  value: "Java Applications"
+- name: "io.openshift.tags"
+  value: "builder,java"
+- name: "maintainer"
+  value: "Red Hat OpenJDK <openjdk@redhat.com>"
+- name: "com.redhat.component"
+  value: "openj9-11-rhel8-container"
+- name: "usage"
+  value: "https://access.redhat.com/documentation/en-us/openjdk/11/html/using_openjdk_11_source-to-image_for_openshift/index"
+
+envs:
+- name: PATH
+  value: $PATH:"/usr/local/s2i"
+- name: "JBOSS_IMAGE_NAME"
+  value: *name
+- name: "JBOSS_IMAGE_VERSION"
+  value: *version
+
+ports:
+- value: 8080
+- value: 8443
+
+packages:
+  manager: microdnf
+  content_sets:
+    ppc64le:
+    - rhel-8-for-ppc64le-baseos-rpms
+    - rhel-8-for-ppc64le-appstream-rpms
+    - openj9-1-for-rhel-8-ppc64le-rpms
+    s390x:
+    - rhel-8-for-s390x-baseos-rpms
+    - rhel-8-for-s390x-appstream-rpms
+    - openj9-1-for-rhel-8-s390x-rpms
+
+modules:
+  repositories:
+  - path: modules
+  install:
+  - name: jboss.container.util.pkg-update
+  - name: jboss.container.openjdk.jdk
+    version: "semeru-11-certified"
+  - name: jboss.container.prometheus
+  - name: jboss.container.jolokia
+  - name: jboss.container.maven
+    version: "8.2.3.6"
+  - name: jboss.container.util.nss-wrapper
+  - name: jboss.container.java.s2i.bash
+  - name: jboss.container.java.singleton-jdk
+
+help:
+  add: true
+
+osbs:
+  configuration:
+    container:
+      platforms:
+        only:
+          - s390x
+          - ppc64le
+      compose:
+        # used for requesting ODCS compose of type "tag"
+        packages:
+          - ibm-semeru-certified-11-jdk 
+        signing_intent: unsigned
+        pulp_repos: true
+  repository:
+    name: containers/openj9
+    branch: openj9-11-rhel8
