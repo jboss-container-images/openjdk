@@ -115,6 +115,40 @@
             "kind": "ImageStream",
             "apiVersion": "image.openshift.io/v1",
             "metadata": {
+                "name": "ubi8-openjdk-17-runtime",
+                "annotations": {
+                    "openshift.io/display-name": "Red Hat OpenJDK 17 Runtime (UBI8)",
+                    "openshift.io/provider-display-name": "Red Hat, Inc."
+                }
+            },
+            "spec": {
+                "tags": [
+                    {
+                        "name": "1.11",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 17 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 17 upon RHEL8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+                            "sampleContextDir": "undertow-servlet",
+                            "version": "1.11"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-17-runtime:1.11"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "image.openshift.io/v1",
+            "metadata": {
                 "name": "java-runtime",
                 "annotations": {
                     "openshift.io/display-name": "Red Hat OpenJDK Runtime",
