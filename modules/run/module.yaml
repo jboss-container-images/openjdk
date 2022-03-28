@@ -48,6 +48,9 @@ envs:
 - name: JAVA_ARGS
   description: Arguments passed to the `java` application.
 
+- name: JAVA_APP_NAME
+  description: To set the process or application name by the user.
+
 execute:
 - script: configure.sh
 - script: backward_compatibility.sh
