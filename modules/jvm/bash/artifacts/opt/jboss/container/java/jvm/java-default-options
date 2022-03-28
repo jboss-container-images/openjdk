@@ -115,9 +115,8 @@ diagnostics() {
 }
 
 cpu_core_tunning() {
-  # If both are set rely on JAVA_CORE_LIMIT limited to CONTAINER_CORE_LIMIT
   # If none are set, just return.
-  local core_limit=${JAVA_CORE_LIMIT:-${CONTAINER_CORE_LIMIT}}
+  local core_limit=${CONTAINER_CORE_LIMIT}
   if [ "x$core_limit" = "x0" -o "x$core_limit" = "x" ]; then
     return
     else
