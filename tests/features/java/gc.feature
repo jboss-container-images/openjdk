@@ -3,7 +3,6 @@
 @ubi8/openjdk-11
 @ubi8/openjdk-17
 @redhat-openjdk-18
-@openj9
 Feature: Openshift OpenJDK GC tests
 
   Scenario: Check default GC configuration
