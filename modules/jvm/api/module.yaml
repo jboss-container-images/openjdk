@@ -30,9 +30,6 @@ envs:
 - name: JAVA_DEBUG_PORT
   description: Port used for remote debugging. Defaults to *5005*.
   example: "8787"
-- name: CONTAINER_CORE_LIMIT
-  description: A calculated core limit as described in https://www.kernel.org/doc/Documentation/scheduler/sched-bwc.txt.
-  example: "2"
 - name: CONTAINER_MAX_MEMORY
   description: Memory limit given to the container.
   example: "1024"

@@ -114,21 +114,6 @@ diagnostics() {
   fi
 }
 
-cpu_core_tunning() {
-  # If none are set, just return.
-  local core_limit=${CONTAINER_CORE_LIMIT}
-  if [ "x$core_limit" = "x0" -o "x$core_limit" = "x" ]; then
-    return
-    else
-        if [ "x$CONTAINER_CORE_LIMIT" != "x" ] && [ $core_limit -gt $CONTAINER_CORE_LIMIT ]; then
-                core_limit=$CONTAINER_CORE_LIMIT
-        fi
-         echo "-XX:ParallelGCThreads=${core_limit} " \
-              "-Djava.util.concurrent.ForkJoinPool.common.parallelism=${core_limit} "\
-              "-XX:CICompilerCount=2"
-  fi
-}
-
 gc_config() {
   local minHeapFreeRatio=${GC_MIN_HEAP_FREE_RATIO:-10}
   local maxHeapFreeRatio=${GC_MAX_HEAP_FREE_RATIO:-20}
@@ -175,4 +160,4 @@ error_handling() {
 initialize_container_limits > /dev/null
 
 ## Echo options, trimming trailing and multiple spaces
-echo "$(initial_memory) $(max_memory) $(gc_config) $(diagnostics) $(cpu_core_tunning) $(error_handling)" | awk '$1=$1'
+echo "$(initial_memory) $(max_memory) $(gc_config) $(diagnostics) $(error_handling)" | awk '$1=$1'
