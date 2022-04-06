@@ -21,6 +21,9 @@ mkdir -p /deployments/data \
 if [ -w ${JAVA_HOME}/jre/lib/security/java.security ]; then
     # JDK8 location
     javasecurity="${JAVA_HOME}/jre/lib/security/java.security"
+elif [ -w ${JAVA_HOME}/lib/security/java.security ]; then
+    # JDK8 JRE location
+    javasecurity="${JAVA_HOME}/lib/security/java.security"
 else
     # JDK11 location
     javasecurity="${JAVA_HOME}/conf/security/java.security"
