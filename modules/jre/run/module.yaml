@@ -1,0 +1,15 @@
+schema_version: 1
+name: jboss.container.java.jre.run
+version: '1.0'
+description: ^
+  Provides support for running Java applications.  Basic usage is
+  $JBOSS_CONTAINER_JAVA_RUN_MODULE/run-java.sh.
+
+modules:
+  install:
+  - name: jboss.container.java.run
+  
+run:
+  cmd:
+  - "/opt/jboss/container/java/run/run-java.sh"
+
