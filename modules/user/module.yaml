@@ -10,7 +10,6 @@ envs:
 packages:
   install:
   - unzip
-  - rsync
   - shadow-utils # groupadd
 
 execute:
