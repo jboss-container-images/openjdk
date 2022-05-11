@@ -45,12 +45,12 @@ modules:
   - name: jboss.container.openjdk.jdk
     version: "8"
   - name: jboss.container.prometheus
+    version: "8.6.8"
   - name: jboss.container.jolokia
   - name: jboss.container.maven
     version: "8.2.3.6.8"
   - name: jboss.container.util.nss-wrapper
   - name: jboss.container.java.s2i.bash
-  - name: jboss.container.java.singleton-jdk
 
 help:
   add: true
