@@ -1,6 +1,6 @@
 schema_version: 1
 name: jboss.container.maven
-version: '8.2.3.6'
+version: '8.6.3.6.11'
 description: Provides Maven v3.6 capabilities to an image.
 
 labels:
@@ -19,7 +19,7 @@ modules:
 
 packages:
   install:
-  - maven
+  - maven-openjdk11
 
 execute:
 - script: configure.sh

@@ -49,6 +49,8 @@ modules:
   - name: jboss.container.maven
     version: "8.6.3.6.17"
   - name: jboss.container.java.s2i.bash
+  # needed for after prometheus
+  - name: jboss.container.java.singleton-jdk
 
 help:
   add: true
