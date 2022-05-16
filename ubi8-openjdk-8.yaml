@@ -50,6 +50,7 @@ modules:
     version: "8.2.3.6.8"
   - name: jboss.container.util.nss-wrapper
   - name: jboss.container.java.s2i.bash
+  - name: jboss.container.java.singleton-jdk
 
 help:
   add: true
