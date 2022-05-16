@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: jboss.container.prometheus
-version: '8.6.8'
+version: '8.2'
 description: ^
   Provides support for configuring Prometheus.  Basic usage is
   JAVA_OPTS="$JAVA_OPTS $(source $JBOSS_CONTAINER_PROMETHEUS_MODULE/prometheus-opts; get_prometheus_opts)"
@@ -25,4 +25,4 @@ execute:
 
 packages:
   install:
-    - prometheus-jmx-exporter-openjdk8
+    - prometheus-jmx-exporter
