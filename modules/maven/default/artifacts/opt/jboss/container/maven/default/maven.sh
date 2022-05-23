@@ -104,15 +104,13 @@ function process_maven_settings_xml() {
 # add proxy configuration to settings.xml
 # internal function, use process_maven_settings_xml which applies all configuration
 function add_maven_proxy_settings() {
-  local httpsProxy="${https_proxy:-${HTTPS_PROXY}}"
-  local httpProxy="${http_proxy:-${HTTP_PROXY}}"
   local settings="$1"
 
-  if [ -n "${httpsProxy}" ] ; then
-    source "$JBOSS_CONTAINER_JAVA_PROXY_MODULE"/parse-proxy-url.sh "${httpsProxy}" https 443
+  if [ -n "${https_proxy}" ] ; then
+    source "$JBOSS_CONTAINER_JAVA_PROXY_MODULE"/parse-proxy-url.sh "${https_proxy}" https 443
   else
-    if [ -n "${httpProxy}" ] ; then
-      source "$JBOSS_CONTAINER_JAVA_PROXY_MODULE"/parse-proxy-url.sh "${httpProxy}" http 80
+    if [ -n "${http_proxy}" ] ; then
+      source "$JBOSS_CONTAINER_JAVA_PROXY_MODULE"/parse-proxy-url.sh "${http_proxy}" http 80
     fi
   fi
   _add_maven_proxy "${settings}"

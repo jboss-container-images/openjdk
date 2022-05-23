@@ -2,7 +2,7 @@
 #
 # Input:
 #   1: Proxy URL.  If unset will search the following environment variables for
-#        a default value: https_proxy, HTTPS_PROXY, http_proxy, HTTP_PROXY
+#        a default value: https_proxy, http_proxy
 #   2: Default scheme.  If a scheme is not specified in the URL, this will be
 #        returned.
 #   3: Default port.  If a port is not specified in the URL, this will be
@@ -28,7 +28,7 @@ local JAVA_PROXY_PASSWORD=
 local JAVA_PROXY_HOST=
 local JAVA_PROXY_PORT=
 
-local url="${1:-${https_proxy:-${HTTPS_PROXY:-${http_proxy:-${HTTP_PROXY}}}}}"
+local url="${1:-${https_proxy:-${http_proxy}}}"
 local default_scheme="$2"
 local default_port="$3"
 

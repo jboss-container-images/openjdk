@@ -17,8 +17,8 @@ function parse_url() {
 # Check for proxy options and echo if enabled.
 function proxy_options() {
   local ret=""
-  ret="$(java_proxy_options "${https_proxy:-${HTTPS_PROXY}}" https)"
-  ret="$ret $(java_proxy_options "${http_proxy:-${HTTP_PROXY}}" http)"
+  ret="$(java_proxy_options "${https_proxy}" https)"
+  ret="$ret $(java_proxy_options "${http_proxy}" http)"
 
   source "$JBOSS_CONTAINER_JAVA_PROXY_MODULE"/translate-no-proxy.sh
   if [ -n "$JAVA_PROXY_NONPROXYHOSTS" ] ; then
