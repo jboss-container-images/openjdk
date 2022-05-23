@@ -1,6 +1,6 @@
 # Overrides basic functionality by using archived repo by default
 function maven_init_var_MAVEN_LOCAL_REPO() {
-  MAVEN_LOCAL_REPO="${MAVEN_LOCAL_REPO:-${MAVEN_REPO_LOCAL:-${_MAVEN_S2I_ARCHIVED_REPO}}}"
+  MAVEN_LOCAL_REPO="${MAVEN_LOCAL_REPO:-${_MAVEN_S2I_ARCHIVED_REPO}}"
 }
 
 # Overrides basic functionality by looking fore settings.xml in <source>/configuration

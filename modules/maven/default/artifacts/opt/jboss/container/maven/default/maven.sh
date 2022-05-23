@@ -17,17 +17,10 @@ function maven_init_vars() {
   maven_init_var_MAVEN_SETTINGS_XML
   maven_init_var_MAVEN_OPTS
   maven_init_var_MAVEN_ARGS
-  
-  maven_init_backward_compatibility
-}
-
-# initialize old variables in case anybody is still using them
-function maven_init_backward_compatibility() {
-  export MAVEN_REPO_LOCAL="$MAVEN_LOCAL_REPO"
 }
 
 function maven_init_var_MAVEN_LOCAL_REPO() {
-  MAVEN_LOCAL_REPO="${MAVEN_LOCAL_REPO:-${MAVEN_REPO_LOCAL:-${HOME}/.m2/repository}}"
+  MAVEN_LOCAL_REPO="${MAVEN_LOCAL_REPO:-${HOME}/.m2/repository}"
 }
 
 function maven_init_var_MAVEN_SETTINGS_XML() {
@@ -396,65 +389,4 @@ function _add_maven_repo_server() {
 # private
 function _generate_random_id() {
   cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1
-}
-
-# The following functions are deprecated and provided solely for backward compatibility
-function configure_proxy() {
-  add_maven_proxy_settings $@
-}
-
-function configure_mirrors() {
-  add_maven_mirrors $@
-}
-
-# copy all artifacts of types, specified as the second up to n-th
-# argument of the routine into the $DEPLOY_DIR directory
-# Requires: source directory expressed in the form of absolute path!
-function copy_artifacts() {
-  local dir=$1
-  local types=
-  shift
-  while [ $# -gt 0 ]; do
-    types="$types;$1"
-    shift
-  done
-  
-  for d in $(echo $dir | tr "," "\n")
-  do
-    shift
-    local regex="^\/"
-    if [[ ! "$d" =~ $regex ]]; then
-      log_error "$FUNCNAME: Absolute path required for source directory \"$d\"!"
-      exit 1
-    fi
-    for t in $(echo $types | tr ";" "\n")
-    do
-      log_info "Copying all $t artifacts from $d directory into $DEPLOY_DIR for later deployment..."
-      cp -rfv $d/*.$t $DEPLOY_DIR 2> /dev/null
-    done
-  done
-}
-
-# handle incremental builds. If we have been passed build artifacts, untar
-# them over the supplied source.
-function manage_incremental_build() {
-    if [ -d /tmp/artifacts ]; then
-        log_info "Expanding artifacts from incremental build..."
-        ( cd /tmp/artifacts && tar cf - . ) | ( cd ${HOME} && tar xvf - )
-        rm -rf /tmp/artifacts
-    fi
-}
-
-# s2i 'save-artifacts' routine
-function s2i_save_build_artifacts() {
-    cd ${HOME}
-    tar cf - .m2
-}
-
-# optionally clear the local maven repository after the build
-function clear_maven_repository() {
-    mcr=$(echo "${MAVEN_CLEAR_REPO}" | tr [:upper:] [:lower:])
-    if [ "${mcr}" = "true" ]; then
-        rm -rf ${HOME}/.m2/repository/*
-    fi
 }
