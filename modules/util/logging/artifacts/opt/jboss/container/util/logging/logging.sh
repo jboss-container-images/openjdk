@@ -23,9 +23,6 @@ function log_info() {
   echo >&2 -e "INFO ${message}"
 }
 
-LOGGING_SCRIPT_DEBUG="${LOGGING_SCRIPT_DEBUG:-${SCRIPT_DEBUG}}"
-export SCRIPT_DEBUG="$LOGGING_SCRIPT_DEBUG"  # setup for backward compatibility
-
 if [ "${LOGGING_SCRIPT_DEBUG}" = "true" ] ; then
     set -x
     log_info "Script debugging is enabled, allowing bash commands and their arguments to be printed as they are executed"

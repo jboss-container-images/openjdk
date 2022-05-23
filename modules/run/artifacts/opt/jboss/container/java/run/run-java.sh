@@ -5,11 +5,6 @@ set -eo pipefail
 
 source "$JBOSS_CONTAINER_UTIL_LOGGING_MODULE/logging.sh"
 
-if [ "${SCRIPT_DEBUG}" = "true" ] ; then
-    set -x
-    log_info "Script debugging is enabled, allowing bash commands and their arguments to be printed as they are executed"
-fi
-
 # ==========================================================
 # Generic run script for running arbitrary Java applications
 #
