@@ -21,10 +21,6 @@ envs:
 - name: JBOSS_CONTAINER_MAVEN_S2I_MODULE
   value: /opt/jboss/container/maven/s2i
 
-# Deprecated environment variables
-- name: ARTIFACT_DIR
-  description: Deprecated by **MAVEN_S2I_ARTIFACT_DIRS**.
-
 execute:
 - script: configure.sh
 
