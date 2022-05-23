@@ -1,21 +1,20 @@
-name: OpenJDK 17 Runtime Image CI
+name: UBI9 OpenJDK 17 S2I Image CI
 on: [push, pull_request]
 env:
   LANG: en_US.UTF-8
-  CEKIT_VERSION: 3.11.0
+  CEKIT_VERSION: 4.1.1
   S2I_URI: https://github.com/openshift/source-to-image/releases/download/v1.3.1/source-to-image-v1.3.1-a5a77147-linux-amd64.tar.gz
+  IMAGE: ubi9-openjdk-17
 jobs:
   openjdkci:
-    name: OpenJDK Runtime Build and Test
+    name: OpenJDK S2I Build and Test
     runs-on: ubuntu-18.04
     strategy:
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - name: Verify latest UBI image is present
-        run: |
-          docker pull registry.access.redhat.com/ubi8/ubi-minimal:latest
-          docker image ls | grep ubi8
+        run:  docker pull registry.access.redhat.com/ubi9/ubi-minimal:latest
       - name: Setup required system packages
         run: |
           sudo apt-get update
@@ -29,11 +28,7 @@ jobs:
       - name: Build
         run: |
           . ~/cekit${{ env.CEKIT_VERSION }}/bin/activate
-          cekit -v --descriptor ubi8-openjdk-17-runtime.yaml build docker
-          docker image ls
-
-# even though we don't run any S2I tests for the runtime images, the test suite
-# will fail to start if the s2i binary is not present.
+          cekit -v --descriptor ${{ env.IMAGE }}.yaml build docker
       - name: install s2i binary
         run: |
           echo ===== Installing s2i from ${{ env.S2I_URL }} =====
@@ -43,8 +38,7 @@ jobs:
           sudo mv s2i /usr/bin
           which s2i
           s2i version
-
       - name: Behave Tests
         run: |
           . ~/cekit${{ env.CEKIT_VERSION }}/bin/activate
-          cekit -v --descriptor ubi8-openjdk-17-runtime.yaml test behave
+          cekit -v --descriptor ${{ env.IMAGE }}.yaml test behave
