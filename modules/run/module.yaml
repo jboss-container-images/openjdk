@@ -53,7 +53,6 @@ envs:
 
 execute:
 - script: configure.sh
-- script: backward_compatibility.sh
 
 modules:
   install:
