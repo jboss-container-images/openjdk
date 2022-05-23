@@ -101,9 +101,3 @@ envs:
 - name: "prefix_MAVEN_REPO_SERVICE"
   example: "buscentr-myapp"
   description: "Maven repository service to lookup if prefix_MAVEN_REPO_URL not specified"
-# deprecated
-- name: MAVEN_REPO_LOCAL
-  description: ^
-    **DEPRECATED, use MAVEN_LOCAL_REPO** Directory to use as the local Maven repository.
-  example: /home/jboss/.m2
-
