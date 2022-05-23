@@ -33,23 +33,12 @@ function s2i_core_env_init() {
   S2I_IMAGE_SOURCE_MOUNTS="${S2I_IMAGE_SOURCE_MOUNTS:-${CUSTOM_INSTALL_DIRECTORIES}}"
   S2I_ENABLE_INCREMENTAL_BUILDS="${S2I_ENABLE_INCREMENTAL_BUILDS:-true}"
   S2I_DELETE_SOURCE="${S2I_DELETE_SOURCE:-true}"
-  
-  s2i_core_env_backward_compatibility
 }
 
 # extensions may override this method to initialize environment variables
 # to suit their own needs.
 function s2i_core_env_init_hook() {
   : 
-}
-
-# make sure any "old" variables are setup appropriately
-function s2i_core_env_backward_compatibility() {
-  export APP_DATADIR="$S2I_SOURCE_DATA_DIR"
-  export DEPLOYMENTS_DIR="$S2I_TARGET_DEPLOYMENTS_DIR"
-  export DATA_DIR="$S2I_TARGET_DATA_DIR"
-  export JAVA_DATA_DIR="$S2I_TARGET_DATA_DIR"
-  export CUSTOM_INSTALL_DIRECTORIES="$S2I_IMAGE_SOURCE_MOUNTS"
 }
 
 # copy configuration files
