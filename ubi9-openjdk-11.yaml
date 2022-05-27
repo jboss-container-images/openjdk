@@ -2,26 +2,30 @@
 
 schema_version: 1
 
-from: "registry.access.redhat.com/ubi8/ubi-minimal"
-name: &name "ubi8/openjdk-11-runtime"
+from: "registry.access.redhat.com/ubi9/ubi-minimal"
+name: &name "ubi9/openjdk-11"
 version: &version "1.13"
-description: "Image for Red Hat OpenShift providing OpenJDK 11 runtime"
+description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 11"
 
 labels:
 - name: "io.k8s.description"
-  value: "Platform for running plain Java applications (fat-jar and flat classpath)"
+  value: "Platform for building and running plain Java applications (fat-jar and flat classpath)"
 - name: "io.k8s.display-name"
   value: "Java Applications"
 - name: "io.openshift.tags"
-  value: "java"
+  value: "builder,java"
 - name: "maintainer"
   value: "Red Hat OpenJDK <openjdk@redhat.com>"
 - name: "com.redhat.component"
-  value: "openjdk-11-runtime-ubi8-container"
+  value: "openjdk-11-ubi9-container"
+- name: "usage"
+  value: "https://access.redhat.com/documentation/en-us/openjdk/11/html/using_openjdk_11_source-to-image_for_openshift/index"
 - name: "com.redhat.license_terms"
   value: "https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
 envs:
+- name: PATH
+  value: $PATH:"/usr/local/s2i"
 - name: "JBOSS_IMAGE_NAME"
   value: *name
 - name: "JBOSS_IMAGE_VERSION"
@@ -38,9 +42,11 @@ modules:
   - path: modules
   install:
   - name: jboss.container.util.pkg-update
-  - name: jboss.container.openjdk.jre
+  - name: jboss.container.openjdk.jdk
     version: "11"
-  - name:  jboss.container.java.jre.run
+  - name: jboss.container.maven
+    version: "8.6.3.6.11"
+  - name: jboss.container.java.s2i.bash
 
 help:
   add: true

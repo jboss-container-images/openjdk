@@ -2,10 +2,10 @@
 
 schema_version: 1
 
-from: "registry.access.redhat.com/ubi8/ubi-minimal"
-name: &name "ubi8/openjdk-11"
+from: "registry.access.redhat.com/ubi9/ubi-minimal"
+name: &name "ubi9/openjdk-17"
 version: &version "1.13"
-description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 11"
+description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 17"
 
 labels:
 - name: "io.k8s.description"
@@ -17,9 +17,9 @@ labels:
 - name: "maintainer"
   value: "Red Hat OpenJDK <openjdk@redhat.com>"
 - name: "com.redhat.component"
-  value: "openjdk-11-ubi8-container"
+  value: "openjdk-17-ubi9-container"
 - name: "usage"
-  value: "https://access.redhat.com/documentation/en-us/openjdk/11/html/using_openjdk_11_source-to-image_for_openshift/index"
+  value: "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/html/red_hat_java_s2i_for_openshift/"
 - name: "com.redhat.license_terms"
   value: "https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 
@@ -43,15 +43,11 @@ modules:
   install:
   - name: jboss.container.util.pkg-update
   - name: jboss.container.openjdk.jdk
-    version: "11"
-  - name: jboss.container.prometheus
-    version: "8.6.11"
-  - name: jboss.container.jolokia
+    version: "17"
   - name: jboss.container.maven
-    version: "8.6.3.6.11"
-  - name: jboss.container.util.nss-wrapper
+    version: "8.6.3.6.17"
   - name: jboss.container.java.s2i.bash
-  # required due to jolokia
+  # https://bugzilla.redhat.com/show_bug.cgi?id=2080229
   - name: jboss.container.java.singleton-jdk
 
 help:
