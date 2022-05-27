@@ -9,7 +9,6 @@ envs:
 
 packages:
   install:
-  - unzip
   - shadow-utils # groupadd
 
 execute:
@@ -18,4 +17,3 @@ execute:
 run:
   user: 185
   workdir: "/home/jboss"
-
