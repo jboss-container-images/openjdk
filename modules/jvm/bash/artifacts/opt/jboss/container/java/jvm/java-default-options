@@ -28,20 +28,6 @@ max_memory() {
   echo "-XX:MaxRAMPercentage=${JAVA_MAX_MEM_RATIO:-80.0}"
 }
 
-# Check for memory options and calculate a sane default if not given
-initial_memory() {
-  # JAVA_MAX_INITIAL_MEM is deprecated and will be removed in a future release
-  if [ -n "$JAVA_MAX_INITIAL_MEM" ]; then
-    echo "-Xms$JAVA_MAX_INITIAL_MEM"
-  else
-    # there's no point setting this if we are passing -Xms, since -Xms
-    # overrides this
-    if [ -n "$JAVA_INITIAL_MEM_RATIO" ]; then
-      echo "-XX:InitialRAMPercentage=${JAVA_INITIAL_MEM_RATIO}"
-    fi
-  fi
-}
-
 # Switch on diagnostics except when switched off
 diagnostics() {
   if [ "x$JAVA_DIAGNOSTICS" != "x" ]; then
@@ -93,4 +79,4 @@ error_handling() {
 }
 
 ## Echo options, trimming trailing and multiple spaces
-echo "$(initial_memory) $(max_memory) $(gc_config) $(diagnostics) $(error_handling)" | awk '$1=$1'
+echo "$(max_memory) $(gc_config) $(diagnostics) $(error_handling)" | awk '$1=$1'
