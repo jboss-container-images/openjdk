@@ -1,6 +1,4 @@
-@openjdk
-@redhat-openjdk-18
-@ubi8
+@ubi9
 Feature: Openshift OpenJDK GC tests
 
   Scenario: Check default GC configuration
@@ -61,4 +59,3 @@ Feature: Openshift OpenJDK GC tests
        | GC_MAX_METASPACE_SIZE    | 90    |
     Then container log should contain -XX:MaxMetaspaceSize=90m
     And  container log should contain -XX:MetaspaceSize=90m
-

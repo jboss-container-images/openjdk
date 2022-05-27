@@ -1,8 +1,5 @@
-@openjdk
-@ubi8/openjdk-8
-@ubi8/openjdk-11
-@ubi8/openjdk-17
-@redhat-openjdk-18
+@ubi9/openjdk-11
+@ubi9/openjdk-17
 Feature: Openshift S2I tests
   # OPENJDK-84 - /tmp/src should not be present after build
   Scenario: run an s2i build and check that /tmp/src has been removed afterwards

@@ -1,6 +1,4 @@
-@openjdk
-@redhat-openjdk-18
-@ubi8
+@ubi9
 Feature: OPENJDK-559 JVM Memory tests
 
   Scenario: Check default JVM max heap configuration
