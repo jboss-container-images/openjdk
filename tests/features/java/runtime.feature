@@ -2,34 +2,12 @@
 @ubi9/openjdk-17
 Feature: Openshift OpenJDK Runtime tests
 
-  @ubi9/openjdk-11
-  @ubi9/openjdk-17
-  Scenario: Ensure JVM_ARGS is no longer present in the run script
+  Scenario: Ensure JAVA_ARGS is passed through, diagnostic options work correctly, JVM_ARGS not present in run script, OPENJDK-474 JAVA_ARGS not repeated
     Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
-    Then file /usr/local/s2i/run should not contain JVM_ARGS
-
-  @ubi9/openjdk-11
-  @ubi9/openjdk-17
-  Scenario: Ensure JAVA_ARGS are passed through to the running java application
-    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
-       | variable    | value               |
-       | JAVA_ARGS   | Hello from CTF test |
-    Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
-
-  @ubi9/openjdk-11
-  @ubi9/openjdk-17
-  Scenario: Ensure diagnostic options work correctly
-    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
-       | variable         | value               |
-       | JAVA_ARGS        | Hello from CTF test |
-       | JAVA_DIAGNOSTICS | true                |
-    Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
-      And container log should contain -XX:NativeMemoryTracking=summary
-
-  @ubi9/openjdk-11
-  @ubi9/openjdk-17
-  Scenario: OPENJDK-474 to ensure JAVA_ARGS is not duplicated in the java command line
-    Given container is started with env
-    | variable  | value  |
-    | JAVA_ARGS | unique |
-  Then container log should not contain unique unique
+       | variable         | value  |
+       | JAVA_ARGS        | unique |
+       | JAVA_DIAGNOSTICS | true   |
+    Then container log should contain /deployments/undertow-servlet.jar unique
+     And container log should contain -XX:NativeMemoryTracking=summary
+     And file /usr/local/s2i/run should not contain JVM_ARGS
+     And container log should not contain unique unique
