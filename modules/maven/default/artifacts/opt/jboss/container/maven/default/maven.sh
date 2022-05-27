@@ -39,7 +39,7 @@ function maven_init_var_MAVEN_OPTS() {
 
 function maven_init_var_MAVEN_ARGS() {
   # Add jkube.skip for apps that are using jkube's openshift-maven-plugin (OPENJDK-242)
-  MAVEN_ARGS=${MAVEN_ARGS:--e -Popenshift -DskipTests -Dcom.redhat.xpaas.repo.redhatga -Dfabric8.skip=true -Djkube.skip=true}
+  MAVEN_ARGS=${MAVEN_ARGS:--e -Popenshift -DskipTests -Dcom.redhat.xpaas.repo.redhatga -Djkube.skip=true}
   # Use maven batch mode (CLOUD-579)
   # Always force IPv4 (CLOUD-188)
   MAVEN_ARGS="$MAVEN_ARGS --batch-mode -Djava.net.preferIPv4Stack=true"

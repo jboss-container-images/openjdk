@@ -7,6 +7,7 @@ function maven_s2i_source_maven_overrides() {
 }
 
 # Accommodate fabric8
+# TODO: is this needed for JKube?
 function maven_s2i_custom_binary_build() {
   if [ -f "${S2I_SOURCE_DIR}/Dockerfile" ]; then
     # This is a S2I binary build coming from fabric8-maven-plugin

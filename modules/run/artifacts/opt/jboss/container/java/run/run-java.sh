@@ -13,7 +13,7 @@ fi
 # ==========================================================
 # Generic run script for running arbitrary Java applications
 #
-# Source and Documentation can be found
+# This has forked (and diverged) from:
 # at https://github.com/fabric8io/run-java-sh
 #
 # ==========================================================
