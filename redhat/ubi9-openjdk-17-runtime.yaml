@@ -3,8 +3,6 @@ osbs:
     container:
       compose:
         pulp_repos: true
-        packages:
-        - java-17-openjdk-headless
         signing_intent: release
   repository:
     name: containers/openjdk
