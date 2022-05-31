@@ -1,8 +1,5 @@
-@openjdk
-@ubi8/openjdk-8
-@ubi8/openjdk-11
-@ubi8/openjdk-17
-@redhat-openjdk-18
+@ubi9/openjdk-11
+@ubi9/openjdk-17
 Feature: Openshift OpenJDK S2I tests
 # NOTE: these tests should be usable with the other images once we have refactored the JDK scripts.
 # These builds do not actually run maven. This is important, because the proxy
@@ -45,81 +42,32 @@ Feature: Openshift OpenJDK S2I tests
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.1'][ns:port='8080']
 
   # handles mirror/repository configuration; proxy configuration
-  Scenario: run the s2i and check the maven mirror and proxy have been initialised in the default settings.xml, uses HTTP_PROXY
+  Scenario: run the s2i and check the maven mirror and proxy have been initialised in the default settings.xml, uses http_proxy
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
        | variable           | value                                            |
        | MAVEN_ARGS         | -v                                               |
        | MAVEN_MIRROR_URL   | http://127.0.0.1:8080/repository/internal/       |
-       | HTTP_PROXY         | 127.0.0.1:8080                                   |
+       | http_proxy         | 127.0.0.1:8080                                   |
     And XML namespaces
        | prefix | url                                    |
        | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.1'][ns:port='8080']
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:mirror[ns:id='mirror.default'][ns:url='http://127.0.0.1:8080/repository/internal/'][ns:mirrorOf='external:*']
 
-  # proxy auth configuration (success case) + nonProxyHosts
-  Scenario: run the s2i and check the maven mirror, proxy (including username and password) and non proxy have been initialised in the default settings.xml, uses HTTP_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | HTTP_PROXY         | myuser:mypass@127.0.0.1:8080                     |
-       | no_proxy           | *.example.com                                    |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.1'][ns:port='8080'][ns:username='myuser'][ns:password='mypass'][ns:nonProxyHosts='*.example.com']
-
-  # proxy auth configuration (fail case: no password supplied)
-  Scenario: run the s2i and check the maven mirror, proxy (including username) and non proxy have been initialised in the default settings.xml, uses HTTP_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | HTTP_PROXY         | myuser@127.0.0.1:8080                            |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.1'][ns:port='8080']
-
-  # handles mirror/repository configuration; proxy configuration
+  # HTTP_PROXY (all caps) ignored
   Scenario: run the s2i and check the maven mirror and proxy have been initialised in the default settings.xml, uses http_proxy and HTTP_PROXY
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
        | variable           | value                                            |
        | MAVEN_ARGS         | -v                                               |
-       | MAVEN_MIRROR_URL   | http://127.0.0.1:8080/repository/internal/       |
        | http_proxy         | 127.0.0.2:9090                                   |
        | HTTP_PROXY         | 127.0.0.1:8080                                   |
     And XML namespaces
        | prefix | url                                    |
        | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.2'][ns:port='9090']
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:mirror[ns:id='mirror.default'][ns:url='http://127.0.0.1:8080/repository/internal/'][ns:mirrorOf='external:*']
+    Then XML file /tmp/artifacts/configuration/settings.xml should have 0 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.1'][ns:port='8080']
 
-  # proxy auth configuration (success case) + nonProxyHosts
-  Scenario: run the s2i and check the maven mirror, proxy (including username and password) and non proxy have been initialised in the default settings.xml, uses http_proxy and HTTP_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | http_proxy         | user2:pass2@127.0.0.2:9090                       |
-       | HTTP_PROXY         | myuser:mypass@127.0.0.1:8080                     |
-       | no_proxy           | *.example.com                                    |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.2'][ns:port='9090'][ns:username='user2'][ns:password='pass2'][ns:nonProxyHosts='*.example.com']
-
-  # proxy auth configuration (fail case: no password supplied)
-  Scenario: run the s2i and check the maven mirror, proxy (including username) and non proxy have been initialised in the default settings.xml, uses http_proxy and HTTP_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | http_proxy         | user2@127.0.0.2:9090                             |
-       | HTTP_PROXY         | myuser@127.0.0.1:8080                            |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.2'][ns:port='9090']
-
-  # handles mirror/repository configuration; proxy configuration
+  # handles mirror/repository configuration; https proxy configuration
   Scenario: run the s2i and check the maven mirror and proxy have been initialised in the default settings.xml, uses https_proxy
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
        | variable           | value                                            |
@@ -132,7 +80,7 @@ Feature: Openshift OpenJDK S2I tests
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='https'][ns:host='127.0.0.1'][ns:port='8080']
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:mirror[ns:id='mirror.default'][ns:url='http://127.0.0.1:8080/repository/internal/'][ns:mirrorOf='external:*']
 
-  # proxy auth configuration (success case) + nonProxyHosts
+  # https proxy auth configuration (success case) + nonProxyHosts
   Scenario: run the s2i and check the maven mirror, proxy (including username and password) and non proxy have been initialised in the default settings.xml, uses https_proxy
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
        | variable           | value                                            |
@@ -144,7 +92,7 @@ Feature: Openshift OpenJDK S2I tests
        | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='https'][ns:host='127.0.0.1'][ns:port='8080'][ns:username='myuser'][ns:password='mypass'][ns:nonProxyHosts='*.example.com']
 
-  # proxy auth configuration (fail case: no password supplied)
+  # https proxy auth configuration (fail case: no password supplied)
   Scenario: run the s2i and check the maven mirror, proxy (including username) and non proxy have been initialised in the default settings.xml, uses https_proxy
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
        | variable           | value                                            |
@@ -155,108 +103,7 @@ Feature: Openshift OpenJDK S2I tests
        | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='https'][ns:host='127.0.0.1'][ns:port='8080']
 
-  # handles mirror/repository configuration; proxy configuration
-  Scenario: run the s2i and check the maven mirror and proxy have been initialised in the default settings.xml, uses HTTPS_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | MAVEN_MIRROR_URL   | http://127.0.0.1:8080/repository/internal/       |
-       | HTTPS_PROXY        | 127.0.0.1:8080                                   |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='https'][ns:host='127.0.0.1'][ns:port='8080']
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:mirror[ns:id='mirror.default'][ns:url='http://127.0.0.1:8080/repository/internal/'][ns:mirrorOf='external:*']
-
-  # proxy auth configuration (success case) + nonProxyHosts
-  Scenario: run the s2i and check the maven mirror, proxy (including username and password) and non proxy have been initialised in the default settings.xml, uses HTTPS_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | HTTPS_PROXY        | myuser:mypass@127.0.0.1:8080                     |
-       | no_proxy           | *.example.com                                    |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='https'][ns:host='127.0.0.1'][ns:port='8080'][ns:username='myuser'][ns:password='mypass'][ns:nonProxyHosts='*.example.com']
-
-  # proxy auth configuration (fail case: no password supplied)
-  Scenario: run the s2i and check the maven mirror, proxy (including username) and non proxy have been initialised in the default settings.xml, uses HTTPS_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | HTTPS_PROXY        | myuser@127.0.0.1:8080                            |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='https'][ns:host='127.0.0.1'][ns:port='8080']
-
-  # handles mirror/repository configuration; proxy configuration
-  Scenario: run the s2i and check the maven mirror and proxy have been initialised in the default settings.xml, uses https_proxy and HTTPS_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | MAVEN_MIRROR_URL   | http://127.0.0.1:8080/repository/internal/       |
-       | https_proxy        | 127.0.0.2:9090                                   |
-       | HTTPS_PROXY        | 127.0.0.1:8080                                   |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='https'][ns:host='127.0.0.2'][ns:port='9090']
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:mirror[ns:id='mirror.default'][ns:url='http://127.0.0.1:8080/repository/internal/'][ns:mirrorOf='external:*']
-
-  # proxy auth configuration (success case) + nonProxyHosts
-  Scenario: run the s2i and check the maven mirror, proxy (including username and password) and non proxy have been initialised in the default settings.xml, uses https_proxy and HTTPS_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | https_proxy        | user2:pass2@127.0.0.2:9090                       |
-       | HTTPS_PROXY        | myuser:mypass@127.0.0.1:8080                     |
-       | no_proxy           | *.example.com                                    |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='https'][ns:host='127.0.0.2'][ns:port='9090'][ns:username='user2'][ns:password='pass2'][ns:nonProxyHosts='*.example.com']
-
-  # proxy auth configuration (fail case: no password supplied)
-  Scenario: run the s2i and check the maven mirror, proxy (including username) and non proxy have been initialised in the default settings.xml, uses https_proxy and HTTPS_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | https_proxy        | user2@127.0.0.2:9090                             |
-       | HTTPS_PROXY        | myuser@127.0.0.1:8080                            |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='https'][ns:host='127.0.0.2'][ns:port='9090']
-
-  # proxy auth configuration (success case) + nonProxyHosts
-  Scenario: run the s2i and check the maven mirror, proxy (including username and password) and non proxy have been initialised in the default settings.xml, uses https_proxy and HTTPS_PROXY
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | https_proxy        | user3:pass3@127.0.0.3:7070                       |
-       | http_proxy         | user2:pass2@127.0.0.2:9090                       |
-       | HTTPS_PROXY        | myuser:mypass@127.0.0.1:8080                     |
-       | no_proxy           | *.example.com                                    |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='https'][ns:host='127.0.0.3'][ns:port='7070'][ns:username='user3'][ns:password='pass3'][ns:nonProxyHosts='*.example.com']
-
-  Scenario: run s2i assemble and check HTTP_PROXY_NONPROXYHOSTS is honoured
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
-       | variable           | value                                            |
-       | MAVEN_ARGS         | -v                                               |
-       | MAVEN_MIRROR_URL   | http://127.0.0.1:8080/repository/internal/       |
-       | http_proxy         | http://127.0.0.1:8080                            |
-       | no_proxy           | *.example.com                                    |
-    And XML namespaces
-       | prefix | url                                    |
-       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
-    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.1'][ns:port='8080'][ns:nonProxyHosts='*.example.com']
-
-  Scenario: run s2i assemble and check HTTP_PROXY_NONPROXYHOSTS is honoured with multiple entries
+  Scenario: run s2i assemble and check no_proxy is honoured with multiple entries
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
        | variable           | value                                            |
        | MAVEN_ARGS         | -v                                               |
@@ -268,20 +115,15 @@ Feature: Openshift OpenJDK S2I tests
        | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:proxy[ns:id='genproxy'][ns:active='true'][ns:protocol='http'][ns:host='127.0.0.1'][ns:port='8080'][ns:nonProxyHosts='foo.example.com|bar.example.com']
 
+  # deprecated?
   Scenario: run an S2I build that depends on com.redhat.xpaas.repo.redhatga being defined
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
 
+  # deprecated?
   Scenario: run an S2I that should fail as MAVEN_ARGS does not define com.redhat.xpaas.repo.redhatga
     Given failing s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple using openjdk-enforce-profile
        | variable           | value                                            |
        | MAVEN_ARGS         | -e package                                       |
-
-  Scenario: Ensure legacy ARTIFACT_COPY_ARGS works as it used to
-    Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
-       | variable             | value                |
-       | ARTIFACT_COPY_ARGS   | undertow-servlet.jar |
-       | JAVA_ARGS            | Hello from CTF test  |
-    Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
 
   # CLOUD-579
   Scenario: Test that maven is executed in batch mode

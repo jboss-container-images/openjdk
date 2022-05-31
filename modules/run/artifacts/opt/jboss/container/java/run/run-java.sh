@@ -5,15 +5,10 @@ set -eo pipefail
 
 source "$JBOSS_CONTAINER_UTIL_LOGGING_MODULE/logging.sh"
 
-if [ "${SCRIPT_DEBUG}" = "true" ] ; then
-    set -x
-    log_info "Script debugging is enabled, allowing bash commands and their arguments to be printed as they are executed"
-fi
-
 # ==========================================================
 # Generic run script for running arbitrary Java applications
 #
-# Source and Documentation can be found
+# This has forked (and diverged) from:
 # at https://github.com/fabric8io/run-java-sh
 #
 # ==========================================================
@@ -91,11 +86,6 @@ load_env() {
     fi
   fi
   export JAVA_APP_DIR
-
-  # Read in container limits and export the as environment variables
-  if [ -f "${JBOSS_CONTAINER_JAVA_JVM_MODULE}/container-limits" ]; then
-    source "${JBOSS_CONTAINER_JAVA_JVM_MODULE}/container-limits"
-  fi
 
   # JAVA_LIB_DIR defaults to JAVA_APP_DIR
   export JAVA_LIB_DIR="${JAVA_LIB_DIR:-${JAVA_APP_DIR}}"

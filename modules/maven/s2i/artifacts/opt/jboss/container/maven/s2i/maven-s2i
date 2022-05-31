@@ -18,7 +18,7 @@ function maven_s2i_init() {
 
   # initialize maven s2i environment variables
   # use - instead of :- to allow empty artifact dir setting for access to maven_s2i_custom_binary_build
-  MAVEN_S2I_ARTIFACT_DIRS="${MAVEN_S2I_ARTIFACT_DIRS-${ARTIFACT_DIR-target}}"
+  MAVEN_S2I_ARTIFACT_DIRS="${MAVEN_S2I_ARTIFACT_DIRS-target}"
   MAVEN_S2I_GOALS="${MAVEN_S2I_GOALS:-package}"
 
   # make sure MAVEN_CLEAR_REPO and S2I_ENABLE_INCREMENTAL_BUILDS are in sync
@@ -45,19 +45,11 @@ function maven_s2i_init() {
   # Overrides for use with maven s2i
   source "${JBOSS_CONTAINER_MAVEN_S2I_MODULE}"/maven-overrides
 
-  # initialize old variables
-  maven_s2i_backward_compatibility
-
   # let users override anything if they need to
   maven_s2i_source_maven_overrides
 
   # initialize the maven environment
   maven_init
-}
-
-# setup old variables in case anybody is still using them
-function maven_s2i_backward_compatibility() {
-  export ARTIFACT_DIR="$MAVEN_S2I_ARTIFACT_DIRS"
 }
 
 function maven_s2i_source_maven_overrides() {

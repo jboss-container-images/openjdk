@@ -53,9 +53,8 @@ envs:
 
 execute:
 - script: configure.sh
-- script: backward_compatibility.sh
 
 modules:
   install:
-  - name: jboss.container.java.jvm.bash
-  - name: jboss.container.util.logging.bash
+  - name: jboss.container.java.jvm
+  - name: jboss.container.util.logging

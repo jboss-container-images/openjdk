@@ -5,11 +5,11 @@ load $CCT_MODULE_DIR/tests/bats/common/xml_utils.bash
 export JBOSS_HOME=$BATS_TMPDIR/jboss_home
 mkdir -p $JBOSS_HOME/bin/launch
 cp $CCT_MODULE_DIR/os-eap7-launch/added/launch/launch-common.sh $JBOSS_HOME/bin/launch
-cp $CCT_MODULE_DIR/jboss/container/util/logging/bash/artifacts/opt/jboss/container/util/logging/logging.sh $JBOSS_HOME/bin/launch
+cp $CCT_MODULE_DIR/jboss/container/util/logging/artifacts/opt/jboss/container/util/logging/logging.sh $JBOSS_HOME/bin/launch
 
 export HOME=$BATS_TMPDIR/home
 export SETTINGS=$HOME/.m2/settings.xml
-export JBOSS_CONTAINER_UTIL_LOGGING_MODULE=$CCT_MODULE_DIR/jboss/container/util/logging/bash/artifacts/opt/jboss/container/util/logging
+export JBOSS_CONTAINER_UTIL_LOGGING_MODULE=$CCT_MODULE_DIR/jboss/container/util/logging/artifacts/opt/jboss/container/util/logging
 
 mkdir -p $HOME/.m2
 

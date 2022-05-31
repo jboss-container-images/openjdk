@@ -6,55 +6,44 @@ These are the OpenJDK Source to Image (S2I) images for Red Hat OpenShift.
 
 ### From https://access.redhat.com/containers/[Red Hat Container Catalog]
 
-The UBI8-based OpenJDK images are available under the terms of the
-link:https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI[UBI EULA]:
+The UBI9-based OpenJDK images are available under the terms of the
+link:https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI[UBI EULA].
 
- * link:https://catalog.redhat.com/software/containers/ubi8/openjdk-8/5dd6a48dbed8bd164a09589a[ubi8/openjdk-8]
- * link:https://catalog.redhat.com/software/containers/ubi8/openjdk-11/5dd6a4b45a13461646f677f4[ubi8/openjdk-11]
+ * (GA catalog URIs go here)
 
-The RHEL7-based OpenJDK images require a Red Hat subscription:
-
- * link:https://catalog.redhat.com/software/containers/redhat-openjdk-18/openjdk18-openshift/58ada5701fbe981673cd6b10[redhat-openjdk-18/openjdk18-openshift]
-  * link:https://catalog.redhat.com/software/containers/openjdk/openjdk-11-rhel7/5bf57185dd19c775cddc4ce5[openjdk/openjdk-11-rhel7]
+Older RHEL8 and RHEL7-based image sources are in the `develop` branch.
 
 ## How to build the images
 
 You need to https://cekit.readthedocs.io/en/develop/installation.html[install Cekit] to build these images.
 
-These sources are prepared and tested for Cekit 3.6.0.
+These sources are prepared and tested for Cekit 4.1.1.
 
-For building within Red Hat, the instructions vary slightly, see link:redhat/README.adoc[].
+## Red Hat Universal Base Image 9 versions
 
-## Red Hat Universal Base Image 8 versions
+### Red Hat Universal Base Image 9 with OpenJDK 11
 
-### Red Hat Universal Base Image 8 with OpenJDK 8
+    cekit --descriptor ubi9-openjdk-11.yaml build podman
 
-    cekit --descriptor ubi8-openjdk-8.yaml build podman
+This will produce an image named `ubi9/openjdk-11`.
 
-This will produce an image named `ubi8/openjdk-8`.
+### Red Hat Universal Base Image 9 with OpenJDK 17
 
-### Red Hat Universal Base Image 8 with OpenJDK 11
+    cekit --descriptor ubi9-openjdk-17.yaml build podman
 
-    cekit --descriptor ubi8-openjdk-11.yaml build podman
+This will produce an image named `ubi9/openjdk-17`.
 
-This will produce an image named `ubi8/openjdk-11`.
+### Red Hat Universal Base Image 9 with OpenJDK 11 - Runtime
 
-## Red Hat Enterprise Linux 7 Image versions
+    cekit --descriptor ubi9-openjdk-11-runtime.yaml build podman
 
-You will need an active Red Hat subscription on the host you use to
-build these images.
+This will produce an image named `ubi9/openjdk-11-runtime`.
 
-### RHEL 7 OpenJDK 8
+### Red Hat Universal Base Image 9 with OpenJDK 17 - Runtime
 
-    cekit --descriptor openjdk18-openshift.yaml build podman
+    cekit --descriptor ubi9-openjdk-17-runtime.yaml build podman
 
-This will produce an image named `redhat-openjdk-8/openjdk18-openshift`.
-
-### RHEL 7 OpenJDK 11
-
-    cekit --descriptor openjdk-11-rhel7.yaml build podman
-
-This will produce an image named `openjdk/openjdk-11-rhel7`.
+This will produce an image named `ubi9/openjdk-17-runtime`.
 
 ## Contributing
 
@@ -63,5 +52,5 @@ Origin (DCO) is required.  See link:CONTRIBUTING.md[].
 
 ## License
 
-© 2020 Red Hat, Inc. Distributed under the terms of the Apache License,
+© 2022 Red Hat, Inc. Distributed under the terms of the Apache License,
 Version 2.0. See link:LICENSE[LICENSE] file.

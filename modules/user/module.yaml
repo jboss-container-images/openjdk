@@ -9,9 +9,6 @@ envs:
 
 packages:
   install:
-  - unzip
-  - tar
-  - rsync
   - shadow-utils # groupadd
 
 execute:
@@ -20,4 +17,3 @@ execute:
 run:
   user: 185
   workdir: "/home/jboss"
-
