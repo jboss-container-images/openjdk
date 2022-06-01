@@ -197,22 +197,10 @@ get_exec_args() {
   fi
 }
 
-# Ensure that the running UID has the "jboss" passwd metadata
-# XXX: Maybe we should make this an entrypoint for the image?
-function configure_passwd() {
-  # OPENJDK-533: this file is only writeable if the image uses the
-  # nss_wrapper module. ubi8/openjdk-17 does not.
-  if [ -w "$HOME/passwd" ]; then
-    sed "/^jboss/s/[^:]*/$(id -u)/3" /etc/passwd > "$HOME/passwd"
-  fi
-}
-
 # Start JVM
 startup() {
   # Initialize environment
   load_env
-
-  configure_passwd
 
   local args
   cd ${JAVA_APP_DIR}
