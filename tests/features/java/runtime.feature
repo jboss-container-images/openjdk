@@ -25,3 +25,13 @@ Feature: Openshift OpenJDK Runtime tests
     | variable  | value          |
     | JAVA_OPTS |                |
     Then container log should not contain -XX:MaxRAMPercentage
+
+  @ubi9
+  Scenario: Check JAVA_OPTS overrides JAVA_OPTS_APPEND
+    piv
+    Given container is started with env
+    | variable         | value          |
+    | JAVA_OPTS        | -verbose:gc    |
+    | JAVA_OPTS_APPEND | -Xint          |
+    Then container log should contain -verbose:gc
+     And container log should not contain -Xint
