@@ -103,18 +103,6 @@ load_env() {
   fi
 }
 
-# Check for standard /opt/run-java-options first, fallback to run-java-options in the path if not existing
-run_java_options() {
-  if [ -f "/opt/run-java-options" ]; then
-    echo `sh /opt/run-java-options`
-  else
-    type -p run-java-options >/dev/null 2>&1
-    if [ $? = 0 ]; then
-      echo `run-java-options`
-    fi
-  fi
-}
-
 # Combine all java options
 get_java_options() {
   local java_opts
@@ -130,7 +118,7 @@ get_java_options() {
     proxy_opts="$(proxy_options)"
   fi
   # Normalize spaces with awk (i.e. trim and elimate double spaces)
-  echo "${JAVA_OPTS} $(run_java_options) ${debug_opts} ${proxy_opts} ${java_opts} ${JAVA_OPTS_APPEND}" | awk '$1=$1'
+  echo "${JAVA_OPTS} ${debug_opts} ${proxy_opts} ${java_opts} ${JAVA_OPTS_APPEND}" | awk '$1=$1'
 }
 
 # Read in a classpath either from a file with a single line, colon separated
