@@ -11,3 +11,17 @@ Feature: Openshift OpenJDK Runtime tests
      And container log should contain -XX:NativeMemoryTracking=summary
      And file /usr/local/s2i/run should not contain JVM_ARGS
      And container log should not contain unique unique
+
+  @ubi9
+  Scenario: Check JAVA_OPTS overrides defaults
+    Given container is started with env
+    | variable  | value          |
+    | JAVA_OPTS | --show-version |
+    Then container log should not contain -XX:MaxRAMPercentage
+
+  @ubi9
+  Scenario: Check empty JAVA_OPTS overrides defaults
+    Given container is started with env
+    | variable  | value          |
+    | JAVA_OPTS |                |
+    Then container log should not contain -XX:MaxRAMPercentage
