@@ -16,10 +16,13 @@ envs:
 - name:         JBOSS_CONTAINER_JAVA_JVM_MODULE
   value:        /opt/jboss/container/java/jvm
 - name:         JAVA_OPTS
-  description:  JVM options passed to the `java` command.
+  description:  If set, this prevents all default and generated options (such
+    as JVM and GC tuning, proxy settings, etc.) from being applied. Instead the
+    user should specify exactly the `java` options they want in this variable.
   example:      "-verbose:class"
 - name:         JAVA_OPTS_APPEND
-  description:  User specified Java options to be appended to generated options in JAVA_OPTS.
+  description:  User specified Java options to be appended to the generated options.
+    This variable has no effect if `JAVA_OPTS` has been defined.
   example:      "-Dsome.property=foo"
 - name: JAVA_MAX_MEM_RATIO
   description:  Specify the maximum heap memory. Corresponds to the JVM argument `-XX:MaxRAMPercentage`. The default is `80.0` which means 80% of the available memory. You can disable this mechanism by setting the value to `0`.
