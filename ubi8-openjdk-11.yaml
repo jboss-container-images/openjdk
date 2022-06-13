@@ -49,7 +49,6 @@ modules:
   - name: jboss.container.jolokia
   - name: jboss.container.maven
     version: "8.6.3.6.11"
-  - name: jboss.container.util.nss-wrapper
   - name: jboss.container.java.s2i.bash
   # required due to jolokia
   - name: jboss.container.java.singleton-jdk
