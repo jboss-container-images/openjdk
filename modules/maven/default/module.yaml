@@ -46,10 +46,10 @@ envs:
   example: "http://10.0.0.1:8080/repository/internal"
 - name: MAVEN_SETTINGS_XML
   description: Location of custom Maven settings.xml file to use.
-  example: /home/jboss/.m2/settings.xml
+  example: /home/default/.m2/settings.xml
 - name: MAVEN_LOCAL_REPO
   description: Directory to use as the local Maven repository.
-  example: /home/jboss/.m2/repository
+  example: /home/default/.m2/repository
 - name: "MAVEN_REPOS"
   example: "dev-one,qe-two"
   description: "If set, multi-repo support is enabled, and other MAVEN_REPO_* variables will be prefixed. For example: DEV_ONE_MAVEN_REPO_URL and QE_TWO_MAVEN_REPO_URL"

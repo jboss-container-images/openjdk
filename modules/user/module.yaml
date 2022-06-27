@@ -1,11 +1,11 @@
 schema_version: 1
 name: jboss.container.user
-version: '1.0'
-description: "Configures the jboss user and permissions.  This module should be included by all images."
+version: '2.0'
+description: "Configures the default user and permissions.  This module should be included by all images."
 
 envs:
 - name: "HOME"
-  value: "/home/jboss"
+  value: "/home/default"
 
 packages:
   install:
@@ -16,4 +16,4 @@ execute:
 
 run:
   user: 185
-  workdir: "/home/jboss"
+  workdir: "/home/default"
