@@ -5,7 +5,7 @@ set -e
 SCRIPT_DIR=$(dirname $0)
 ARTIFACTS_DIR=${SCRIPT_DIR}/artifacts
 
-chown -R jboss:root $SCRIPT_DIR
+chown -R default:root $SCRIPT_DIR
 chmod -R ug+rwX $SCRIPT_DIR
 chmod ug+x ${ARTIFACTS_DIR}/opt/jboss/container/java/run/*
 
@@ -15,7 +15,7 @@ popd
 
 mkdir -p /deployments/data \
  && chmod -R "ug+rwX" /deployments/data \
- && chown -R jboss:root /deployments/data
+ && chown -R default:root /deployments/data
 
 # OPENJDK-100: turn off negative DNS caching
 if [ -w ${JAVA_HOME}/jre/lib/security/java.security ]; then
