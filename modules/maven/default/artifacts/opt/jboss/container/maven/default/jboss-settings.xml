@@ -49,16 +49,6 @@
             <enabled>false</enabled>
           </snapshots>
         </repository>
-        <repository>
-          <id>jboss-eap-repository</id>
-          <url>https://maven.repository.redhat.com/techpreview/all</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </repository>
       </repositories>
       <pluginRepositories>
         <pluginRepository>
@@ -74,16 +64,6 @@
         <pluginRepository>
           <id>redhat-ea-plugin-repository</id>
           <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-          <id>jboss-eap-plugin-repository</id>
-          <url>https://maven.repository.redhat.com/techpreview/all</url>
           <releases>
             <enabled>true</enabled>
           </releases>
@@ -118,16 +98,6 @@
             <enabled>false</enabled>
           </snapshots>
         </repository>
-        <repository>
-          <id>jboss-eap-repository</id>
-          <url>http://maven.repository.redhat.com/techpreview/all</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </repository>
       </repositories>
       <pluginRepositories>
         <pluginRepository>
@@ -143,16 +113,6 @@
         <pluginRepository>
           <id>redhat-ea-plugin-repository</id>
           <url>http://maven.repository.redhat.com/earlyaccess/all/</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-          <id>jboss-eap-plugin-repository</id>
-          <url>http://maven.repository.redhat.com/techpreview/all</url>
           <releases>
             <enabled>true</enabled>
           </releases>
