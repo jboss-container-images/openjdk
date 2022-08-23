@@ -2,8 +2,6 @@
 # is released, etc.
 Feature: Miscellaneous OpenJDK-related unit tests
 
-  @redhat-openjdk-18/openjdk18-openshift
-  @openjdk/openjdk-1.8-ubi8
   @ubi8/openjdk-8
   @ubi8/openjdk-8-runtime
   Scenario: Check that only OpenJDK 8 is installed
@@ -13,8 +11,6 @@ Feature: Miscellaneous OpenJDK-related unit tests
     Then available container log should not contain java-11
     Then available container log should not contain java-17
 
-  @openjdk/openjdk-11-rhel7
-  @openjdk/openjdk-11-ubi8
   @ubi8/openjdk-11
   @ubi8/openjdk-11-runtime
   Scenario: Check that only OpenJDK 11 is installed
@@ -33,7 +29,6 @@ Feature: Miscellaneous OpenJDK-related unit tests
     Then available container log should not contain java-11
 
   @ubi8
-  @openjdk
   Scenario: Ensure JAVA_HOME is defined and contains Java
     When container is started with args
     | arg     | value                                  |
