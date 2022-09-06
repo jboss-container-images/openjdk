@@ -5,10 +5,8 @@ Feature: Openshift OpenJDK Jolokia tests
     Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
     Then run sh -c 'unzip -q -p /usr/share/java/jolokia-jvm-agent/jolokia-jvm.jar META-INF/maven/org.jolokia/jolokia-jvm/pom.properties | grep -F ${JOLOKIA_VERSION}' in container and check its output for version=
 
-  @openjdk
   @ubi8/openjdk-8
   @ubi8/openjdk-11
-  @redhat-openjdk-18
   Scenario: Check jolokia port is available
     Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
     Then check that port 8778 is open
@@ -16,10 +14,8 @@ Feature: Openshift OpenJDK Jolokia tests
        | path                    | value       |
        | /Config/ExposedPorts    | 8778/tcp    |
 
-  @openjdk
   @ubi8/openjdk-8
   @ubi8/openjdk-11
-  @redhat-openjdk-18
   Scenario: Ensure Jolokia diagnostic options work correctly
     Given s2i build https://github.com/jboss-openshift/openshift-quickstarts from undertow-servlet
        | variable         | value               |
