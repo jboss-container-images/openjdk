@@ -3,7 +3,7 @@
 For building the images internal to Red Hat, we vary the instructions
 slightly.
 
-## Image versions
+## Builder images
 
 ### UBI 8 JDK 8
 
@@ -17,16 +17,29 @@ This will produce an image named `ubi8/openjdk-8`.
 
 This will produce an image named `ubi8/openjdk-11`.
 
-### RHEL 7 OpenJDK 8
+### UBI 8 OpenJDK 17
 
-    cekit --redhat --descriptor openjdk18-openshift.yaml --overrides-file redhat/openjdk18-openshift.yaml build podman
+    cekit --redhat --descriptor ubi8-openjdk-17.yaml build --overrides-file redhat/ubi8-openjdk-17.yaml podman
 
-This will produce an image named `redhat-openjdk-8/openjdk18-openshift`
+This will produce an image named `ubi8/openjdk-17`.
 
-### RHEL 7 OpenJDK 11
+## Runtime images
 
-    cekit --redhat --descriptor openjdk-11-rhel7.yaml build --overrides-file redhat/openjdk-11-rhel7.yaml build podman
+### UBI 8 JDK 8 runtime
 
-This will produce an image named `openjdk/openjdk-11-rhel7`
+    cekit --redhat --descriptor ubi8-openjdk-8-runtime.yaml build --overrides-file redhat/ubi8-openjdk-8-runtime.yaml podman
 
+This will produce an image named `ubi8/openjdk-8-runtime`.
+
+### UBI 8 OpenJDK 11 runtime
+
+    cekit --redhat --descriptor ubi8-openjdk-11-runtime.yaml build --overrides-file redhat/ubi8-openjdk-11-runtime.yaml podman
+
+This will produce an image named `ubi8/openjdk-11-runtime`.
+
+### UBI 8 OpenJDK 17 runtime
+
+    cekit --redhat --descriptor ubi8-openjdk-17-runtime.yaml build --overrides-file redhat/ubi8-openjdk-17-runtime.yaml podman
+
+This will produce an image named `ubi8/openjdk-17-runtime`.
 

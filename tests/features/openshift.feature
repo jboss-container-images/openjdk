@@ -1,8 +1,6 @@
-@openjdk
 @ubi8/openjdk-8
 @ubi8/openjdk-11
 @ubi8/openjdk-17
-@redhat-openjdk-18
 Feature: Tests for all openshift images
 
   @ubi8

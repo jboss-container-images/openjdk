@@ -1,5 +1,3 @@
-@openjdk
-@redhat/openjdk-8-rhel7
 @ubi8/openjdk-8
 @ubi8/openjdk-11
 @ubi8/openjdk-17
