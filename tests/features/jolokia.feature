@@ -28,3 +28,11 @@ Feature: Openshift OpenJDK Jolokia tests
        | JAVA_DIAGNOSTICS | true                |
     Then container log should contain /deployments/undertow-servlet.jar Hello from CTF test
       And container log should contain Jolokia: Agent started
+
+  @redhat-openjdk-18
+  @openjdk
+  Scenario: Ensure the Jolokia Agent JAR has the expected checksum
+    When container is started with args
+    | arg     | value                                                        |
+    | command | bash -c "md5sum $JBOSS_CONTAINER_JOLOKIA_MODULE/jolokia.jar" |
+    Then available container log should contain 760f2fbaf6b142192f3cee2c99bfcbf8

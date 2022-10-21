@@ -62,5 +62,6 @@ execute:
 
 artifacts:
 - name: jolokia-jvm
+  pnc_build_id: '24549'
+  pnc_artifact_id: '1684766'
   target: jolokia-jvm-1.6.2.redhat-00002-agent.jar
-  md5: 760f2fbaf6b142192f3cee2c99bfcbf8
