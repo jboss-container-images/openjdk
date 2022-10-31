@@ -56,32 +56,6 @@ This will produce an image named `redhat-openjdk-8/openjdk18-openshift`.
 
 This will produce an image named `openjdk/openjdk-11-rhel7`.
 
-## OpenJ9 Image Versions
-
-### RHEL 7 OpenJ9 8
-
-    cekit --redhat --descriptor openj9-8-rhel7.yaml build podman
-
-This will produce an image named `openj9/openj9-8-rhel7`.
-
-### RHEL 7 OpenJ9 11
-
-    cekit --redhat --descriptor openj9-11-rhel7.yaml build podman
-
-This will produce an image named `openj9/openj9-11-rhel7`.
-
-### RHEL 8 OpenJ9 8
-
-    cekit --redhat --descriptor openj9-8-rhel8.yaml build podman
-
-This will produce an image named `openj9/openj9-8-rhel8`.
-
-### RHEL 8 OpenJ9 11
-
-    cekit --redhat --descriptor openj9-11-rhel8.yaml build podman
-
-This will produce an image named `openj9/openj9-11-rhel8`.
-
 ## Contributing
 
 We welcome contributions! For patches, a Developer Certificate of

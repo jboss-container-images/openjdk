@@ -92,11 +92,6 @@ load_env() {
   fi
   export JAVA_APP_DIR
 
-  # Read in container limits and export the as environment variables
-  if [ -f "${JBOSS_CONTAINER_JAVA_JVM_MODULE}/container-limits" ]; then
-    source "${JBOSS_CONTAINER_JAVA_JVM_MODULE}/container-limits"
-  fi
-
   # JAVA_LIB_DIR defaults to JAVA_APP_DIR
   export JAVA_LIB_DIR="${JAVA_LIB_DIR:-${JAVA_APP_DIR}}"
   if [ -z "${JAVA_MAIN_CLASS}" ] && [ -z "${JAVA_APP_JAR}" ]; then

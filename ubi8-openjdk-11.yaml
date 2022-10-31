@@ -4,7 +4,7 @@ schema_version: 1
 
 from: "registry.access.redhat.com/ubi8/ubi-minimal"
 name: &name "ubi8/openjdk-11"
-version: &version "1.12"
+version: &version "1.14"
 description: "Source To Image (S2I) image for Red Hat OpenShift providing OpenJDK 11"
 
 labels:
@@ -45,11 +45,12 @@ modules:
   - name: jboss.container.openjdk.jdk
     version: "11"
   - name: jboss.container.prometheus
+    version: "8.6.11"
   - name: jboss.container.jolokia
   - name: jboss.container.maven
-    version: "8.2.3.6"
-  - name: jboss.container.util.nss-wrapper
+    version: "8.6.3.6.11"
   - name: jboss.container.java.s2i.bash
+  # required due to jolokia
   - name: jboss.container.java.singleton-jdk
 
 help:

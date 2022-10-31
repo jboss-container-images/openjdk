@@ -17,3 +17,4 @@ modules:
 packages:
   install:
   - findutils
+  - rsync

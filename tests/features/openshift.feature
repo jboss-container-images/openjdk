@@ -15,7 +15,6 @@ Feature: Tests for all openshift images
     Then the image should contain label release
     And the image should contain label architecture with value x86_64
 
-  @openj9
   Scenario: Check that common labels are correctly set
     Given image is built
     Then the image should contain label version
