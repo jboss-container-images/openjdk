@@ -9,6 +9,7 @@ envs:
 
 packages:
   install:
+  - tar
   - shadow-utils # groupadd
 
 execute:
