@@ -5,6 +5,33 @@
 #
 # Usage: JAVA_OPTS="$(java-default-options.sh)"
 
+# Env Vars respected:
+
+# JAVA_OPTIONS: Checked for already set options.  Deprecated, use JAVA_OPTS.
+# JAVA_OPTS: Checked for already set options
+# JAVA_INITIAL_MEM_RATIO: Ratio of maximum memory to use for initial heap size
+#                         (i.e. -Xms).  Defaults to 25 (i.e -Xms=-Xmx/4).
+# JAVA_MAX_INITIAL_MEM: The maximum value of the initial heap size, defaults to 4G.
+# JAVA_MAX_MEM_RATIO: Ratio use to calculate a default maximum Memory, in percent.
+#                     E.g. the default value "50" implies that 50% of the Memory
+#                     given to the container is used as the maximum heap memory with
+#                     '-Xmx'. It is a heuristic and should be better backed up with real
+#                     experiments and measurements.
+#                     For a good overviews what tuning options are available -->
+#                             https://youtu.be/Vt4G-pHXfs4
+#                             https://www.youtube.com/watch?v=w1rZOY5gbvk
+#                             https://vimeo.com/album/4133413/video/181900266
+# Also note that heap is only a small portion of the memory used by a JVM. There are lot
+# of other memory areas (metadata, thread, code cache, ...) which addes to the overall
+# size. There is no easy solution for this, 50% seems to be are reasonable compromise.
+# However, when your container gets killed because of an OOM, then you should tune
+# the absolute values
+#
+
+__DEFAULT_JAVA_MAX_MEM_RATIO=50
+__DEFAULT_JAVA_INITIAL_MEM_RATIO=25
+__DEFAULT_JAVA_MAX_INITIAL_MEM=4096
+
 # stubs for jvm specific overrides
 jvm_specific_options() {
   :
@@ -19,25 +46,63 @@ if [ -f "${JBOSS_CONTAINER_OPENJDK_JDK_MODULE}/jvm-options" ]; then
   source "${JBOSS_CONTAINER_OPENJDK_JDK_MODULE}/jvm-options"
 fi
 
+initialize_container_limits() {
+  # we can't run without limits
+  source ${JBOSS_CONTAINER_JAVA_JVM_MODULE}/container-limits
+}
+
 # Check for memory options and calculate a sane default if not given
 max_memory() {
-  # Check if explicitly disabled
+  # Check whether -Xmx is already given in JAVA_OPTIONS. Then we dont
+  # do anything here
+  # XXX: I think this should be removed.  If folks want to hard code max/min,
+  # then they can set the ratios to zero and set the options in JAVA_OPTS_APPEND.
+  if echo "${JAVA_OPTS:-${JAVA_OPTIONS}}" | grep -q -- "-Xmx"; then
+    return
+  fi
+
+  # Check if explicitely disabled
   if [ "x$JAVA_MAX_MEM_RATIO" = "x0" ]; then
     return
   fi
-  echo "-XX:MaxRAMPercentage=${JAVA_MAX_MEM_RATIO:-80.0}"
+
+  # Check for the 'real memory size' and caluclate mx from a ratio
+  # given (default is 50%)
+  if [ "x$CONTAINER_MAX_MEMORY" != x ]; then
+    local max_mem="${CONTAINER_MAX_MEMORY}"
+    local ratio=${JAVA_MAX_MEM_RATIO:-${__DEFAULT_JAVA_MAX_MEM_RATIO}}
+    local mx=$(echo "${max_mem} ${ratio} 1048576" | awk '{printf "%d\n" , ($1*$2)/(100*$3) + 0.5}')
+    echo "-Xmx${mx}m"
+  fi
 }
 
 # Check for memory options and calculate a sane default if not given
 initial_memory() {
-  # JAVA_MAX_INITIAL_MEM is deprecated and will be removed in a future release
-  if [ -n "$JAVA_MAX_INITIAL_MEM" ]; then
-    echo "-Xms$JAVA_MAX_INITIAL_MEM"
-  else
-    # there's no point setting this if we are passing -Xms, since -Xms
-    # overrides this
-    if [ -n "$JAVA_INITIAL_MEM_RATIO" ]; then
-      echo "-XX:InitialRAMPercentage=${JAVA_INITIAL_MEM_RATIO}"
+  # Check whether -Xms is already given in JAVA_OPTS. Then we dont
+  # do anything here
+  # XXX: I think this should be removed.  If folks want to hard code max/min,
+  # then they can set the ratios to zero and set the options in JAVA_OPTS_APPEND.
+  if echo "${JAVA_OPTS:-${JAVA_OPTIONS}}" | grep -q -- "-Xms"; then
+    return
+  fi
+
+  # Check if explicitly disabled
+  if [ "x$JAVA_INITIAL_MEM_RATIO" = "x0" ]; then
+    return
+  fi
+
+  # Check for the 'real memory size' and calculate ms from a ratio
+  # given (default is 25%)
+  if [ "x$CONTAINER_MAX_MEMORY" != x ]; then
+    local max_mem="${CONTAINER_MAX_MEMORY}"
+    local max_ratio=${JAVA_MAX_MEM_RATIO:-${__DEFAULT_JAVA_MAX_MEM_RATIO}}
+    local initial_ratio=${JAVA_INITIAL_MEM_RATIO:-${__DEFAULT_JAVA_INITIAL_MEM_RATIO}}
+    local ms=$(echo "${max_mem} ${max_ratio} ${initial_ratio} 1048576" | awk '{printf "%d\n" , ($1*(($2*$3)/10000))/$4 + 0.5}')
+    local max_initial_memory=${JAVA_MAX_INITIAL_MEM:-${__DEFAULT_JAVA_MAX_INITIAL_MEM}}
+    if [ "${ms}" -lt "${max_initial_memory}" ] ; then
+      echo "-Xms${ms}m"
+    else
+      echo "-Xms${max_initial_memory}m"
     fi
   fi
 }
@@ -91,6 +156,8 @@ gc_config() {
 error_handling() {
   echo "-XX:+ExitOnOutOfMemoryError"
 }
+
+initialize_container_limits > /dev/null
 
 ## Echo options, trimming trailing and multiple spaces
 echo "$(initial_memory) $(max_memory) $(gc_config) $(diagnostics) $(error_handling)" | awk '$1=$1'
