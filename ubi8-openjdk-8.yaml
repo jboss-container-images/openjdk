@@ -41,7 +41,6 @@ modules:
   repositories:
   - path: modules
   install:
-  - name: jboss.container.util.pkg-update
   - name: jboss.container.openjdk.jdk
     version: "8"
   - name: jboss.container.prometheus
@@ -50,6 +49,7 @@ modules:
   - name: jboss.container.maven
     version: "8.2.3.6.8"
   - name: jboss.container.java.s2i.bash
+  - name: jboss.container.util.pkg-update
 
 help:
   add: true

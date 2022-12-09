@@ -39,10 +39,10 @@ modules:
   repositories:
   - path: modules
   install:
-  - name: jboss.container.util.pkg-update
   - name: jboss.container.openjdk.jre
     version: "17"
   - name:  jboss.container.java.jre.run
+  - name: jboss.container.util.pkg-update
 
 help:
   add: true
