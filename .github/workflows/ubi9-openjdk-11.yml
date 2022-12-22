@@ -2,7 +2,7 @@ name: UBI9 OpenJDK 11 S2I Image CI
 on: [push, pull_request]
 env:
   LANG: en_US.UTF-8
-  CEKIT_VERSION: 4.1.1
+  CEKIT_VERSION: 4.5.0
   S2I_URI: https://github.com/openshift/source-to-image/releases/download/v1.3.1/source-to-image-v1.3.1-a5a77147-linux-amd64.tar.gz
   IMAGE: ubi9-openjdk-11
 jobs:
