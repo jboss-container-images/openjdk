@@ -80,7 +80,6 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | command | bash -c "$JAVA_HOME/bin/java -XshowSettings:properties -version" |
     Then available container log should contain file.encoding = UTF-8
 
-  @wip
   @ubi8/openjdk-8
   @ubi8/openjdk-11
   @ubi8/openjdk-17
