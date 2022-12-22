@@ -80,6 +80,7 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | command | bash -c "$JAVA_HOME/bin/java -XshowSettings:properties -version" |
     Then available container log should contain file.encoding = UTF-8
 
+  @wip
   @ubi8/openjdk-8
   @ubi8/openjdk-11
   @ubi8/openjdk-17
@@ -87,10 +88,10 @@ Feature: Miscellaneous OpenJDK-related unit tests
     When container is started with args
     | arg     | value   |
     | command | rpm -qa |
-    Then available container log should not contain procps-ng
-    Then available container log should not contain os-prober
-    Then available container log should not contain which
-    Then available container log should not contain systemd-pam
-    Then available container log should not contain libpwquality
-    Then available container log should not contain libxkbcommon
-    Then available container log should not contain kbd
+    Then container log should not contain procps-ng
+    Then container log should not contain os-prober
+    Then container log should not contain which
+    Then container log should not contain systemd-pam
+    Then container log should not contain libpwquality
+    Then container log should not contain libxkbcommon
+    Then container log should not contain kbd
