@@ -25,7 +25,7 @@ max_memory() {
   if [ "x$JAVA_MAX_MEM_RATIO" = "x0" ]; then
     return
   fi
-  echo "-XX:MaxRAMPercentage=${JAVA_MAX_MEM_RATIO:-80.0}"
+  echo "-XX:MaxRAMPercentage=${JAVA_MAX_MEM_RATIO:-50.0}"
 }
 
 # Check for memory options and calculate a sane default if not given
