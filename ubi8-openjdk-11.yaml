@@ -47,7 +47,7 @@ modules:
     version: "8.6.11"
   - name: jboss.container.jolokia
   - name: jboss.container.maven
-    version: "8.6.3.6.11"
+    version: "11"
   - name: jboss.container.java.s2i.bash
   - name: jboss.container.util.pkg-update
   # required due to jolokia
