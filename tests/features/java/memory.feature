@@ -7,11 +7,32 @@ Feature: OPENJDK-559 JVM Memory tests
     And  container log should not contain -Xmx
 
   @ubi8
-  Scenario: Check configured JVM max heap configuration
+  Scenario: Check configured JVM max heap configuration and ensure JAVA_MAX_MEM_RATIO accepts floats but only takes whole number part
     Given container is started with env
     | variable           | value  |
-    | JAVA_MAX_MEM_RATIO | 90.0   |
+    | JAVA_MAX_MEM_RATIO | 90.4   |
     Then container log should contain -XX:MaxRAMPercentage=90.0
+
+  @ubi8
+  Scenario: Ensure JAVA_MAX_MEM_RATIO accepts Integers
+    Given container is started with env
+    | variable           | value  |
+    | JAVA_MAX_MEM_RATIO | 90     |
+    Then container log should contain -XX:MaxRAMPercentage=90.0
+
+  @ubi8
+  Scenario: Ensure JAVA_INITIAL_MEM_RATIO accepts Integers
+    Given container is started with env
+    | variable               | value  |
+    | JAVA_INITIAL_MEM_RATIO | 10     |
+    Then container log should contain -XX:InitialRAMPercentage=10.0
+
+  @ubi8
+  Scenario: Ensure JAVA_MAX_MEM_RATIO=0 disables parameter
+    Given container is started with env
+    | variable           | value  |
+    | JAVA_MAX_MEM_RATIO | 0     |
+    Then container log should not contain -XX:MaxRAMPercentage
 
   @ubi8
   Scenario: Check default JVM initial heap configuration is unspecified
@@ -20,10 +41,10 @@ Feature: OPENJDK-559 JVM Memory tests
     And  container log should not contain -Xms
 
   @ubi8
-  Scenario: Check configured JVM max heap configuration
+  Scenario: Check configured JVM max heap configuration and ensure JAVA_INITIAL_MEM_RATIO accepts floats but only takes whole number part
     Given container is started with env
     | variable               | value  |
-    | JAVA_INITIAL_MEM_RATIO | 25.0   |
+    | JAVA_INITIAL_MEM_RATIO | 25.2   |
     Then container log should contain -XX:InitialRAMPercentage=25.0
 
   @ubi8
