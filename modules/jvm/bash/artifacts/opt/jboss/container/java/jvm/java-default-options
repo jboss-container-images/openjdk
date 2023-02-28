@@ -21,11 +21,18 @@ fi
 
 # Check for memory options and calculate a sane default if not given
 max_memory() {
-  # Check if explicitly disabled
-  if [ "x$JAVA_MAX_MEM_RATIO" = "x0" ]; then
-    return
-  fi
-  echo "-XX:MaxRAMPercentage=${JAVA_MAX_MEM_RATIO:-50.0}"
+  case "$JAVA_MAX_MEM_RATIO" in
+    "0") # explicitly disabled
+      return
+      ;;
+    "")
+      maxmem="50.0"
+      ;;
+    *)
+      maxmem="$(printf "%.0f.0" "$JAVA_MAX_MEM_RATIO")"
+      ;;
+  esac
+  echo "-XX:MaxRAMPercentage=$maxmem"
 }
 
 # Check for memory options and calculate a sane default if not given
@@ -36,8 +43,11 @@ initial_memory() {
   else
     # there's no point setting this if we are passing -Xms, since -Xms
     # overrides this
+    # JAVA_INITIAL_MEM_RATIO is deprecated and will be removed in a
+    # future release
     if [ -n "$JAVA_INITIAL_MEM_RATIO" ]; then
-      echo "-XX:InitialRAMPercentage=${JAVA_INITIAL_MEM_RATIO}"
+      initmem="$(printf "%.0f.0" "$JAVA_INITIAL_MEM_RATIO")"
+      echo "-XX:InitialRAMPercentage=${initmem}"
     fi
   fi
 }
