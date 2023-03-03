@@ -21,11 +21,18 @@ fi
 
 # Check for memory options and calculate a sane default if not given
 max_memory() {
-  # Check if explicitly disabled
-  if [ "x$JAVA_MAX_MEM_RATIO" = "x0" ]; then
-    return
-  fi
-  echo "-XX:MaxRAMPercentage=${JAVA_MAX_MEM_RATIO:-80.0}"
+  case "$JAVA_MAX_MEM_RATIO" in
+    "0") # explicitly disabled
+      return
+      ;;
+    "")
+      maxmem="80.0"
+      ;;
+    *)
+      maxmem="$(printf "%.0f.0" "$JAVA_MAX_MEM_RATIO")"
+      ;;
+  esac
+  echo "-XX:MaxRAMPercentage=$maxmem"
 }
 
 # Switch on diagnostics except when switched off

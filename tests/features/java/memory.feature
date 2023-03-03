@@ -6,11 +6,25 @@ Feature: OPENJDK-559 JVM Memory tests
     Then container log should contain -XX:MaxRAMPercentage=80.0
 
   @ubi9
-  Scenario: Check configured JVM max heap configuration
+  Scenario: Check configured JVM max heap configuration and ensure JAVA_MAX_MEM_RATIO accepts floats but only takes whole number part
     Given container is started with env
     | variable           | value  |
-    | JAVA_MAX_MEM_RATIO | 90.0   |
+    | JAVA_MAX_MEM_RATIO | 90.4   |
     Then container log should contain -XX:MaxRAMPercentage=90.0
+
+  @ubi9
+  Scenario: Ensure JAVA_MAX_MEM_RATIO accepts Integers
+    Given container is started with env
+    | variable           | value  |
+    | JAVA_MAX_MEM_RATIO | 90     |
+    Then container log should contain -XX:MaxRAMPercentage=90.0
+
+  @ubi9
+  Scenario: Ensure JAVA_MAX_MEM_RATIO=0 disables parameter
+    Given container is started with env
+    | variable           | value  |
+    | JAVA_MAX_MEM_RATIO | 0      |
+    Then container log should not contain -XX:MaxRAMPercentage
 
   @ubi9
   Scenario: Check default JVM initial heap configuration is unspecified
