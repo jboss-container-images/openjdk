@@ -35,3 +35,10 @@ Feature: Openshift OpenJDK Runtime tests
     | variable  | value  |
     | JAVA_ARGS | unique |
   Then container log should not contain unique unique
+
+  @ubi8
+  Scenario: Check JAVA_APP_NAME can contain spaces (OPENJDK-104)
+    Given container is started with env
+    | variable         | value   |
+    | JAVA_APP_NAME    | foo bar |
+  Then container log should not contain exec: bar': not found
