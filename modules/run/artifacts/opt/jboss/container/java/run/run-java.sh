@@ -195,13 +195,6 @@ get_classpath() {
   echo "${cp_path}"
 }
 
-# Set process name if possible
-get_exec_args() {
-  if [ "x${JAVA_APP_NAME}" != x ]; then
-    echo "-a '${JAVA_APP_NAME}'"
-  fi
-}
-
 # Ensure that the running UID has the "jboss" passwd metadata
 # XXX: Maybe we should make this an entrypoint for the image?
 function configure_passwd() {
@@ -226,8 +219,11 @@ startup() {
   else
      args="-jar ${JAVA_APP_JAR}"
   fi
-  log_info "exec $(get_exec_args) java $(get_java_options) -cp \"$(get_classpath)\" ${args} $*"
-  exec $(get_exec_args) java $(get_java_options) -cp "$(get_classpath)" ${args} $*
+
+  procname="${JAVA_APP_NAME-java}"
+
+  log_info "exec -a \"${procname}\" java $(get_java_options) -cp \"$(get_classpath)\" ${args} $*"
+  exec -a "${procname}" java $(get_java_options) -cp "$(get_classpath)" ${args} $*
 }
 
 # =============================================================================
