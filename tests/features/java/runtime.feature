@@ -28,10 +28,16 @@ Feature: Openshift OpenJDK Runtime tests
 
   @ubi9
   Scenario: Check JAVA_OPTS overrides JAVA_OPTS_APPEND
-    piv
     Given container is started with env
     | variable         | value          |
     | JAVA_OPTS        | -verbose:gc    |
     | JAVA_OPTS_APPEND | -Xint          |
     Then container log should contain -verbose:gc
      And container log should not contain -Xint
+
+  @ubi9
+  Scenario: Check JAVA_APP_NAME can contain spaces (OPENJDK-1551)
+    Given container is started with env
+    | variable         | value   |
+    | JAVA_APP_NAME    | foo bar |
+  Then container log should not contain exec: bar': not found
