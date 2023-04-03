@@ -1,6 +1,6 @@
 schema_version: 1
 name: jboss.container.maven
-version: '8'
+version: '3.8.8'
 description: Provides Maven v3.8 capabilities to an image.
 
 labels:

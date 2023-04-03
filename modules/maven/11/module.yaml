@@ -1,11 +1,11 @@
 schema_version: 1
 name: jboss.container.maven
-version: '11'
+version: '3.8.11'
 description: Provides Maven v3.8 capabilities to an image.
 
 labels:
 - name: io.fabric8.s2i.version.maven
-  value: "3.6"
+  value: "3.8"
 
 envs:
 - name: JBOSS_CONTAINER_MAVEN_38_MODULE

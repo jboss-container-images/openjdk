@@ -46,7 +46,7 @@ modules:
   - name: jboss.container.prometheus
     version: "8.6.17"
   - name: jboss.container.maven
-    version: "17"
+    version: "3.8.17"
   - name: jboss.container.java.s2i.bash
   - name: jboss.container.util.pkg-update
 
