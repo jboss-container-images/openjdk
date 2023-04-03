@@ -46,11 +46,9 @@ modules:
   - name: jboss.container.prometheus
     version: "8.6.17"
   - name: jboss.container.maven
-    version: "8.6.3.6.17"
+    version: "3.8.17"
   - name: jboss.container.java.s2i.bash
   - name: jboss.container.util.pkg-update
-  # needed for after Maven: https://bugzilla.redhat.com/show_bug.cgi?id=2080229
-  - name: jboss.container.java.singleton-jdk
 
 help:
   add: true
