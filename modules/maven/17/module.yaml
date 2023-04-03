@@ -1,7 +1,6 @@
 schema_version: 1
 name: jboss.container.maven
-# Version scheme: RHEL major . RHEL minor . Maven major . Maven minor . JDK version
-version: '17'
+version: '3.8.17'
 description: Provides Maven v3.8 capabilities to an image.
 
 envs:
@@ -13,7 +12,6 @@ envs:
 modules:
   install:
   - name: jboss.container.maven.module
-    version: '3.8'
 
 packages:
   install:
