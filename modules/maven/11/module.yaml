@@ -1,13 +1,13 @@
 schema_version: 1
 name: jboss.container.maven
-version: '8.6.3.6.11'
-description: Provides Maven v3.6 capabilities to an image.
+version: '3.8.11'
+description: Provides Maven v3.8 capabilities to an image.
 
 envs:
-- name: JBOSS_CONTAINER_MAVEN_36_MODULE
-  value: /opt/jboss/container/maven/36/
+- name: JBOSS_CONTAINER_MAVEN_38_MODULE
+  value: /opt/jboss/container/maven/38/
 - name: MAVEN_VERSION
-  value: "3.6"
+  value: "3.8"
 
 modules:
   install:
