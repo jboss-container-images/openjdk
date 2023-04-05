@@ -322,3 +322,8 @@ Feature: Openshift OpenJDK S2I tests
        | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:server[ns:id='myrepo']
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:profile[ns:id='myrepo-profile']/ns:repositories/ns:repository[ns:url='http://repo.example.com:8080/maven2/']
+
+  Scenario: Ensure the environment is cleaned when executing mvn (OPENJDK-1548)
+      Given s2i build https://github.com/jmtd/openjdk from tests/OPENJDK-1548 with env using OPENJDK-1548-maven-args
+       | variable           | value    |
+       | MAVEN_ARGS         | validate |
