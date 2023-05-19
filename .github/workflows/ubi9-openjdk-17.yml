@@ -2,13 +2,13 @@ name: UBI9 OpenJDK 17 S2I Image CI
 on: [push, pull_request]
 env:
   LANG: en_US.UTF-8
-  CEKIT_VERSION: 4.5.0
+  CEKIT_VERSION: 4.6.0
   S2I_URI: https://github.com/openshift/source-to-image/releases/download/v1.3.1/source-to-image-v1.3.1-a5a77147-linux-amd64.tar.gz
   IMAGE: ubi9-openjdk-17
 jobs:
   openjdkci:
     name: OpenJDK S2I Build and Test
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
     steps:
@@ -18,11 +18,11 @@ jobs:
       - name: Setup required system packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y krb5-multidev virtualenv
+          sudo apt-get install -y virtualenv libkrb5-dev
       - name: Setup virtualenv and install cekit and required packages
         run: |
           mkdir ~/cekit${{ env.CEKIT_VERSION }}
-          virtualenv -p python3.6 ~/cekit${{ env.CEKIT_VERSION }}
+          virtualenv -p python3 ~/cekit${{ env.CEKIT_VERSION }}
           . ~/cekit${{ env.CEKIT_VERSION }}/bin/activate
           pip3 install cekit==${{ env.CEKIT_VERSION }} docker docker-squash odcs behave lxml
       - name: Build
