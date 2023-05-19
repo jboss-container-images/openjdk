@@ -41,7 +41,7 @@ modules:
   install:
   - name: jboss.container.util.pkg-update
   - name: jboss.container.openjdk.jre
-    version: "3.8.17"
+    version: "17"
   - name:  jboss.container.java.jre.run
 
 help:
