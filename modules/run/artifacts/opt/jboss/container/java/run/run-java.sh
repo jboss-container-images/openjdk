@@ -27,6 +27,17 @@ check_error() {
   fi
 }
 
+# detect Quarkus fast-jar package type (OPENJDK-631)
+is_quarkus_fast_jar() {
+  if test -f quarkus-app/quarkus-run.jar; then
+    log_info "quarkus fast-jar package type detected"
+    echo quarkus-app/quarkus-run.jar
+    return 0
+  else
+    return 1
+  fi
+}
+
 # Try hard to find a sane default jar-file
 auto_detect_jar_file() {
   local dir=$1
@@ -35,6 +46,12 @@ auto_detect_jar_file() {
   local old_dir=$(pwd)
   cd ${dir}
   if [ $? = 0 ]; then
+
+    if quarkus="$(is_quarkus_fast_jar)"; then
+      echo "$quarkus"
+      return
+    fi
+
     local nr_jars=`ls *.jar 2>/dev/null | grep -v '^original-' | wc -l | tr -d '[[:space:]]'`
     if [ ${nr_jars} = 1 ]; then
       ls *.jar | grep -v '^original-'
