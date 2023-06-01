@@ -8,8 +8,10 @@ description: ^
 envs:
 - name: MAVEN_S2I_ARTIFACT_DIRS
   description: >
-    Relative paths of source directories to scan for build output, which will
-    be copied to $DEPLOY_DIR.  Defaults to **target**
+    Relative paths of source directories to scan for build output,
+    which will be copied to $S2I_TARGET_DEPLOYMENTS_DIR.
+    Paths should be delimited by a comma (,).
+    Defaults to **target**
   example: target
 
 - name: MAVEN_S2I_GOALS
