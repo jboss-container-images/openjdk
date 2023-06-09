@@ -78,8 +78,8 @@ envs:
 - name: S2I_SOURCE_DEPLOYMENTS_FILTER
   description: >
     Space separated list of filters to be applied when copying deployments.
-    Defaults to ** * **
-  value: "*"
+    Defaults to ** *.jar quarkus-app **
+  value: "*.jar quarkus-app"
   example: "*.jar *.war *.ear"
 
 - name: S2I_TARGET_DEPLOYMENTS_DIR
