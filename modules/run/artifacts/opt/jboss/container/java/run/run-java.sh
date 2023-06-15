@@ -27,7 +27,7 @@ check_error() {
   fi
 }
 
-# detect Quarkus fast-jar package type (OPENJDK-631)
+# detect Quarkus fast-jar package type (OPENJDK-1957)
 is_quarkus_fast_jar() {
   if test -f quarkus-app/quarkus-run.jar; then
     log_info "quarkus fast-jar package type detected"

@@ -12,7 +12,7 @@ Feature: Openshift OpenJDK-only S2I tests
     Given s2i build https://github.com/jerboaa/quarkus-quickstarts from getting-started using quickstart-2.16-s2i-cds
     Then container log should not contain A jar file is not the one used while building the shared archive file
 
-  Scenario: quarkus fast-jar layout works out-of-the-box (OPENJDK-631)
+  Scenario: quarkus fast-jar layout works out-of-the-box (OPENJDK-1957)
     Given s2i build https://github.com/jmtd/openshift-quickstarts from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i using OPENJDK-631-quarkus-fast-jar
     Then container log should contain INFO quarkus fast-jar package type detected
     And  container log should contain -jar /deployments/quarkus-app/quarkus-run.jar
@@ -21,7 +21,7 @@ Feature: Openshift OpenJDK-only S2I tests
     And  container log should not contain -jar /deployments/getting-started-1.0.0-SNAPSHOT.jar
     And  container log should not contain no main manifest attribute
 
-  Scenario: quarkus uber-jar layout works out-of-the-box (OPENJDK-631)
+  Scenario: quarkus uber-jar layout works out-of-the-box (OPENJDK-1957)
     Given s2i build https://github.com/jmtd/openshift-quickstarts from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i with env using OPENJDK-631-quarkus-fast-jar
        | variable             | value    |
        | QUARKUS_PACKAGE_TYPE | uber-jar |
