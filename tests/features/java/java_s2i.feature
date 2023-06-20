@@ -293,3 +293,15 @@ Feature: Openshift OpenJDK S2I tests
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple/target
     Then s2i build log should not contain skipping directory .
     And  run find /deployments in container and check its output for spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
+
+  # OPENJDK-2068: MAVEN_REPO_URL and MAVEN_REPO_ID
+  Scenario: Check MAVEN_REPO_URL generates Maven settings and profile configuration
+    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple/target
+       | variable       | value                                |
+       | MAVEN_REPO_URL | http://repo.example.com:8080/maven2/ |
+       | MAVEN_REPO_ID  | myrepo                               |
+    And XML namespaces
+       | prefix | url                                    |
+       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
+    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:server[ns:id='myrepo']
+    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:profile[ns:id='myrepo-profile']/ns:repositories/ns:repository[ns:url='http://repo.example.com:8080/maven2/']
