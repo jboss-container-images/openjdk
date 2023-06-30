@@ -3,7 +3,7 @@ Feature: OPENJDK-559 JVM Memory tests
   @ubi8
   Scenario: Check default JVM max heap configuration
     Given container is started as uid 1000
-    Then container log should contain -XX:MaxRAMPercentage=50.0
+    Then container log should contain -XX:MaxRAMPercentage=80.0
     And  container log should not contain -Xmx
 
   @ubi8
