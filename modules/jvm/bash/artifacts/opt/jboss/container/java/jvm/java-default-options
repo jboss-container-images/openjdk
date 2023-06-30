@@ -26,7 +26,7 @@ max_memory() {
       return
       ;;
     "")
-      maxmem="50.0"
+      maxmem="80.0"
       ;;
     *)
       maxmem="$(printf "%.0f.0" "$JAVA_MAX_MEM_RATIO")"

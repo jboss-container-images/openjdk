@@ -16,7 +16,7 @@ envs:
 - name: JAVA_MAX_MEM_RATIO
   description:
     Specify the maximum heap memory. Corresponds to the JVM argument
-    `-XX:MaxRAMPercentage`. The default is `50.0` which means 50% of the
+    `-XX:MaxRAMPercentage`. The default is `80.0` which means 80% of the
     available memory. You can disable this mechanism by setting the value to
     `0`.
     The supplied value can be an integer or float, but only the whole
