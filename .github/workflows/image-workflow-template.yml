@@ -23,7 +23,7 @@ jobs:
 
       - name: Build
         run: |
-          cekit -v --descriptor ${{ inputs.image }}.yaml build docker
+          cekit -v --descriptor ${{ inputs.image }}.yaml build docker --no-squash
 
       - name: Install and cache S2I CLI tool from GitHub
         uses: redhat-actions/openshift-tools-installer@v1
