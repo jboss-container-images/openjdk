@@ -1,0 +1,38 @@
+name: UBI9 OpenJDK S2I Image CI template
+on:
+  workflow_call:
+    inputs:
+      image:
+        required: true
+        type: string
+env:
+  LANG: en_US.UTF-8
+jobs:
+  openjdkci:
+    name: OpenJDK S2I Build and Test
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: Verify latest UBI image is present
+        run:  docker pull registry.access.redhat.com/ubi9/ubi-minimal:latest
+
+      - name: Install CEKit
+        uses: cekit/actions-setup-cekit@v1.1.5
+
+      - name: Build
+        run: |
+          cekit -v --descriptor ${{ inputs.image }}.yaml build docker --no-squash
+
+      - name: Install and cache S2I CLI tool from GitHub
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          source: "github"
+          github_pat: ${{ github.token }}
+          s2i: "1.3.4"
+
+      - name: Behave Tests
+        run: |
+          echo /home/runner/work/_temp/openshift-bin >> $GITHUB_PATH
+          cekit -v --descriptor ${{ inputs.image }}.yaml test behave
