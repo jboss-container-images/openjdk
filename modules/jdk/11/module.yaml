@@ -25,6 +25,7 @@ envs:
 packages:
   install:
   - java-11-openjdk-devel
+  - tzdata-java
 
 modules:
   install:
