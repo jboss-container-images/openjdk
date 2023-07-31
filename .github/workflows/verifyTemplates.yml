@@ -1,0 +1,26 @@
+name: Validate ImageStream templates
+
+on:
+  push:
+    branches:
+      - release
+  pull_request:
+    branches:
+      - release
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        template: 
+          - community-image-streams.json
+          - image-streams.json
+          - image-streams-aarch64.json
+          - image-streams-ppc64le.json
+          - image-streams-s390x.json
+          - runtime-image-streams.json
+    steps:
+    - uses: actions/checkout@v2
+    - name: run jq
+      run: jq < templates/${{ matrix.template }}
