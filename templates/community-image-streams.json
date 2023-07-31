@@ -15,17 +15,17 @@
             "metadata": {
                 "name": "ubi8-openjdk-8",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat OpenJDK 1.8 (UBI8)",
+                    "openshift.io/display-name": "Red Hat OpenJDK 8 (UBI8)",
                     "openshift.io/provider-display-name": "Red Hat, Inc."
                 }
             },
             "spec": {
                 "tags": [
-                    {
+                                        {
                         "name": "1.3",
                         "annotations": {
-                            "openshift.io/display-name": "Red Hat OpenJDK 1.8 (UBI8)",
-                            "description": "Build and run Java applications using Maven and OpenJDK 1.8 upon UBI8.",
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 (UBI8)",
+                            "description": "Build and run Java applications using Maven and OpenJDK 8 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "builder,java,openjdk,ubi8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -43,8 +43,8 @@
                     {
                         "name": "1.10",
                         "annotations": {
-                            "openshift.io/display-name": "Red Hat OpenJDK 1.8 (UBI8)",
-                            "description": "Build and run Java applications using Maven and OpenJDK 1.8 upon UBI8.",
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 (UBI8)",
+                            "description": "Build and run Java applications using Maven and OpenJDK 8 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "builder,java,openjdk,ubi8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -62,8 +62,8 @@
                     {
                         "name": "1.11",
                         "annotations": {
-                            "openshift.io/display-name": "Red Hat OpenJDK 1.8 (UBI8)",
-                            "description": "Build and run Java applications using Maven and OpenJDK 1.8 upon UBI8.",
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 (UBI8)",
+                            "description": "Build and run Java applications using Maven and OpenJDK 8 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "builder,java,openjdk,ubi8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -81,8 +81,8 @@
                     {
                         "name": "1.12",
                         "annotations": {
-                            "openshift.io/display-name": "Red Hat OpenJDK 1.8 (UBI8)",
-                            "description": "Build and run Java applications using Maven and OpenJDK 1.8 upon UBI8.",
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 (UBI8)",
+                            "description": "Build and run Java applications using Maven and OpenJDK 8 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "builder,java,openjdk,ubi8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -100,7 +100,7 @@
                 ]
             }
         },
-        {
+{
             "kind": "ImageStream",
             "apiVersion": "image.openshift.io/v1",
             "metadata": {
@@ -112,11 +112,11 @@
             },
             "spec": {
                 "tags": [
-                    {
+                                        {
                         "name": "1.3",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 11 (UBI8)",
-                            "description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL8.",
+                            "description": "Build and run Java applications using Maven and OpenJDK 11 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "builder,java,openjdk,ubi8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -135,7 +135,7 @@
                         "name": "1.10",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 11 (UBI8)",
-                            "description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL8.",
+                            "description": "Build and run Java applications using Maven and OpenJDK 11 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "builder,java,openjdk,ubi8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -154,7 +154,7 @@
                         "name": "1.11",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 11 (UBI8)",
-                            "description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL8.",
+                            "description": "Build and run Java applications using Maven and OpenJDK 11 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "builder,java,openjdk,ubi8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -173,7 +173,7 @@
                         "name": "1.12",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 11 (UBI8)",
-                            "description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL8.",
+                            "description": "Build and run Java applications using Maven and OpenJDK 11 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "builder,java,openjdk,ubi8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -191,7 +191,7 @@
                 ]
             }
         },
-        {
+{
             "kind": "ImageStream",
             "apiVersion": "image.openshift.io/v1",
             "metadata": {
@@ -203,11 +203,11 @@
             },
             "spec": {
                 "tags": [
-                    {
+                                        {
                         "name": "1.11",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 17 (UBI8)",
-                            "description": "Build and run Java applications using Maven and OpenJDK 17 upon RHEL8.",
+                            "description": "Build and run Java applications using Maven and OpenJDK 17 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "builder,java,openjdk,ubi8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -226,7 +226,7 @@
                         "name": "1.12",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 17 (UBI8)",
-                            "description": "Build and run Java applications using Maven and OpenJDK 17 upon RHEL8.",
+                            "description": "Build and run Java applications using Maven and OpenJDK 17 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "builder,java,openjdk,ubi8",
                             "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
@@ -243,8 +243,7 @@
                     }
                 ]
             }
-        },
-        {
+        },        {
             "kind": "ImageStream",
             "apiVersion": "image.openshift.io/v1",
             "metadata": {
