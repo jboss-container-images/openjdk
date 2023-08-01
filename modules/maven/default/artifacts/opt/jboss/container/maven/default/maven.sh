@@ -81,8 +81,11 @@ function maven_build() {
   log_info "Using MAVEN_OPTS ${MAVEN_OPTS}"
   log_info "Using $(mvn $MAVEN_ARGS --version)"
   log_info "Running 'mvn $MAVEN_ARGS $goals'"
-  # Execute the actual build
-  mvn $MAVEN_ARGS $goals
+
+  # Execute the actual build (ensuring MAVEN_ARGS is unset, OPENJDK-1548)
+  REAL_MAVEN_ARGS="$MAVEN_ARGS"
+  unset MAVEN_ARGS
+  mvn $REAL_MAVEN_ARGS $goals
   
   popd &> /dev/null
   
