@@ -1,0 +1,14 @@
+{
+    "kind": "List",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "{% if name %}{{name}}{% else %}{{rhel}}-openjdk-image-stream{% endif %}",
+        "annotations": {
+            "description": "{% if description %}{{description}}{% else %}ImageStream definition for Red Hat {{rhel.upper() }} OpenJDK.{% endif %}",
+            "openshift.io/provider-display-name": "Red Hat, Inc."
+        }
+    },
+    "items": [
+        {{items}}
+    ]
+}

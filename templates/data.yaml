@@ -1,0 +1,53 @@
+# ImageStream template generator parameters
+# this data describes the version ranges for each container image and the various
+# exceptional circumstances, i.e., when a particular image version didn't ship, or
+# an image's name doesn't follow the naming convention, or an architecture
+# started shipping from a later version, etc.
+
+rhel7:
+  # for the rhel7 images, the default range of versions is 1.0-1.12
+  # (these keys are numeric as the script uses them as inputs for range())
+  from: 0
+  to: 15
+  builder:
+    8:
+      name: "redhat-openjdk-18/openjdk18-openshift"
+      from: 3 # we stopped including the metadata for 1.0-1.2
+      not: [ 9, 13 ] # and never shipped 1.9 or 1.13
+      # architecture special-cases
+      ppc64le:
+        from: 5
+      s390x:
+        from: 5
+    11:
+      name: "openjdk/openjdk-11-rhel7"
+      not: [ 2, 3, 4, 5, 6, 7, 8, 9, 13 ]
+ubi8:
+  from: 3
+  to: 16
+  not: [ 4, 5, 6, 7, 8, 9 ]
+  builder: # "ubi8/openjdk-X"
+    8:  {}
+    11: {}
+    17:
+      from: 11
+  runtime:
+    from: 9
+    not: []
+    8:
+      name: "ubi8/openjdk-8-runtime"
+    11:
+      name: "ubi8/openjdk-11-runtime"
+    17:
+      name: "ubi8/openjdk-17-runtime"
+      from: 11
+ubi9:
+  from: 13
+  builder:
+    11: {}
+    17: {}
+  runtime:
+    11:
+      name: "ubi9/openjdk-11-runtime"
+    17:
+      name: "ubi9/openjdk-17-runtime"

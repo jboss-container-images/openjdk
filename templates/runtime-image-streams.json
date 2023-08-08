@@ -15,19 +15,20 @@
             "metadata": {
                 "name": "ubi8-openjdk-8-runtime",
                 "annotations": {
-                    "openshift.io/display-name": "Red Hat OpenJDK 1.8 Runtime (UBI8)",
+                    "openshift.io/display-name": "Red Hat OpenJDK 8 Runtime (UBI8)",
                     "openshift.io/provider-display-name": "Red Hat, Inc."
                 }
             },
             "spec": {
                 "tags": [
-                    {
+                                        {
                         "name": "1.9",
                         "annotations": {
-                            "openshift.io/display-name": "Red Hat OpenJDK 1.8 Runtime (UBI8)",
-                            "description": "Run Java applications using OpenJDK 1.8 upon UBI8.",
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 8 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "java,openjdk,ubi8",
+                            
                             "version": "1.9"
                         },
                         "referencePolicy": {
@@ -41,10 +42,11 @@
                     {
                         "name": "1.10",
                         "annotations": {
-                            "openshift.io/display-name": "Red Hat OpenJDK 1.8 Runtime (UBI8)",
-                            "description": "Run Java applications using OpenJDK 1.8 upon UBI8.",
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 8 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "java,openjdk,ubi8",
+                            
                             "version": "1.10"
                         },
                         "referencePolicy": {
@@ -58,10 +60,11 @@
                     {
                         "name": "1.11",
                         "annotations": {
-                            "openshift.io/display-name": "Red Hat OpenJDK 1.8 Runtime (UBI8)",
-                            "description": "Run Java applications using OpenJDK 1.8 upon UBI8.",
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 8 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "java,openjdk,ubi8",
+                            
                             "version": "1.11"
                         },
                         "referencePolicy": {
@@ -75,10 +78,11 @@
                     {
                         "name": "1.12",
                         "annotations": {
-                            "openshift.io/display-name": "Red Hat OpenJDK 1.8 Runtime (UBI8)",
-                            "description": "Run Java applications using OpenJDK 1.8 upon UBI8.",
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 8 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "java,openjdk,ubi8",
+                            
                             "version": "1.12"
                         },
                         "referencePolicy": {
@@ -88,11 +92,83 @@
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/ubi8/openjdk-8-runtime:1.12"
                         }
+                    },
+                    {
+                        "name": "1.13",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 8 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.13"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-8-runtime:1.13"
+                        }
+                    },
+                    {
+                        "name": "1.14",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 8 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.14"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-8-runtime:1.14"
+                        }
+                    },
+                    {
+                        "name": "1.15",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 8 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.15"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-8-runtime:1.15"
+                        }
+                    },
+                    {
+                        "name": "1.16",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 8 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 8 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.16"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-8-runtime:1.16"
+                        }
                     }
                 ]
             }
         },
-        {
+{
             "kind": "ImageStream",
             "apiVersion": "image.openshift.io/v1",
             "metadata": {
@@ -104,15 +180,14 @@
             },
             "spec": {
                 "tags": [
-                    {
+                                        {
                         "name": "1.9",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 11 Runtime (UBI8)",
-                            "description": "Run Java applications using OpenJDK 11 upon RHEL8.",
+                            "description": "Run Java applications using OpenJDK 11 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "java,openjdk,ubi8",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-                            "sampleContextDir": "undertow-servlet",
+                            
                             "version": "1.9"
                         },
                         "referencePolicy": {
@@ -127,11 +202,10 @@
                         "name": "1.10",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 11 Runtime (UBI8)",
-                            "description": "Run Java applications using OpenJDK 11 upon RHEL8.",
+                            "description": "Run Java applications using OpenJDK 11 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "java,openjdk,ubi8",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-                            "sampleContextDir": "undertow-servlet",
+                            
                             "version": "1.10"
                         },
                         "referencePolicy": {
@@ -146,11 +220,10 @@
                         "name": "1.11",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 11 Runtime (UBI8)",
-                            "description": "Run Java applications using OpenJDK 11 upon RHEL8.",
+                            "description": "Run Java applications using OpenJDK 11 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "java,openjdk,ubi8",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-                            "sampleContextDir": "undertow-servlet",
+                            
                             "version": "1.11"
                         },
                         "referencePolicy": {
@@ -165,11 +238,10 @@
                         "name": "1.12",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 11 Runtime (UBI8)",
-                            "description": "Run Java applications using OpenJDK 11 upon RHEL8.",
+                            "description": "Run Java applications using OpenJDK 11 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "java,openjdk,ubi8",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-                            "sampleContextDir": "undertow-servlet",
+                            
                             "version": "1.12"
                         },
                         "referencePolicy": {
@@ -179,11 +251,83 @@
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/ubi8/openjdk-11-runtime:1.12"
                         }
+                    },
+                    {
+                        "name": "1.13",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 11 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 11 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.13"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-11-runtime:1.13"
+                        }
+                    },
+                    {
+                        "name": "1.14",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 11 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 11 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.14"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-11-runtime:1.14"
+                        }
+                    },
+                    {
+                        "name": "1.15",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 11 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 11 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.15"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-11-runtime:1.15"
+                        }
+                    },
+                    {
+                        "name": "1.16",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 11 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 11 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.16"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-11-runtime:1.16"
+                        }
                     }
                 ]
             }
         },
-        {
+{
             "kind": "ImageStream",
             "apiVersion": "image.openshift.io/v1",
             "metadata": {
@@ -195,15 +339,14 @@
             },
             "spec": {
                 "tags": [
-                    {
+                                        {
                         "name": "1.11",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 17 Runtime (UBI8)",
-                            "description": "Run Java applications using OpenJDK 17 upon RHEL8.",
+                            "description": "Run Java applications using OpenJDK 17 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "java,openjdk,ubi8",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-                            "sampleContextDir": "undertow-servlet",
+                            
                             "version": "1.11"
                         },
                         "referencePolicy": {
@@ -218,11 +361,10 @@
                         "name": "1.12",
                         "annotations": {
                             "openshift.io/display-name": "Red Hat OpenJDK 17 Runtime (UBI8)",
-                            "description": "Run Java applications using OpenJDK 17 upon RHEL8.",
+                            "description": "Run Java applications using OpenJDK 17 upon UBI8.",
                             "iconClass": "icon-rh-openjdk",
                             "tags": "java,openjdk,ubi8",
-                            "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-                            "sampleContextDir": "undertow-servlet",
+                            
                             "version": "1.12"
                         },
                         "referencePolicy": {
@@ -232,11 +374,82 @@
                             "kind": "DockerImage",
                             "name": "registry.access.redhat.com/ubi8/openjdk-17-runtime:1.12"
                         }
+                    },
+                    {
+                        "name": "1.13",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 17 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 17 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.13"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-17-runtime:1.13"
+                        }
+                    },
+                    {
+                        "name": "1.14",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 17 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 17 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.14"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-17-runtime:1.14"
+                        }
+                    },
+                    {
+                        "name": "1.15",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 17 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 17 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.15"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-17-runtime:1.15"
+                        }
+                    },
+                    {
+                        "name": "1.16",
+                        "annotations": {
+                            "openshift.io/display-name": "Red Hat OpenJDK 17 Runtime (UBI8)",
+                            "description": "Run Java applications using OpenJDK 17 upon UBI8.",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "java,openjdk,ubi8",
+                            
+                            "version": "1.16"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/ubi8/openjdk-17-runtime:1.16"
+                        }
                     }
                 ]
             }
-        },
-        {
+        },{
             "kind": "ImageStream",
             "apiVersion": "image.openshift.io/v1",
             "metadata": {

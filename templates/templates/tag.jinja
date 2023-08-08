@@ -1,0 +1,21 @@
+                    {
+                        "name": {%if name %}"{{name}}"{% else %}"{{version}}"{% endif %},
+                        "annotations": {
+                            "openshift.io/display-name": "{% if displayName %}{{displayName}}{% else %}Red Hat OpenJDK {{openjdk}} ({{rhel.upper()}}){% endif %}",
+                            "description": "{% if description %}{{description}}{% else %}Build and run Java applications using Maven and OpenJDK {{openjdk}} upon {{rhel.upper()}}.{% endif %}",
+                            "iconClass": "icon-rh-openjdk",
+                            "tags": "{% if tags %}{{tags}}{% else %}builder,java,openjdk,{{rhel}}{% endif %}",
+                            {% if supports %}"supports": "{{supports}}",
+                            {% endif %}{% if sampleRepo
+                            %}"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+                            "sampleContextDir": "undertow-servlet",{% endif %}
+                            "version": "{{version}}"
+                        },
+                        "referencePolicy": {
+                            "type": "Local"
+                        },
+                        "from": {%if from_ %}{{from_}}{% else %}{
+                            "kind": "DockerImage",
+                            "name": "registry.access.redhat.com/{{containerName}}:{{tag}}"
+                        }{% endif %}
+                    }
