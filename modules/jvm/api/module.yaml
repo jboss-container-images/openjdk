@@ -7,11 +7,15 @@ description: ^
   variables listed within this module to configure the JVM appropriately.
 
 envs:
-- name: JAVA_OPTS
-  description: JVM options passed to the `java` command.
-  example: "-verbose:class"
-- name: JAVA_OPTS_APPEND
-  description: User specified Java options to be appended to generated options in JAVA_OPTS.
+- name:         JAVA_OPTS
+  description:  If set, this prevents all default and generated options (such
+    as JVM and GC tuning, proxy settings, etc.) from being applied. Instead the
+    user should specify exactly the `java` options they want in this variable.
+  example:      "-verbose:class"
+- name:         JAVA_OPTS_APPEND
+  description:  User specified Java options to be appended to the generated options.
+    This variable has no effect if `JAVA_OPTS` has been defined.
+  example:      "-Dsome.property=foo"
   example: "-Dsome.property=foo"
 - name: JAVA_MAX_MEM_RATIO
   description:
