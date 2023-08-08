@@ -151,8 +151,11 @@ get_java_options() {
     source "${JBOSS_CONTAINER_JAVA_PROXY_MODULE}/proxy-options"
     proxy_opts="$(proxy_options)"
   fi
-  # Normalize spaces with awk (i.e. trim and elimate double spaces)
-  echo "${JAVA_OPTS} $(run_java_options) ${debug_opts} ${proxy_opts} ${java_opts} ${JAVA_OPTS_APPEND}" | awk '$1=$1'
+
+  # S2I_RUN_OPTS may have been set externally, e.g. in s2i/run
+  opts=${JAVA_OPTS-$(run_java_options) ${S2I_RUN_OPTS} ${debug_opts} ${proxy_opts} ${java_opts} ${JAVA_OPTS_APPEND}}
+  # Normalize spaces with awk (i.e. trim and eliminate double spaces)
+  echo "${opts}" | awk '$1=$1'
 }
 
 # Read in a classpath either from a file with a single line, colon separated
