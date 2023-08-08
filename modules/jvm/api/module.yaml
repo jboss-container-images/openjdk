@@ -1,4 +1,5 @@
 schema_version: 1
+
 name: jboss.container.java.jvm.api
 version: '1.0'
 description: ^
@@ -16,7 +17,6 @@ envs:
   description:  User specified Java options to be appended to the generated options.
     This variable has no effect if `JAVA_OPTS` has been defined.
   example:      "-Dsome.property=foo"
-  example: "-Dsome.property=foo"
 - name: JAVA_MAX_MEM_RATIO
   description:
     Specify the maximum heap memory. Corresponds to the JVM argument
@@ -73,8 +73,3 @@ envs:
 - name: GC_CONTAINER_OPTIONS
   description: specify Java GC to use. The value of this variable should contain the necessary JRE command-line options to specify the required GC, which will override the default of `-XX:+UseParallelGC`.
   example: -XX:+UseG1GC
-# deprecated
-- name: JAVA_OPTIONS
-  description: JVM options passed to the `java` command.  Use **JAVA_OPTS**.
-  example: "-verbose:class"
-
