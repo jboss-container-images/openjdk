@@ -294,6 +294,23 @@ Feature: Openshift OpenJDK S2I tests
     Then s2i build log should not contain skipping directory .
     And  run find /deployments in container and check its output for spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
 
+  # OPENJDK-2069 - MAVEN_REPOS
+  Scenario: run the s2i and check the maven mirror and proxy have been initialised in the default settings.xml, uses http_proxy
+    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple/target
+       | variable                | value                                |
+       | MAVEN_REPOS             | TESTREPO,ANOTHER                     |
+       | TESTREPO_MAVEN_REPO_URL | http://repo.example.com:8080/maven2/ |
+       | TESTREPO_MAVEN_REPO_ID  | myrepo                               |
+       | ANOTHER_MAVEN_REPO_URL  | https://repo.example.org:8888/       |
+       | ANOTHER_MAVEN_REPO_ID   | another                              |
+    And XML namespaces
+       | prefix | url                                    |
+       | ns     | http://maven.apache.org/SETTINGS/1.0.0 |
+    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:server[ns:id='myrepo']
+    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:profile[ns:id='myrepo-profile']/ns:repositories/ns:repository[ns:url='http://repo.example.com:8080/maven2/']
+    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:server[ns:id='another']
+    Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:profile[ns:id='another-profile']/ns:repositories/ns:repository[ns:url='https://repo.example.org:8888/']
+
   # OPENJDK-2068: MAVEN_REPO_URL and MAVEN_REPO_ID
   Scenario: Check MAVEN_REPO_URL generates Maven settings and profile configuration
     Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple/target
