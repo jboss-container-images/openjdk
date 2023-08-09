@@ -42,3 +42,28 @@ Feature: Openshift OpenJDK Runtime tests
     | variable         | value   |
     | JAVA_APP_NAME    | foo bar |
   Then container log should not contain exec: bar': not found
+
+  @ubi8
+  Scenario: Check JAVA_OPTS overrides defaults (OPENJDK-2009)
+    Given container is started with env
+    | variable  | value          |
+    | JAVA_OPTS | --show-version |
+    Then container log should not contain -XX:MaxRAMPercentage
+
+  @ubi8
+  Scenario: Check empty JAVA_OPTS overrides defaults (OPENJDK-2009)
+    Given container is started with env
+    | variable  | value          |
+    | JAVA_OPTS |                |
+    Then container log should not contain -XX:MaxRAMPercentage
+
+  # builder images only
+  @ubi8/openjdk-8
+  @ubi8/openjdk-11
+  @ubi8/openjdk-17
+  Scenario: JAVA_OPTIONS sets JAVA_OPTS and overrides defaults (OPENJDK-2009)
+    Given container is started with env
+    | variable     | value          |
+    | JAVA_OPTIONS | --show-version |
+    Then container log should not contain -XX:MaxRAMPercentage
+    And  container log should contain --show-version
