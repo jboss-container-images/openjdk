@@ -50,6 +50,6 @@ Feature: Openshift OpenJDK Runtime tests
   @ubi9
   Scenario: Check custom JAVA_APP_DIR (OPENJDK-2033)
     Given container is started with env
-    | variable     | value       |
-    | JAVA_APP_DIR | /home/jboss |
-  Then available container log should contain INFO running in /home/jboss
+    | variable     | value         |
+    | JAVA_APP_DIR | /home/default |
+  Then available container log should contain INFO running in /home/default
