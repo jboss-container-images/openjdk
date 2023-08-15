@@ -215,6 +215,7 @@ startup() {
   procname="${JAVA_APP_NAME-java}"
 
   log_info "exec -a \"${procname}\" java $(get_java_options) -cp \"$(get_classpath)\" ${args} $*"
+  log_info "running in $PWD"
   exec -a "${procname}" java $(get_java_options) -cp "$(get_classpath)" ${args} $*
 }
 
