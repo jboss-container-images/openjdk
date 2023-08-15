@@ -79,3 +79,17 @@ Feature: Openshift OpenJDK Runtime tests
     | variable     | value       |
     | JAVA_APP_DIR | /home/jboss |
   Then available container log should contain INFO running in /home/jboss
+
+  @ubi8
+  Scenario: Check relative path JAVA_APP_DIR (OPENJDK-2033)
+    Given container is started with env
+    | variable     | value  |
+    | JAVA_APP_DIR | .      |
+  Then available container log should contain INFO running in /home/jboss
+
+  @ubi8
+  Scenario: Check non-existent path JAVA_APP_DIR (OPENJDK-2033)
+    Given container is started with env
+    | variable     | value  |
+    | JAVA_APP_DIR | /nope  |
+  Then available container log should contain ERROR No directory /nope found for auto detection
