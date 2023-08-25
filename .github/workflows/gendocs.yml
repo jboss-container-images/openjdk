@@ -1,0 +1,53 @@
+name: Generate docs for OpenJDK images
+on:
+  push:
+    branches:
+    - 'ubi8'
+    - 'ubi9'
+    - 'gendocs'
+    tags:
+    - 'ubi?-openjdk-containers*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  gendocs:
+    name: Generate documentation
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # all branches and tags
+
+      - name: Install CEKit
+        uses: cekit/actions-setup-cekit@v1.1.5
+
+      - name: Setup required packages for docs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y asciidoctor
+
+      - name: Generate docs
+        run: |
+          ./gendocs.sh
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
