@@ -5,6 +5,8 @@ set -euo pipefail
 # wish to generate documentation for, by switching to the relevant git
 # branches and tags and enumerating the image descriptors.
 # It is expected that this script is invoked via GitHub Actions.
+#
+# Usage: ./gendocs.sh
 
 engine=${engine-podman}
 

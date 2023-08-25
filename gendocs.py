@@ -3,6 +3,12 @@
 # read in all the module YAML files specified for an image, in order, to
 # produce a comprehensive list of configuration environment variables,
 # then write them out to something useful
+#
+# Usage:
+#   ./gendocs.py name-of-image > output-asciidoc-file
+#
+# This script reads target/image.yaml, which is produced by a cekit
+# build (including --dry-run)
 
 import yaml
 import sys
