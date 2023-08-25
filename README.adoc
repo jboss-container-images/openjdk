@@ -14,6 +14,12 @@ These are the OpenJDK Source to Image (S2I) images for Red Hat OpenShift.
 The UBI9-based OpenJDK images are available under the terms of the
 link:https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI[UBI EULA]. 
 
+link:https://access.redhat.com/documentation/en-us/openjdk/17[Red Hat provide
+Product documentation for customers]. Tables of environment variables used for
+image configuration are published to
+<https://jboss-container-images.github.io/openjdk/>. These tables are automatically
+updated for every tagged release, and every commit to the development branches.
+
 Older RHEL7 and RHEL8-based image sources are in the `rhel7` and `ubi8` branches respectively.
 
 ## How to build the images
