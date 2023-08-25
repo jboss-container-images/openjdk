@@ -43,26 +43,26 @@ Feature: Openshift OpenJDK Runtime tests
   Then container log should not contain exec: bar': not found
 
   @ubi9
-  Scenario: Check default JAVA_APP_DIR (OPENJDK-2033)
+  Scenario: Check default JAVA_APP_DIR (OPENJDK-2034)
   When container is ready
   Then available container log should contain INFO running in /deployments
 
   @ubi9
-  Scenario: Check custom JAVA_APP_DIR (OPENJDK-2033)
+  Scenario: Check custom JAVA_APP_DIR (OPENJDK-2034)
     Given container is started with env
     | variable     | value         |
     | JAVA_APP_DIR | /home/default |
   Then available container log should contain INFO running in /home/default
 
   @ubi9
-  Scenario: Check relative path JAVA_APP_DIR (OPENJDK-2033)
+  Scenario: Check relative path JAVA_APP_DIR (OPENJDK-2034)
     Given container is started with env
     | variable     | value  |
     | JAVA_APP_DIR | .      |
   Then available container log should contain INFO running in /home/default
 
   @ubi9
-  Scenario: Check non-existent path JAVA_APP_DIR (OPENJDK-2033)
+  Scenario: Check non-existent path JAVA_APP_DIR (OPENJDK-2034)
     Given container is started with env
     | variable     | value  |
     | JAVA_APP_DIR | /nope  |
