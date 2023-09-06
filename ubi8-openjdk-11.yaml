@@ -19,7 +19,7 @@ labels:
 - name: "com.redhat.component"
   value: "openjdk-11-ubi8-container"
 - name: "usage"
-  value: &docs "https://access.redhat.com/documentation/en-us/openjdk/11/html/using_source-to-image_for_openshift_with_red_hat_build_of_openjdk_11/index"
+  value: &docs "https://jboss-container-images.github.io/openjdk/"
 - name: "com.redhat.license_terms"
   value: "https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 - name: "org.opencontainers.image.documentation"
