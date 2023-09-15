@@ -20,7 +20,7 @@ concurrency:
 jobs:
   gendocs:
     name: Generate documentation
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
     steps:
