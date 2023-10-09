@@ -42,8 +42,16 @@ envs:
     Defaults to "external:*".
   example: external:*
 - name: MAVEN_MIRRORS
-  description: "If set, multi-mirror support is enabled, and other MAVEN_MIRROR_* variables will be prefixed. For example: DEV_ONE_MAVEN_MIRROR_URL and QE_TWO_MAVEN_MIRROR_URL"
-  example: "dev-one,qe-two"
+  description: >
+    Enables multi-mirror support. Specify a comma-delimited list of capitalized
+    mirror identifiers. The configuration for each mirror will be determined by
+    correspondingly prefixed `MAVEN_MIRROR_*` variables. Any dashes in mirror
+    names will be replaced by underscores. For example: Specifying
+    `DEV-ONE,QE-TWO` configures two mirrors and their URLs will be read from
+    the `DEV_ONE_MAVEN_MIRROR_URL` and `QE_TWO_MAVEN_MIRROR_URL` variables.
+    See also: `prefix_MAVEN_MIRROR_ID`; `prefix_MAVEN_MIRROR_OF`;
+    `prefix_MAVEN_MIRROR_URL`.
+  example: "DEV-ONE,QE-TWO"
 - name: prefix_MAVEN_MIRROR_ID
   description: "ID to be used for the specified mirror.  If omitted, a unique ID will be generated."
   example: "internal-mirror"
