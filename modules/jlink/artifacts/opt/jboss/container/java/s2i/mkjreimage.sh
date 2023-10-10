@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: Still Needed?
 set -euo pipefail
 
 outdir="${outdir-spring-boot-jre}"

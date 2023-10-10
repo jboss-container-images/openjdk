@@ -8,6 +8,14 @@ source "${JBOSS_CONTAINER_MAVEN_S2I_MODULE}/maven-s2i"
 # include our s2i_core_*() overrides/extensions
 source "${JBOSS_CONTAINER_JAVA_S2I_MODULE}/s2i-core-hooks"
 
+# include our jlink scripts
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkdeps"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkjreimage"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkstrippeddeps"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/generatejdkdeps"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/runall"
+#TODO: Are all of these needed or can we just invoke runall?
+
 # inject our overridden maven_s2i_*() functions
 source "${JBOSS_CONTAINER_JAVA_S2I_MODULE}/maven-s2i-overrides"
 
@@ -18,40 +26,21 @@ maven_s2i_build
 
 shopt -s globstar
 echo "Setting environment variables"
-jarfile="/deployments/*.jar"
-libdir="/deployments/lib"
-$JAVA_HOME/
+jarfile=$JAVA_APP_JAR
+libdir=$JAVA_LIB_DIR
 
 echo "Checking that jarfile and libdir exist"
 test -f "$jarfile"
 test -d "$libdir"
 
-# Create a temporary directory for a module path
-mkdir dependencies
-cp /deployments/lib/**/*.jar dependencies
-# Calculate dependencies
-$JAVA_HOME/bin/jdeps --module-path dependencies --ignore-missing-deps --multi-release 11 -R -s \
-    "$jarfile" \
-    "$libdir"/**/*.jar \
-> deps.txt
-# Clean up temporary directory
-rm -rf dependencies
+echo "Invoking mkdeps"
+generate_deps
 
-# Strip down the dependencies to the ones we're looking for
-<deps.txt \
-  grep 'java\|jdk\.'  | # mostly removes target/, but also jdk8internals
-  sed -E "s/Warning: .*//" | #remove extraneous warnings
-  sed -E "s/.*-> //"  | # remove src of src -> dep
-  sed -E "s/.*\.jar//" | # remove extraneous dependencies
-  sed "s#/.*##"       | # delete anything after a slash. in practice target/..
-  sort | uniq |
-tee stripped-deps.txt
+echo "Stripping dependencies"
+mkstrippeddeps
 
-echo "Checking against jdk modules"
-$JAVA_HOME/bin/java --list-modules > java-modules.txt
-cat java-modules.txt | sed "s/\\@.*//" > modules.txt
-grep -Fx -f stripped-deps.txt modules.txt | tr '\n' ',' | tr -d "[:space:]" > module-deps.txt
-echo "jdk.zipfs" >> module-deps.txt
+echo "Generating JDK dependencies"
+generatejdkdeps
 
 echo "Linking jre"
 $JAVA_HOME/bin/jlink --output runtime-jre \
@@ -59,7 +48,3 @@ $JAVA_HOME/bin/jlink --output runtime-jre \
         -G --no-header-files --no-man-pages
 
 rm *.txt
-echo "Repacking jre"
-INSTALL_BASE="/lib/jvm/java-11-openjdk"
-JDK_IMAGE="runtime-jre"
-echo -n "Replacing shared libraries from JDK image '$JDK_IMAGE' with shared libraries from '$INSTALL_BASE'... "
