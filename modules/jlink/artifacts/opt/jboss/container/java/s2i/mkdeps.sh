@@ -2,10 +2,8 @@
 set -euo pipefail
 shopt -s globstar
 
-#TODO: 
-project="${project-spring-boot-sample-simple}"
-jarfile="${jarfile-$project/target/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar}"
-libdir="${libdir-$project/target/lib}"
+jarfile=$JAVA_APP_JAR
+libdir=$JAVA_LIB_DIR
 
 function generate_deps() {
   #Test that file dependencies exist
