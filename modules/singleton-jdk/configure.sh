@@ -16,4 +16,7 @@ fi
 rpm -e --nodeps $(rpm -qa java-* | grep -v "^java-${JAVA_VERSION}-${JAVA_VENDOR}")
 
 # workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2089626
-alternatives --set java "java-${JAVA_VERSION}-${JAVA_VENDOR}.$(uname -m)"
+_arch="$(uname -m)"
+for alt in java javac java_sdk_openjdk jre_openjdk; do
+  alternatives --set "$alt" "$java-${JAVA_VERSION}-${JAVA_VENDOR}.${_arch}"
+done
