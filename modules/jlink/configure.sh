@@ -7,7 +7,7 @@ ARTIFACTS_DIR=${SCRIPT_DIR}/artifacts
 
 chown -R default:root $SCRIPT_DIR
 chmod -R ug+rwX $SCRIPT_DIR
-chmod ug+x ${ARTIFACTS_DIR}/opt/jboss/container/java/s2i/*
+chmod ug+x ${ARTIFACTS_DIR}/opt/jboss/container/java/jlink/*
 
 pushd ${ARTIFACTS_DIR}
 cp -pr * /

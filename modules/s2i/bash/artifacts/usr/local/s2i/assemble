@@ -9,11 +9,11 @@ source "${JBOSS_CONTAINER_MAVEN_S2I_MODULE}/maven-s2i"
 source "${JBOSS_CONTAINER_JAVA_S2I_MODULE}/s2i-core-hooks"
 
 # include our jlink scripts
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkdeps"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkjreimage"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkstrippeddeps"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/generatejdkdeps"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/runall"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkdeps.sh"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkjreimage.sh"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkstrippeddeps.sh"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/generatejdkdeps.sh"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/runall.sh"
 #TODO: Are all of these needed or can we just invoke runall?
 
 # inject our overridden maven_s2i_*() functions
@@ -25,13 +25,10 @@ maven_s2i_build
 #TODO: Clean this up to call the scripts instead
 
 shopt -s globstar
-echo "Setting environment variables"
-jarfile=$JAVA_APP_JAR
-libdir=$JAVA_LIB_DIR
 
 echo "Checking that jarfile and libdir exist"
-test -f "$jarfile"
-test -d "$libdir"
+test -f "$JAVA_APP_JAR"
+test -d "$JAVA_LIB_DIR"
 
 echo "Invoking mkdeps"
 generate_deps

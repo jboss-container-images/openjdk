@@ -6,9 +6,13 @@ description: ^
   "Provides support for building custom JREs with a slimmed
   down set of modules by making use of Jdeps and Jlink"
 
+execute:
+- script: configure.sh
+
 envs: 
 - name: JBOSS_CONTAINER_JAVA_JLINK_MODULE
   value: /opt/jboss/container/java/jlink
 
-execute:
-- script: configure.sh
+modules:
+  install: 
+  - name: jboss.container.java.run
