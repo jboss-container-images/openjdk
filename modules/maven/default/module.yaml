@@ -31,8 +31,16 @@ envs:
 - name: MAVEN_CLEAR_REPO
   description: If set then the Maven repository is removed after the artifact is built. This is useful for keeping the created application image small, but prevents *incremental* builds. Will be overridden by **S2I_ENABLE_INCREMENTAL_BUILDS**.  Defaults to *false*.
 - name: MAVEN_MIRROR_URL
-  description: The base URL of a mirror used for retrieving artifacts.
+  description: >
+    The base URL of a mirror used for retrieving artifacts.
+    For multi-mirror support, see  `MAVEN_MIRRORS`.
   example: "http://10.0.0.1:8080/repository/internal/"
+- name: MAVEN_MIRROR_OF
+  description: >
+    Repository IDs mirrored by the mirror specified in `MAVEN_MIRROR_URL`.
+    For multi-mirror support, see  `MAVEN_MIRRORS`.
+    Defaults to "external:*".
+  example: external:*
 - name: MAVEN_MIRRORS
   description: "If set, multi-mirror support is enabled, and other MAVEN_MIRROR_* variables will be prefixed. For example: DEV_ONE_MAVEN_MIRROR_URL and QE_TWO_MAVEN_MIRROR_URL"
   example: "dev-one,qe-two"
