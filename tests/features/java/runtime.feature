@@ -3,7 +3,7 @@
 Feature: Openshift OpenJDK Runtime tests
 
   Scenario: Ensure JAVA_ARGS is passed through, diagnostic options work correctly, JVM_ARGS not present in run script, OPENJDK-474 JAVA_ARGS not repeated
-    Given s2i build https://github.com/jhuttana/openjdk-test-applications/tree/pick_relevant_sources from undertow-servlet
+    Given s2i build https://github.com/jhuttana/openjdk-test-applications from undertow-servlet using pick_relevant_sources
        | variable         | value  |
        | JAVA_ARGS        | unique |
        | JAVA_DIAGNOSTICS | true   |
@@ -70,7 +70,7 @@ Feature: Openshift OpenJDK Runtime tests
 
   # Builder images only
   Scenario: Ensure JAVA_APP_DIR and S2I work together (OPENJDK-2034)
-    Given s2i build https://github.com/jhuttana/openjdk-test-applications/tree/pick_relevant_sources from undertow-servlet
+    Given s2i build https://github.com/jhuttana/openjdk-test-applications from undertow-servlet using pick_relevant_sources
        | variable                   | value         |
        | JAVA_APP_DIR               | /home/default |
        | S2I_TARGET_DEPLOYMENTS_DIR | /home/default |

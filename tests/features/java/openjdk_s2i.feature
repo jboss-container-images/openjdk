@@ -3,7 +3,7 @@
 @ubi9/openjdk-17
 Feature: Openshift OpenJDK-only S2I tests
   Scenario: Check java perf dir owned by default (CLOUD-2070, OPENJDK-91)
-    Given s2i build https://github.com/jhuttana/openjdk-test-applications/tree/pick_relevant_sources from undertow-servlet
+    Given s2i build https://github.com/jhuttana/openjdk-test-applications from undertow-servlet using pick_relevant_sources
     Then run jstat -gc 1 1000 1 in container and check its output for S0C
     And run stat --printf="%U %G" /tmp/hsperfdata_default/ in container and check its output for default root
 
@@ -12,7 +12,7 @@ Feature: Openshift OpenJDK-only S2I tests
     Then container log should not contain A jar file is not the one used while building the shared archive file
 
   Scenario: quarkus fast-jar layout works out-of-the-box (OPENJDK-631)
-    Given s2i build https://github.com/jhuttana/openjdk-test-applications/tree/pick_relevant_sources from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i
+    Given s2i build https://github.com/jhuttana/openjdk-test-applications from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i using pick_relevant_sources
     Then container log should contain INFO quarkus fast-jar package type detected
     And  container log should contain -jar /deployments/quarkus-app/quarkus-run.jar
     And  container log should contain (main) getting-started 1.0.0-SNAPSHOT on JVM (powered by Quarkus
@@ -21,7 +21,7 @@ Feature: Openshift OpenJDK-only S2I tests
     And  container log should not contain no main manifest attribute
 
   Scenario: quarkus uber-jar layout works out-of-the-box (OPENJDK-631)
-    Given s2i build https://github.com/jhuttana/openjdk-test-applications/tree/pick_relevant_sources from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i with env
+    Given s2i build https://github.com/jhuttana/openjdk-test-applications from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i with env using pick_relevant_sources
        | variable             | value    |
        | QUARKUS_PACKAGE_TYPE | uber-jar |
     Then container log should not contain INFO quarkus fast-jar package type detected
