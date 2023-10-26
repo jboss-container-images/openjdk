@@ -49,7 +49,6 @@ modules:
   - name: jboss.container.maven
     version: "3.8.17"
   - name: jboss.container.java.s2i.bash
-  - name: jboss.container.java.jlink
 
 help:
   add: true

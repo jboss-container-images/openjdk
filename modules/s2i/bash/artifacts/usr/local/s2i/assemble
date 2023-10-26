@@ -8,23 +8,17 @@ source "${JBOSS_CONTAINER_MAVEN_S2I_MODULE}/maven-s2i"
 # include our s2i_core_*() overrides/extensions
 source "${JBOSS_CONTAINER_JAVA_S2I_MODULE}/s2i-core-hooks"
 
-# include our jlink scripts
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkdeps.sh"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkjreimage.sh"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkstrippeddeps.sh"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/generatejdkdeps.sh"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/runall.sh"
-#TODO: Are all of these needed or can we just invoke runall?
-
 # inject our overridden maven_s2i_*() functions
 source "${JBOSS_CONTAINER_JAVA_S2I_MODULE}/maven-s2i-overrides"
 
+# include our jlink scripts
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkdeps.sh"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkstrippeddeps.sh"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/generatejdkdeps.sh"
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkjreimage.sh"
+
 # invoke the build
 maven_s2i_build
-
-#TODO: Clean this up to call the scripts instead
-
-shopt -s globstar
 
 echo "Checking that jarfile and libdir exist"
 test -f "$JAVA_APP_JAR"
@@ -40,8 +34,4 @@ echo "Generating JDK dependencies"
 generatejdkdeps
 
 echo "Linking jre"
-$JAVA_HOME/bin/jlink --output runtime-jre \
-      	--add-modules $(cat module-deps.txt) \
-        -G --no-header-files --no-man-pages
-
-rm *.txt
+generate_jre_image
