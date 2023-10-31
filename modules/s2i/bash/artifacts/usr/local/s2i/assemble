@@ -11,27 +11,22 @@ source "${JBOSS_CONTAINER_JAVA_S2I_MODULE}/s2i-core-hooks"
 # inject our overridden maven_s2i_*() functions
 source "${JBOSS_CONTAINER_JAVA_S2I_MODULE}/maven-s2i-overrides"
 
-# include our jlink scripts
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkdeps.sh"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkstrippeddeps.sh"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/generatejdkdeps.sh"
-source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkjreimage.sh"
-
 # invoke the build
 maven_s2i_build
 
-echo "Checking that jarfile and libdir exist"
-test -f "$JAVA_APP_JAR"
-test -d "$JAVA_LIB_DIR"
-
+# include our jlink scripts
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkdeps.sh"
 echo "Invoking mkdeps"
 generate_deps
 
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkstrippeddeps.sh"
 echo "Stripping dependencies"
 mkstrippeddeps
 
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/generatejdkdeps.sh"
 echo "Generating JDK dependencies"
 generatejdkdeps
 
+source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkjreimage.sh"
 echo "Linking jre"
 generate_jre_image
