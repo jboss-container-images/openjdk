@@ -8,6 +8,7 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | command | rpm -qa |
     Then available container log should not contain java-1.8.0
     Then available container log should not contain java-17
+    Then available container log should not contain java-21
 
   @ubi9/openjdk-17
   @ubi9/openjdk-17-runtime
@@ -17,6 +18,17 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | command | rpm -qa |
     Then available container log should not contain java-1.8.0
     Then available container log should not contain java-11
+    Then available container log should not contain java-21
+
+  @ubi9/openjdk-21
+  @ubi9/openjdk-21-runtime
+  Scenario: Check that only OpenJDK 21 is installed
+    When container is started with args
+    | arg     | value   |
+    | command | rpm -qa |
+    Then available container log should not contain java-1.8.0
+    Then available container log should not contain java-11
+    Then available container log should not contain java-17
 
   @ubi9
   Scenario: Ensure JAVA_HOME is defined and contains Java
@@ -42,6 +54,7 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | command | ls -1 /usr/lib/jvm |
     Then available container log should not contain java-1.8.0
     Then available container log should not contain java-17
+    Then available container log should not contain java-21
 
   @ubi9/openjdk-17
   @ubi9/openjdk-17-runtime
@@ -51,6 +64,17 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | command | ls -1 /usr/lib/jvm |
     Then available container log should not contain java-1.8.0
     Then available container log should not contain java-11
+    Then available container log should not contain java-21
+
+  @ubi9/openjdk-21
+  @ubi9/openjdk-21-runtime
+  Scenario: Check that directories from other JDKs are not present (JDK21)
+    When container is started with args
+    | arg     | value   |
+    | command | ls -1 /usr/lib/jvm |
+    Then available container log should not contain java-1.8.0
+    Then available container log should not contain java-11
+    Then available container log should not contain java-17
 
   @ubi9
   Scenario: Ensure LANG is defined and contains UTF-8
