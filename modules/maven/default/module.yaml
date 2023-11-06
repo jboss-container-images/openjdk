@@ -16,6 +16,7 @@ execute:
 
 modules:
   install:
+  - name: jboss.container.user
   - name: jboss.container.maven.api
   - name: jboss.container.java.jvm.bash
   - name: jboss.container.maven
