@@ -134,7 +134,7 @@ Feature: Openshift OpenJDK S2I tests
   # CLOUD-3095 - context dir should be recursively copied into the image
   # "/target" suffix is important here; it triggers a different code-path (no source build)
   Scenario: Ensure binary-only mode copies binaries into the target image
-    Given s2i build https://github.com/jhuttana/openjdk-test-applications/tree/pick_relevant_sources from spring-boot-sample-simple/target
+    Given s2i build https://github.com/jhuttana/openjdk-test-applications from spring-boot-sample-simple/target using pick_relevant_sources
     Then s2i build log should not contain skipping directory .
     And  run find /deployments in container and check its output for spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
 
@@ -168,6 +168,6 @@ Feature: Openshift OpenJDK S2I tests
     Then XML file /tmp/artifacts/configuration/settings.xml should have 1 elements on XPath //ns:profile[ns:id='myrepo-profile']/ns:repositories/ns:repository[ns:url='http://repo.example.com:8080/maven2/']
 
   Scenario: Ensure the environment is cleaned when executing mvn (OPENJDK-1549)
-      Given s2i build https://github.com/jhuttana/openjdk-test-applications from tests/OPENJDK-1549 with env using pick_relevant_sources
+      Given s2i build https://github.com/jhuttana/openjdk-test-applications from OPENJDK-1549 with env using pick_relevant_sources
        | variable           | value    |
        | MAVEN_ARGS         | validate |

@@ -8,7 +8,7 @@ Feature: Openshift OpenJDK-only S2I tests
     And run stat --printf="%U %G" /tmp/hsperfdata_default/ in container and check its output for default root
 
   Scenario: Ensure Quarkus CDS doesn't fail due to timestamp mismatch (OPENDJK-1673)
-    Given s2i build https://github.com/jhuttana/openjdk-test-applications/tree/pick_relevant_sources from getting-started
+    Given s2i build https://github.com/jhuttana/openjdk-test-applications from getting-started using pick_relevant_sources
     Then container log should not contain A jar file is not the one used while building the shared archive file
 
   Scenario: quarkus fast-jar layout works out-of-the-box (OPENJDK-631)
