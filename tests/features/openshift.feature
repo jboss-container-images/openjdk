@@ -12,6 +12,7 @@ Feature: Tests for all openshift images
   @ubi8/openjdk-8
   @ubi8/openjdk-11
   @ubi8/openjdk-17
+  @ubi8/openjdk-21
   Scenario: Check that builder labels are correctly set
     Given image is built
     Then the image should contain label io.openshift.s2i.scripts-url with value image:///usr/local/s2i
