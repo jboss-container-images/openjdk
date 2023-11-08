@@ -4,7 +4,7 @@ schema_version: 1
 
 from: "registry.access.redhat.com/ubi9/ubi-minimal"
 name: &name "ubi9/openjdk-11-runtime"
-version: &version "1.16"
+version: &version "1.17"
 description: "Image for Red Hat OpenShift providing OpenJDK 11 runtime"
 
 labels:
