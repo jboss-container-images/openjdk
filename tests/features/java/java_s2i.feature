@@ -173,7 +173,7 @@ Feature: Openshift OpenJDK S2I tests
        | MAVEN_ARGS         | validate |
 
   Scenario: Ensure that run-env.sh placed in the JAVA_APP_DIR is sourced in the run script before launching java
-      Given s2i build https://github.com/jboss-container-images/openjdk-test-applications from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i using main
+      Given s2i build https://github.com/jboss-container-images/openjdk-test-applications from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i
        | variable            | value        |
        | S2I_SOURCE_DATA_DIR | ./           |
        | S2I_TARGET_DATA_DIR | /deployments |
