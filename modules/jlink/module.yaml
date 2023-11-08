@@ -16,3 +16,4 @@ envs:
 modules:
   install: 
   - name: jboss.container.java.run
+  - name: jboss.container.util.pathfinder
