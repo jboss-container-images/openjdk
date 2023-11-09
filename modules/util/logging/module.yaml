@@ -10,5 +10,9 @@ envs:
   description: Set to true to enable script debugging.
   example: true
 
+modules:
+  install:
+  - name: jboss.container.user
+
 execute:
 - script: configure.sh
