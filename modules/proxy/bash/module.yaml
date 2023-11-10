@@ -16,4 +16,5 @@ execute:
 
 modules:
   install:
+  - name: jboss.container.user
   - name: jboss.container.proxy.api

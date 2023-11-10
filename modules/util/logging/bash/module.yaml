@@ -10,6 +10,10 @@ envs:
   description: Set to true to enable script debugging.  Deprecates SCRIPT_DEBUG.
   example: true
 
+modules:
+  install:
+  - name: jboss.container.user
+
 execute:
 - script: configure.sh
 - script: backward_compatibility.sh

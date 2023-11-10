@@ -6,4 +6,4 @@ set -e
 mkdir -p /opt/run-java
 ln -s /opt/jboss/container/java/jvm/* /opt/run-java
 
-chown -R jboss:root /opt/run-java
+chown -R $USER:root /opt/run-java

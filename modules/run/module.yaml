@@ -57,5 +57,6 @@ execute:
 
 modules:
   install:
+  - name: jboss.container.user
   - name: jboss.container.java.jvm.bash
   - name: jboss.container.util.logging.bash
