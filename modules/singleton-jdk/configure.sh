@@ -18,7 +18,7 @@ rpm -e --nodeps $(rpm -qa java-* | grep -v "^java-${JAVA_VERSION}-${JAVA_VENDOR}
 # workaround for <https://issues.redhat.com/browse/RHEL-3437>
 # The alternative link groups touched here need to match up with those set in
 # modules/jdk/*/configure.sh
-_arch="$(uname -m)"
+_arch="$(uname -i)"
 for alt in java javac java_sdk_openjdk jre_openjdk; do
   alternatives --set "$alt" "java-${JAVA_VERSION}-${JAVA_VENDOR}.${_arch}"
 done
