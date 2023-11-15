@@ -8,11 +8,6 @@ osbs:
         - java-21-openjdk-devel
         - java-21-openjdk-headless
         signing_intent: release
-      platforms:
-        only: # not s390x (yet)
-        - x86_64
-        - ppc64le
-        - aarch64
   repository:
     name: containers/openjdk
     branch: openjdk-21-ubi9
