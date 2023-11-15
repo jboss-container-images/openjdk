@@ -82,7 +82,6 @@ function s2i_core_copy_data() {
 # copy deployment (binary) files
 # $1 - the base directory to which $S2I_SOURCE_DEPLOYMENTS_DIR is appended
 function s2i_core_copy_deployments() {
-  echo "Copying deployments"
   if [ -d "${1}/${S2I_SOURCE_DEPLOYMENTS_DIR}" ]; then
     if [ -z "${S2I_TARGET_DEPLOYMENTS_DIR}" ]; then
       log_warning "Unable to copy deployment files.  No target directory specified for S2I_TARGET_DEPLOYMENTS_DIR"

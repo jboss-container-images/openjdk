@@ -26,13 +26,15 @@ load_env() {
   # Configuration stuff is read from this file
   local run_env_sh="run-env.sh"
   
-  # Load JAVA_APP_JAR and JAVA_LIB_DIR
-  if [ -f "${JBOSS_CONTAINER_UTIL_PATHFINDER_MODULE}/pathfinder.sh" ]; then
-    source "$JBOSS_CONTAINER_UTIL_PATHFINDER_MODULE/pathfinder.sh"
-  fi
   # Load default default config
   if [ -f "${JBOSS_CONTAINER_JAVA_RUN_MODULE}/${run_env_sh}" ]; then
     source "${JBOSS_CONTAINER_JAVA_RUN_MODULE}/${run_env_sh}"
+  fi
+
+  # Load JAVA_APP_JAR and JAVA_LIB_DIR
+  if [ -f "${JBOSS_CONTAINER_UTIL_PATHFINDER_MODULE}/pathfinder.sh" ]; then
+    source "$JBOSS_CONTAINER_UTIL_PATHFINDER_MODULE/pathfinder.sh"
+    setup_java_app_and_lib
   fi
 }
 

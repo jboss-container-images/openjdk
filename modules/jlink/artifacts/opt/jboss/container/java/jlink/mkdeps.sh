@@ -10,13 +10,15 @@ function generate_deps() {
   if [[ -v JAVA_LIB_DIR ]]; then
       # copy dependencies found in libs to dependencies
       find $JAVA_LIB_DIR -type f -name '*.jar' -print0 | xargs -r0 cp -vt dependencies
+      echo "Working with: "
+      echo $JAVA_APP_JAR
+      echo $JAVA_LIB_DIR
       # generate the dependency list
       $JAVA_HOME/bin/jdeps --multi-release $JAVA_VERSION -R -s \
         --module-path dependencies \
         "$JAVA_APP_JAR" \
         "$JAVA_LIB_DIR"/**/*.jar \
         > deps.txt
-      cat deps.txt
   else 
     $JAVA_HOME/bin/jdeps --multi-release $JAVA_VERSION -R -s \
       --module-path dependencies \

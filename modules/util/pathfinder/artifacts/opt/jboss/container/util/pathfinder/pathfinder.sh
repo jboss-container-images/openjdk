@@ -1,4 +1,11 @@
-
+# Error is indicated with a prefix in the return value
+check_error() {
+  local msg=$1
+  if echo ${msg} | grep -q "^ERROR:"; then
+    log_error ${msg}
+    exit 1
+  fi
+}
 
 # detect Quarkus fast-jar package type (OPENJDK-631)
 is_quarkus_fast_jar() {
@@ -59,6 +66,14 @@ get_jar_file() {
 }
 
 setup_java_app_and_lib() {
+  # Configuration stuff is read from this file
+  local run_env_sh="run-env.sh"
+  
+  # Load default default config
+  if [ -f "${JBOSS_CONTAINER_JAVA_RUN_MODULE}/${run_env_sh}" ]; then
+    source "${JBOSS_CONTAINER_JAVA_RUN_MODULE}/${run_env_sh}"
+  fi
+
   # Check also $JAVA_APP_DIR. Overrides other defaults
   # It's valid to set the app dir in the default script
   if [ -z "${JAVA_APP_DIR}" ]; then
