@@ -8,8 +8,11 @@ function generate_deps() {
   mkdir dependencies
 
   if [[ -v JAVA_LIB_DIR ]]; then
-      # copy dependencies found in libs to dependencies
-      find $JAVA_LIB_DIR -type f -name '*.jar' -print0 | xargs -r0 cp -vt dependencies
+      # Serially copy all library JARsinto a flat directory. Serially as we may
+      # have multiple libs with the same name; in which case, we clobber all but
+      # one rather than fail the script
+      find $JAVA_LIB_DIR -type f -name '*.jar' -exec cp -vt dependencies {} \;
+      
       echo "Working with: "
       echo $JAVA_APP_JAR
       echo $JAVA_LIB_DIR
