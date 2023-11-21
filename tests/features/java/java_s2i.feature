@@ -179,3 +179,9 @@ Feature: Openshift OpenJDK S2I tests
        | S2I_SOURCE_DATA_DIR | ./           |
        | S2I_TARGET_DATA_DIR | /deployments |
       Then container log should contain INFO exec -a "someUniqueString" java
+
+  Scenario: Ensure mtime is preserved for build artifacts (OPENJDK-2408)
+      Given s2i build https://github.com/jboss-container-images/openjdk-test-applications from OPENJDK-2408-bin-custom-s2i-assemble with env
+       | variable          | value |
+       | S2I_DELETE_SOURCE | false |
+    Then run find /deployments/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar ! -newer /tmp/src/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar in container and check its output for spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar
