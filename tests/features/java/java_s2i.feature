@@ -271,7 +271,7 @@ Feature: Openshift OpenJDK S2I tests
     Given s2i build https://github.com/jboss-container-images/openjdk-test-applications from spring-boot-sample-simple
 
   Scenario: run an S2I that should fail as MAVEN_ARGS does not define com.redhat.xpaas.repo.redhatga
-    Given failing s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple using openjdk-enforce-profile
+    Given failing s2i build https://github.com/jboss-container-images/openjdk-test-applications from spring-boot-sample-simple using openjdk-enforce-profile
        | variable           | value                                            |
        | MAVEN_ARGS         | -e package                                       |
 
