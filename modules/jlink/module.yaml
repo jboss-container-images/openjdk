@@ -17,3 +17,7 @@ modules:
   install: 
   - name: jboss.container.java.run
   - name: jboss.container.util.pathfinder
+
+packages:
+  install:
+  - binutils # for objcopy
