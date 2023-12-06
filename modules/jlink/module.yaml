@@ -12,6 +12,8 @@ execute:
 envs: 
 - name: JBOSS_CONTAINER_JAVA_JLINK_MODULE
   value: /opt/jboss/container/java/jlink
+- name: S2I_JLINK_OUTPUT_PATH
+  value: /tmp/jre
 
 modules:
   install: 
