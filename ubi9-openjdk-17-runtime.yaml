@@ -46,6 +46,7 @@ modules:
   - path: modules
   install:
   - name: jboss.container.util.pkg-update
+  - name: jboss.container.tar
   - name: jboss.container.openjdk.jre
     version: "17"
   - name:  jboss.container.java.jre.run
