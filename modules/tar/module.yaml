@@ -1,0 +1,8 @@
+schema_version: 1
+name: jboss.container.tar
+version: '1.0'
+description: Installs the Tar RPM to enable `oc cp` and `oc rsync`
+
+packages:
+  install:
+  - tar
