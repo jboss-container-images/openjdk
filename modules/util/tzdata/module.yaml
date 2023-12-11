@@ -1,0 +1,7 @@
+schema_version: 1
+name: jboss.container.util.tzdata
+version: '1.0'
+description: Reinstall the tzdata package, to ensure zoneinfo is present
+
+execute:
+- script: execute.sh

@@ -44,6 +44,7 @@ modules:
   - name: jboss.container.util.pkg-update
   - name: jboss.container.openjdk.jre
     version: "21"
+  - name: jboss.container.util.tzdata
   - name: jboss.container.java.jre.run
 
 help:
