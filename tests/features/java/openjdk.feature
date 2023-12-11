@@ -82,3 +82,10 @@ Feature: Miscellaneous OpenJDK-related unit tests
     | arg     | value                                  |
     | command | bash -c "$JAVA_HOME/bin/java -XshowSettings:properties -version" |
     Then available container log should contain file.encoding = UTF-8
+
+  @ubi9
+  Scenario: Ensure tar is installed (OPENJDK-1165)
+    When container is started with args
+    | arg     | value |
+    | command | tar   |
+    Then available container log should not contain command not found
