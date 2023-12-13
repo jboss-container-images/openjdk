@@ -13,6 +13,7 @@ jobs:
     permissions:
       packages: write
     name: OpenJDK S2I Build and Test
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -35,10 +36,16 @@ jobs:
           github_pat: ${{ github.token }}
           s2i: "1.3.4"
 
+      # s2i misbehaves if registry credentials are present: tries and fails to query
+      # image metadata from docker.io before each build, etc. See:
+      # https://github.com/openshift/source-to-image/issues/1134
+      - name: clear docker credentials
+        run: docker logout
+
       - name: Behave Tests
         run: |
           echo /home/runner/work/_temp/openshift-bin >> $GITHUB_PATH
-          cekit -v --descriptor ${{ inputs.image }}.yaml test --image localimage behave
+          cekit -v --descriptor ${{ inputs.image }}.yaml test --image localimage behave --steps-url https://github.com/jmtd/behave-test-steps
 
       - if: github.event_name == 'push'
         name: Log in to the Container registry

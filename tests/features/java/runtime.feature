@@ -1,5 +1,6 @@
 @ubi9/openjdk-11
 @ubi9/openjdk-17
+@ubi9/openjdk-21
 Feature: Openshift OpenJDK Runtime tests
 
   Scenario: Ensure JAVA_ARGS is passed through, diagnostic options work correctly, JVM_ARGS not present in run script, OPENJDK-474 JAVA_ARGS not repeated

@@ -19,5 +19,9 @@ envs:
   description: A comma separated lists of hosts, IP addresses or domains that can be accessed directly. This will be used for both Maven builds and Java runtime.
   example: "foo.example.com,*.example.org"
 
+modules:
+  install:
+  - name: jboss.container.user
+
 execute:
 - script: configure.sh

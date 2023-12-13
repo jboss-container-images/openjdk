@@ -54,7 +54,7 @@ function s2i_core_copy_configuration() {
         mkdir -pm 775 "${S2I_TARGET_CONFIGURATION_DIR}"
       fi
       log_info "Copying configuration from $(realpath --relative-to ${S2I_SOURCE_DIR} ${1}/${S2I_SOURCE_CONFIGURATION_DIR}) to ${S2I_TARGET_CONFIGURATION_DIR}..."
-      rsync -rl --out-format='%n' "${1}/${S2I_SOURCE_CONFIGURATION_DIR}"/ "${S2I_TARGET_CONFIGURATION_DIR}"
+      rsync --archive --out-format='%n' "${1}/${S2I_SOURCE_CONFIGURATION_DIR}"/ "${S2I_TARGET_CONFIGURATION_DIR}"
     fi
   fi 
 }
@@ -71,7 +71,7 @@ function s2i_core_copy_data() {
         mkdir -pm 775 "${S2I_TARGET_DATA_DIR}"
       fi
       log_info "Copying app data from $(realpath --relative-to ${S2I_SOURCE_DIR} ${1}/${S2I_SOURCE_DATA_DIR}) to ${S2I_TARGET_DATA_DIR}..."
-      rsync -rl --out-format='%n' "${1}/${S2I_SOURCE_DATA_DIR}"/ "${S2I_TARGET_DATA_DIR}"
+      rsync --archive --out-format='%n' "${1}/${S2I_SOURCE_DATA_DIR}"/ "${S2I_TARGET_DATA_DIR}"
       # s2i used to be more forgiving, but the build will fail if this call
       # fails.  emit a warning and allow the build to succeed
       chmod -R g+rwX "${S2I_TARGET_DATA_DIR}" || log_warning "Errors occurred while adding read/write permissions to S2I_TARGET_DATA_DIR ($S2I_TARGET_DATA_DIR)."

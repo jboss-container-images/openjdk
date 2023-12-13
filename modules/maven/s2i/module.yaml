@@ -28,6 +28,7 @@ execute:
 
 modules:
   install:
+  - name: jboss.container.user
   - name: jboss.container.s2i.core
   - name: jboss.container.maven.default
   - name: jboss.container.util.logging

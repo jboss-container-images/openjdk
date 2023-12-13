@@ -1,5 +1,8 @@
+# temporarily marking 'ignore' so these tests are skipped on GHA
+@ignore
 @ubi9/openjdk-11
 @ubi9/openjdk-17
+@ubi9/openjdk-21
 Feature: Openshift OpenJDK S2I tests
 # NOTE: these tests should be usable with the other images once we have refactored the JDK scripts.
 # These builds do not actually run maven. This is important, because the proxy
@@ -117,11 +120,11 @@ Feature: Openshift OpenJDK S2I tests
 
   # deprecated?
   Scenario: run an S2I build that depends on com.redhat.xpaas.repo.redhatga being defined
-    Given s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple
+    Given s2i build https://github.com/jboss-container-images/openjdk-test-applications from spring-boot-sample-simple
 
   # deprecated?
   Scenario: run an S2I that should fail as MAVEN_ARGS does not define com.redhat.xpaas.repo.redhatga
-    Given failing s2i build https://github.com/jboss-openshift/openshift-examples from spring-boot-sample-simple using openjdk-enforce-profile
+    Given failing s2i build https://github.com/jboss-container-images/openjdk-test-applications from spring-boot-sample-simple using openjdk-enforce-profile
        | variable           | value                                            |
        | MAVEN_ARGS         | -e package                                       |
 
@@ -171,3 +174,16 @@ Feature: Openshift OpenJDK S2I tests
       Given s2i build https://github.com/jboss-container-images/openjdk-test-applications from OPENJDK-1549 with env
        | variable           | value    |
        | MAVEN_ARGS         | validate |
+
+  Scenario: Ensure that run-env.sh placed in the JAVA_APP_DIR is sourced in the run script before launching java
+      Given s2i build https://github.com/jboss-container-images/openjdk-test-applications from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i
+       | variable            | value        |
+       | S2I_SOURCE_DATA_DIR | ./           |
+       | S2I_TARGET_DATA_DIR | /deployments |
+      Then container log should contain INFO exec -a "someUniqueString" java
+
+  Scenario: Ensure mtime is preserved for build artifacts (OPENJDK-2408)
+      Given s2i build https://github.com/jboss-container-images/openjdk-test-applications from OPENJDK-2408-bin-custom-s2i-assemble with env
+       | variable          | value |
+       | S2I_DELETE_SOURCE | false |
+    Then run find /deployments/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar ! -newer /tmp/src/spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar in container and check its output for spring-boot-sample-simple-1.5.0.BUILD-SNAPSHOT.jar

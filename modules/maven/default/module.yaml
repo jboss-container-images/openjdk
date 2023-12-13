@@ -10,6 +10,7 @@ execute:
 
 modules:
   install:
+  - name: jboss.container.user
   - name: jboss.container.java.jvm
   - name: jboss.container.maven
   - name: jboss.container.util.logging
@@ -31,17 +32,33 @@ envs:
 - name: MAVEN_CLEAR_REPO
   description: If set then the Maven repository is removed after the artifact is built. This is useful for keeping the created application image small, but prevents *incremental* builds. Will be overridden by **S2I_ENABLE_INCREMENTAL_BUILDS**.  Defaults to *false*.
 - name: MAVEN_MIRROR_URL
-  description: The base URL of a mirror used for retrieving artifacts.
+  description: >
+    The base URL of a mirror used for retrieving artifacts.
+    For multi-mirror support, see  `MAVEN_MIRRORS`.
   example: "http://10.0.0.1:8080/repository/internal/"
+- name: MAVEN_MIRROR_OF
+  description: >
+    Repository IDs mirrored by the mirror specified in `MAVEN_MIRROR_URL`.
+    For multi-mirror support, see  `MAVEN_MIRRORS`.
+    Defaults to "external:*".
+  example: external:*
 - name: MAVEN_MIRRORS
-  description: "If set, multi-mirror support is enabled, and other MAVEN_MIRROR_* variables will be prefixed. For example: DEV_ONE_MAVEN_MIRROR_URL and QE_TWO_MAVEN_MIRROR_URL"
-  example: "dev-one,qe-two"
-- name: prefix_MAVEN_MIRROR_ID
+  description: >
+    Enables multi-mirror support. Specify a comma-delimited list of capitalized
+    mirror identifiers. The configuration for each mirror will be determined by
+    correspondingly prefixed `MAVEN_MIRROR_*` variables. Any dashes in mirror
+    names will be replaced by underscores. For example: Specifying
+    `DEV-ONE,QE-TWO` configures two mirrors and their URLs will be read from
+    the `DEV_ONE_MAVEN_MIRROR_URL` and `QE_TWO_MAVEN_MIRROR_URL` variables.
+    See also: `<prefix>_MAVEN_MIRROR_ID`; `<prefix>_MAVEN_MIRROR_OF`;
+    `<prefix>_MAVEN_MIRROR_URL`.
+  example: "DEV-ONE,QE-TWO"
+- name: <prefix>_MAVEN_MIRROR_ID
   description: "ID to be used for the specified mirror.  If omitted, a unique ID will be generated."
   example: "internal-mirror"
-- name: prefix_MAVEN_MIRROR_OF
+- name: <prefix>_MAVEN_MIRROR_OF
   description: "Repository IDs mirrored by this entry.  Defaults to external:*"
-- name: prefix_MAVEN_MIRROR_URL
+- name: <prefix>_MAVEN_MIRROR_URL
   description: "The URL of the mirror."
   example: "http://10.0.0.1:8080/repository/internal"
 - name: MAVEN_SETTINGS_XML
@@ -71,66 +88,66 @@ envs:
     Specifying `DEV-ONE,QE-TWO` configures two repositories and their
     URLs will be read from `DEV_ONE_MAVEN_REPO_URL` and
     `QE_TWO_MAVEN_REPO_URL`.
-- name: "prefix_MAVEN_REPO_ID"
+- name: "<prefix>_MAVEN_REPO_ID"
   example: "my-repo-id"
   description: "Maven repository id"
-- name: "prefix_MAVEN_REPO_NAME"
+- name: "<prefix>_MAVEN_REPO_NAME"
   example: "my-repo-name"
   description: "Maven repository name"
-- name: "prefix_MAVEN_REPO_LAYOUT"
+- name: "<prefix>_MAVEN_REPO_LAYOUT"
   example: "default"
   description: "Maven repository layout"
-- name: "prefix_MAVEN_REPO_RELEASES_ENABLED"
+- name: "<prefix>_MAVEN_REPO_RELEASES_ENABLED"
   example: "true"
   description: "Maven repository releases enabled"
-- name: "prefix_MAVEN_REPO_RELEASES_UPDATE_POLICY"
+- name: "<prefix>_MAVEN_REPO_RELEASES_UPDATE_POLICY"
   example: "always"
   description: "Maven repository releases update policy"
-- name: "prefix_MAVEN_REPO_RELEASES_CHECKSUM_POLICY"
+- name: "<prefix>_MAVEN_REPO_RELEASES_CHECKSUM_POLICY"
   example: "warn"
   description: "Maven repository releases checksum policy"
-- name: "prefix_MAVEN_REPO_SNAPSHOTS_ENABLED"
+- name: "<prefix>_MAVEN_REPO_SNAPSHOTS_ENABLED"
   example: "true"
   description: "Maven repository snapshots enabled"
-- name: "prefix_MAVEN_REPO_SNAPSHOTS_UPDATE_POLICY"
+- name: "<prefix>_MAVEN_REPO_SNAPSHOTS_UPDATE_POLICY"
   example: "always"
   description: "Maven repository snapshots update policy"
-- name: "prefix_MAVEN_REPO_SNAPSHOTS_CHECKSUM_POLICY"
+- name: "<prefix>_MAVEN_REPO_SNAPSHOTS_CHECKSUM_POLICY"
   example: "warn"
   description: "Maven repository snapshots checksum policy"
-- name: "prefix_MAVEN_REPO_USERNAME"
+- name: "<prefix>_MAVEN_REPO_USERNAME"
   example: "mavenUser"
   description: "Maven repository username"
-- name: "prefix_MAVEN_REPO_PASSWORD"
+- name: "<prefix>_MAVEN_REPO_PASSWORD"
   example: "maven1!"
   description: "Maven repository password"
-- name: "prefix_MAVEN_REPO_PRIVATE_KEY"
+- name: "<prefix>_MAVEN_REPO_PRIVATE_KEY"
   example: "${user.home}/.ssh/id_dsa"
   description: "Maven repository private key"
-- name: "prefix_MAVEN_REPO_PASSPHRASE"
+- name: "<prefix>_MAVEN_REPO_PASSPHRASE"
   example: "maven1!"
   description: "Maven repository passphrase"
-- name: "prefix_MAVEN_REPO_FILE_PERMISSIONS"
+- name: "<prefix>_MAVEN_REPO_FILE_PERMISSIONS"
   example: "664"
   description: "Maven repository file permissions"
-- name: "prefix_MAVEN_REPO_DIRECTORY_PERMISSIONS"
+- name: "<prefix>_MAVEN_REPO_DIRECTORY_PERMISSIONS"
   example: "775"
   description: "Maven repository directory permissions"
-- name: "prefix_MAVEN_REPO_URL"
+- name: "<prefix>_MAVEN_REPO_URL"
   example: "http://repo.example.com:8080/maven2/"
   description: "Maven repository url (fully defined)"
-- name: "prefix_MAVEN_REPO_PROTOCOL"
+- name: "<prefix>_MAVEN_REPO_PROTOCOL"
   example: "http"
   description: "Maven repository protocol (if not using fully defined url; will fallback to service)"
-- name: "prefix_MAVEN_REPO_HOST"
+- name: "<prefix>_MAVEN_REPO_HOST"
   example: "repo.example.com"
   description: "Maven repository host (if not using fully defined url; will fallback to service)"
-- name: "prefix_MAVEN_REPO_PORT"
+- name: "<prefix>_MAVEN_REPO_PORT"
   example: "8080"
   description: "Maven repository port (if not using fully defined url; will fallback to service)"
-- name: "prefix_MAVEN_REPO_PATH"
+- name: "<prefix>_MAVEN_REPO_PATH"
   example: "/maven2/"
   description: "Maven repository path (if not using fully defined url; will fallback to service)"
-- name: "prefix_MAVEN_REPO_SERVICE"
+- name: "<prefix>_MAVEN_REPO_SERVICE"
   example: "buscentr-myapp"
-  description: "Maven repository service to lookup if prefix_MAVEN_REPO_URL not specified"
+  description: "Maven repository service to lookup if `<prefix>_MAVEN_REPO_URL` not specified"
