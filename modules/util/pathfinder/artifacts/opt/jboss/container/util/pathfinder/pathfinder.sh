@@ -66,25 +66,17 @@ get_jar_file() {
 }
 
 setup_java_app_and_lib() {
-  # Configuration stuff is read from this file
-  local run_env_sh="run-env.sh"
-  
-  # Load default default config
-  if [ -f "${JBOSS_CONTAINER_JAVA_RUN_MODULE}/${run_env_sh}" ]; then
-    source "${JBOSS_CONTAINER_JAVA_RUN_MODULE}/${run_env_sh}"
+  # Default the application dir to the S2I deployment dir
+  if [ -z "$JAVA_APP_DIR" ]
+    then JAVA_APP_DIR=/deployments
   fi
 
-  # Check also $JAVA_APP_DIR. Overrides other defaults
-  # It's valid to set the app dir in the default script
-  if [ -z "${JAVA_APP_DIR}" ]; then
-    # XXX: is this correct?  This is defaulted above to /deployments.  Should we
-    # define a default to the old /opt/java-run?
-    JAVA_APP_DIR="${JBOSS_CONTAINER_JAVA_RUN_MODULE}"
-  else
-    if [ -f "${JAVA_APP_DIR}/${run_env_sh}" ]; then
-      source "${JAVA_APP_DIR}/${run_env_sh}"
-    fi
+  # application-source provided shell script that may set environment
+  # variables
+  if [ -f "${JAVA_APP_DIR}/run-env.sh" ]; then
+    source "${JAVA_APP_DIR}/run-env.sh"
   fi
+
   export JAVA_APP_DIR
 
   # JAVA_LIB_DIR defaults to JAVA_APP_DIR

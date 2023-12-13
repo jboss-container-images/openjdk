@@ -3,15 +3,15 @@
 # Fail on a single failed command
 set -eo pipefail
 
+# define default values for the location of sub-scripts. This is
+# necessary when the run script is used from an environment which
+# lacks the definitions, such as a ubi-micro-based image.
 export JBOSS_CONTAINER_UTIL_LOGGING_MODULE="${JBOSS_CONTAINER_UTIL_LOGGING_MODULE-/opt/jboss/container/util/logging}"
 export JBOSS_CONTAINER_JAVA_RUN_MODULE="${JBOSS_CONTAINER_JAVA_RUN_MODULE-/opt/jboss/container/java/run}"
-
-# Default the application dir to the S2I deployment dir
-if [ -z "$JAVA_APP_DIR" ]
-  then JAVA_APP_DIR=/deployments
-fi
+export JBOSS_CONTAINER_UTIL_PATHFINDER_MODULE="${JBOSS_CONTAINER_UTIL_PATHFINDER_MODULE-/opt/jboss/container/util/pathfinder}"
 
 source "$JBOSS_CONTAINER_UTIL_LOGGING_MODULE/logging.sh"
+source "$JBOSS_CONTAINER_UTIL_PATHFINDER_MODULE/pathfinder.sh"
 
 # ==========================================================
 # Generic run script for running arbitrary Java applications
@@ -27,22 +27,6 @@ check_error() {
   if echo ${msg} | grep -q "^ERROR:"; then
     log_error ${msg}
     exit 1
-  fi
-}
-
-load_env() {
-  # Configuration stuff is read from this file
-  local run_env_sh="run-env.sh"
-  
-  # Load default default config
-  if [ -f "${JBOSS_CONTAINER_JAVA_RUN_MODULE}/${run_env_sh}" ]; then
-    source "${JBOSS_CONTAINER_JAVA_RUN_MODULE}/${run_env_sh}"
-  fi
-
-  # Load JAVA_APP_JAR and JAVA_LIB_DIR
-  if [ -f "${JBOSS_CONTAINER_UTIL_PATHFINDER_MODULE}/pathfinder.sh" ]; then
-    source "$JBOSS_CONTAINER_UTIL_PATHFINDER_MODULE/pathfinder.sh"
-    setup_java_app_and_lib
   fi
 }
 
@@ -128,7 +112,8 @@ get_classpath() {
 # Start JVM
 startup() {
   # Initialize environment
-  load_env
+  # populates JAVA_APP_JAR and JAVA_LIB_DIR and possibly JAVA_MAIN_CLASS
+  setup_java_app_and_lib
 
   local args
   cd ${JAVA_APP_DIR}
