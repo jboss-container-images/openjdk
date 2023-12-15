@@ -3,7 +3,7 @@
 #Stage-1:build application JAR and libraries
 #steps to build the application JAR and jlinked JRE
 #for time being using the image built by Jon
-FROM quay.io/jdowland/jlink:quarkus-getting-started AS ubi9-jlinked-image
+FROM ubi9-jlinked-image AS ubi9-jlinked-image
 USER 0
 RUN mkdir -p /mnt/jrootfs
 RUN microdnf install dnf -y
