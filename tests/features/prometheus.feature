@@ -34,4 +34,4 @@ Feature: Prometheus agent tests
     When container is started with args
     | arg     | value                                                                            |
     | command | bash -c "md5sum $JBOSS_CONTAINER_PROMETHEUS_MODULE/jmx_prometheus_javaagent.jar" |
-    Then available container log should contain 8b3af39995b113baf35e53468bad7aae
+    Then available container log should contain 2cd8f7055b99fff305a74b0581e8ecd3
