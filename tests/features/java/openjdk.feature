@@ -118,3 +118,10 @@ Feature: Miscellaneous OpenJDK-related unit tests
     Then container log should not contain libpwquality
     Then container log should not contain libxkbcommon
     Then container log should not contain kbd
+
+  @ubi8
+  Scenario: Ensure tar is installed (OPENJDK-2588)
+    When container is started with args
+    | arg     | value |
+    | command | tar   |
+    Then available container log should not contain command not found
