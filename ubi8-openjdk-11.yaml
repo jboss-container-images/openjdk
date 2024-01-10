@@ -56,6 +56,7 @@ modules:
     version: "3.8.11"
   - name: jboss.container.java.s2i.bash
   - name: jboss.container.util.pkg-update
+  - name: jboss.container.util.tzdata
   # required due to jolokia
   - name: jboss.container.java.singleton-jdk
 

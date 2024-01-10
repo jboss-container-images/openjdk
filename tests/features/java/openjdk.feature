@@ -120,6 +120,13 @@ Feature: Miscellaneous OpenJDK-related unit tests
     Then container log should not contain kbd
 
   @ubi8
+  Scenario: Ensure tzdata RPM is properly installed (OPENJDK-2587)
+    When container is started with args
+    | arg     | value         |
+    | command | rpm -V tzdata |
+    Then available container log should not contain missing
+    
+  @ubi8
   Scenario: Ensure tar is installed (OPENJDK-2588)
     When container is started with args
     | arg     | value |
