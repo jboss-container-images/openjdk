@@ -45,6 +45,7 @@ modules:
     version: "8"
   - name:  jboss.container.java.jre.run
   - name: jboss.container.util.pkg-update
+  - name: jboss.container.util.tzdata
 
 help:
   add: true
