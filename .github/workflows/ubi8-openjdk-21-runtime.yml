@@ -1,4 +1,4 @@
-name: UBI8 OpenJDK 21 Runtime S2I Image CI
+name: UBI8 OpenJDK 21 Runtime Image CI
 on: [push, pull_request]
 env:
   LANG: en_US.UTF-8
