@@ -24,6 +24,10 @@ labels:
   value: "https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI"
 - name: "org.opencontainers.image.documentation"
   value: *docs
+- name: "name"
+  value: *name
+- name: "version"
+  value: *version
 
 envs:
 - name: "JBOSS_IMAGE_NAME"
