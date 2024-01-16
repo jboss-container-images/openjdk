@@ -25,6 +25,6 @@ execute:
 
 artifacts:
 - name: jmx_prometheus_javaagent
-  pnc_build_id: '72393'
-  pnc_artifact_id: '5037842'
-  target: jmx_prometheus_javaagent-0.3.2.redhat-00003.jar
+  pnc_build_id: 'AY2WMDUUTRQAA'
+  pnc_artifact_id: '10355398'
+  target: jmx_prometheus_javaagent-0.3.2.redhat-00005.jar
