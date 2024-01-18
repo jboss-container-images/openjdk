@@ -27,7 +27,7 @@ ${ENGINE} inspect -f '{{.Size}}' $OUTIMG
 # NOTE: we override most variables from .s2i/environment in the quickstart
 # sources below, in order to an uber-jar.
 BASEIMG=ubi9/openjdk-17:latest
-OUTIMG=out-s2i-image2
+OUTIMG=ubi9-jlinked-image # matches input in templates/jlink/Dockerfile
 
 $S2I build --pull-policy never \
     -e S2I_ENABLE_JLINK=true \
