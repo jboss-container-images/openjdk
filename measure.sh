@@ -30,6 +30,7 @@ BASEIMG=ubi9/openjdk-17:latest
 OUTIMG=out-s2i-image2
 
 $S2I build --pull-policy never \
+    -e S2I_ENABLE_JLINK=true \
     -e MAVEN_S2I_ARTIFACT_DIRS=target \
     -e S2I_SOURCE_DEPLOYMENTS_FILTER="*.jar quarkus-app" \
     -e QUARKUS_PACKAGE_TYPE=uber-jar \
