@@ -8,7 +8,7 @@ rhel7:
   # for the rhel7 images, the default range of versions is 1.0-1.12
   # (these keys are numeric as the script uses them as inputs for range())
   from: 0
-  to: 15
+  to: 17
   builder:
     8:
       name: "redhat-openjdk-18/openjdk18-openshift"
@@ -24,7 +24,7 @@ rhel7:
       not: [ 2, 3, 4, 5, 6, 7, 8, 9, 13 ]
 ubi8:
   from: 3
-  to: 17
+  to: 18
   not: [ 4, 5, 6, 7, 8, 9 ]
   builder: # "ubi8/openjdk-X"
     8:  {}
@@ -41,8 +41,11 @@ ubi8:
     17:
       name: "ubi8/openjdk-17-runtime"
       from: 11
+
+# ubi9 is not yet being used in any templates
 ubi9:
   from: 13
+  to: 17
   builder:
     11: {}
     17: {}
