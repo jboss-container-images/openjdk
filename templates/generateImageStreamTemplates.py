@@ -62,6 +62,7 @@ def renderImageStream(os,
                       nameFn=lambda os,v: "{}-openjdk-{}".format(os,v),
                       variant='builder',
                       displayNameFn=lambda v: False,
+                      jdkVers=[8,11,17,21],
 
                       # the following flags are passed through to renderTags
                       imageTags=False,
@@ -83,7 +84,7 @@ def renderImageStream(os,
              displayName=displayNameFn(v),
              description=descriptionFn(v),
         ))
-        for v in [8,11,17]
+        for v in jdkVers
    ])
 
 ##############################################################################
