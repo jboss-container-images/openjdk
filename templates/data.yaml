@@ -31,6 +31,8 @@ ubi8:
     11: {}
     17:
       from: 11
+    21:
+      from: 18
   runtime:
     from: 9
     not: []
@@ -41,6 +43,9 @@ ubi8:
     17:
       name: "ubi8/openjdk-17-runtime"
       from: 11
+    21:
+      name: "ubi8/openjdk-21-runtime"
+      from: 18
 
 # ubi9 is not yet being used in any templates
 ubi9:
@@ -49,8 +54,13 @@ ubi9:
   builder:
     11: {}
     17: {}
+    21:
+      from: 17
   runtime:
     11:
       name: "ubi9/openjdk-11-runtime"
     17:
       name: "ubi9/openjdk-17-runtime"
+    21:
+      name: "ubi9/openjdk-21-runtime"
+      from: 17
