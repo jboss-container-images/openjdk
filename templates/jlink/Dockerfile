@@ -1,31 +1,24 @@
 #multi-stage build for jlinked application JAR and JRE
 
-#Stage-1:build application JAR and libraries
-#steps to build the application JAR and jlinked JRE
-#for time being using the image built by Jon
+#Stage-1: ubi9-jlinked-image is builder image + application + jlinked JVM
+# install additional system dependencies (for ubi-micro) to /mnt/jrootfs
 FROM ubi9-jlinked-image AS ubi9-jlinked-image
 USER 0
 RUN mkdir -p /mnt/jrootfs
-RUN microdnf install dnf -y
-RUN dnf install --installroot /mnt/jrootfs grep gawk --releasever 9 --setopt install_weak_deps=false --nodocs -y;dnf clean all
-RUN rm -rf /mnt/jrootfs/var/cache/*
-RUN rm -rf /mnt/jrootfs/var/lib/rpm
-USER 185
+RUN microdnf install dnf -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs
+RUN dnf install --installroot /mnt/jrootfs --releasever 9 --setopt install_weak_deps=false --nodocs -y \
+    grep gawk \
+    && dnf clean all
+RUN rm -rf /mnt/jrootfs/var/cache/* /mnt/jrootfs/var/lib/rpm
 
 #Stage-2:copy application JAR and jlinked JRE to runtime image
 FROM registry.access.redhat.com/ubi9/ubi-micro AS lean-runtime
+ARG JAVA_HOME=/usr/lib/jvm/java
 
 COPY --from=ubi9-jlinked-image /mnt/jrootfs/ /
 COPY --from=ubi9-jlinked-image /deployments /deployments
-COPY --from=ubi9-jlinked-image /tmp/jre /usr/lib/jvm/java
+COPY --from=ubi9-jlinked-image /tmp/jre ${JAVA_HOME}
 COPY --from=ubi9-jlinked-image /opt/jboss/container/ /opt/jboss/container/
-RUN ls -la /opt/jboss/container/*
 
-ENV JAVA_HOME="/usr/lib/jvm/java"
-RUN echo $JAVA_HOME
-
-ENV PATH="$JAVA_HOME/bin/:$PATH"
-RUN echo $PATH
-
+ENV JAVA_HOME="${JAVA_HOME}" PATH="${JAVA_HOME}/bin:$PATH"
 CMD /opt/jboss/container/java/run/run-java.sh
-
