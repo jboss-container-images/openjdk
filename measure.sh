@@ -13,6 +13,7 @@ $S2I build --pull-policy never \
     -e MAVEN_S2I_ARTIFACT_DIRS=target \
     -e S2I_SOURCE_DEPLOYMENTS_FILTER="*.jar quarkus-app" \
     -e QUARKUS_PACKAGE_TYPE=uber-jar \
+    -e MAVEN_CLEAR_REPO=true \
     -e JAVA_APP_JAR=getting-started-1.0.0-SNAPSHOT-runner.jar \
     --context-dir=$CONTEXTDIR -r=${rev} \
     $APPSRC \
