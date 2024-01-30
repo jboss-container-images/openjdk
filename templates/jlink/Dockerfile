@@ -5,11 +5,14 @@
 FROM ubi9-jlinked-image AS ubi9-jlinked-image
 USER 0
 RUN mkdir -p /mnt/jrootfs
-RUN microdnf install dnf -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs
-RUN dnf install --installroot /mnt/jrootfs --releasever 9 --setopt install_weak_deps=false --nodocs -y \
-    grep gawk \
-    && dnf clean all
-RUN rm -rf /mnt/jrootfs/var/cache/* /mnt/jrootfs/var/lib/rpm
+RUN microdnf install --installroot /mnt/jrootfs --releasever 9 --setopt install_weak_deps=0 --nodocs -y \
+    --config=/etc/dnf/dnf.conf \
+    --noplugins \
+    --setopt=cachedir=/var/cache \
+    --setopt=reposdir=/etc/yum.repos.d \
+    --setopt=varsdir=/etc/dnf/vars \
+    grep gawk
+RUN rm -rf /mnt/jrootfs/var/cache/* /mnt/jrootfs/var/lib/rpm /mnt/jrootfs/var/lib/dnf
 
 #Stage-2:copy application JAR and jlinked JRE to runtime image
 FROM registry.access.redhat.com/ubi9/ubi-micro AS lean-runtime
@@ -19,6 +22,9 @@ COPY --from=ubi9-jlinked-image /mnt/jrootfs/ /
 COPY --from=ubi9-jlinked-image /deployments /deployments
 COPY --from=ubi9-jlinked-image /tmp/jre ${JAVA_HOME}
 COPY --from=ubi9-jlinked-image /opt/jboss/container/ /opt/jboss/container/
+# these are in the micro image
+RUN rm -rf /var/lib/dnf /var/lib/rpm
 
 ENV JAVA_HOME="${JAVA_HOME}" PATH="${JAVA_HOME}/bin:$PATH"
+USER 185
 CMD /opt/jboss/container/java/run/run-java.sh
