@@ -16,7 +16,6 @@ maven_s2i_build
 
 # run the pathfinder scripts to define JAVA_APP_JAR and JAVA_LIB_DIR
 source "${JBOSS_CONTAINER_UTIL_PATHFINDER_MODULE}/pathfinder.sh"
-echo "Setting up java app and lib variables"
 setup_java_app_and_lib
 
 # include our jlink scripts
