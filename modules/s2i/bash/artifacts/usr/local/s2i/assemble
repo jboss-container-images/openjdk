@@ -21,6 +21,9 @@ setup_java_app_and_lib
 # include our jlink scripts
 if [ "$S2I_ENABLE_JLINK" = "true" ]; then
 
+    source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/preflight.sh"
+    jlink_preflight_check
+
     source "${JBOSS_CONTAINER_JAVA_JLINK_MODULE}/mkdeps.sh"
     echo "Invoking mkdeps"
     generate_deps
