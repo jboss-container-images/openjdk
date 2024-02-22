@@ -1,0 +1,16 @@
+@ubi9/openjdk-11
+@ubi9/openjdk-17
+@ubi9/openjdk-21
+Feature: Openshift OpenJDK S2I tests (jlink specific)
+Scenario: Ensure jlinked builder is used to build the containerized application image
+      Given s2i build https://github.com/jboss-container-images/openjdk-test-applications from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i
+       | variable            | value        |
+       | S2I_ENABLE_JLINK    | true         |
+       | QUARKUS_PACKAGE_TYPE| uber-jar     |
+      Then run ls /tmp/jre in container and check its output for bin
+
+Scenario: Ensure S2I_ENABLE_JLINK=false is the default
+      Given container is started with env
+       | variable            | value        |
+       | QUARKUS_PACKAGE_TYPE| uber-jar     |
+      Then container log should not contain S2I_ENABLE_JLINK=true
