@@ -10,7 +10,5 @@ Scenario: Ensure jlinked builder is used to build the containerized application 
       Then run ls /tmp/jre in container and check its output for bin
 
 Scenario: Ensure S2I_ENABLE_JLINK=false is the default
-      Given container is started with env
-       | variable            | value        |
-       | QUARKUS_PACKAGE_TYPE| uber-jar     |
+      Given container is started with command env
       Then container log should not contain S2I_ENABLE_JLINK=true
