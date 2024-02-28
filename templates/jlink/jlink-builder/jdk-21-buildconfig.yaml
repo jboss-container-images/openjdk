@@ -1,0 +1,22 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata: 
+  name: jlink-builder-jdk-21
+  labels:
+    app: jlink-builder-jdk-21
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/jmtd/quarkus-quickstarts.git
+    contextDir: getting-started
+    dockerfile: |
+      FROM registry.access.redhat.com/ubi9/openjdk-21 AS ubi9-openjdk-21-jmods
+      USER 0
+      RUN microdnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y java-21-openjdk-jmods
+  strategy:
+    type: Docker
+  output:
+    to:
+      kind: ImageStreamTag
+      name: ubi9-openjdk-21-jlink:latest
