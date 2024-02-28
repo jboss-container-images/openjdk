@@ -1,9 +1,0 @@
-# Stage 1 of the multi-stage build for the Jlink workflow (OPENJDK-2686)
-# Goal: Builder image based off of the OpenJDK builder image with the jmods RPM installed
-FROM registry.access.redhat.com/ubi9/openjdk-11 AS ubi9-openjdk11-jmods
-USER 0
-RUN microdnf --setopt=install_weak_deps=0 \
-             --setopt=tsflags=nodocs \
-             install \
-             -y \
-             java-11-openjdk-jmods
