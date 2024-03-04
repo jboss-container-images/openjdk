@@ -12,4 +12,4 @@ Scenario: Ensure jlinked builder is used to build the containerized application 
 Scenario: Ensure S2I_ENABLE_JLINK is not set to true
       Given s2i build https://github.com/jboss-container-images/openjdk-test-applications from quarkus-quickstarts/getting-started-3.0.1.Final-nos2i
       Then container log should not contain S2I_ENABLE_JLINK=true
-      And run ls /tmp/jre in container and check its output for No such file or directory
+      And run bash -c "test ! -d /tmp/jre && echo PASS" in container and immediately check its output for PASS
