@@ -23,6 +23,10 @@ execute:
 - script: configure.sh
 - script: backwards_compatibility.sh
 
+modules:
+  install:
+  - name: jboss.container.prometheustest
+
 packages:
   install:
     - prometheus-jmx-exporter-openjdk17

@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: "jboss.container.prometheustest"
+description: "A dummy descriptor to couple tests with prometheus module"
+version: "0"
