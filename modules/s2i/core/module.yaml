@@ -116,7 +116,6 @@ envs:
   description: ^
     Enables the Jdeps/JLink workflow to minimize JRE size
   example: "false"
-  value: "false"
 
 run:
   cmd:
