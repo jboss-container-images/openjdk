@@ -60,6 +60,10 @@ execute:
 - script: configure.sh
 - script: backward_compatibility.sh
 
+modules:
+  install:
+  - name: jboss.container.jolokiatest
+
 packages:
   install:
     - jolokia-jvm-agent

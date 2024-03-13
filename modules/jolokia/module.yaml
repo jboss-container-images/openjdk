@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: "jboss.container.jolokiatest"
+description: "A dummy descriptor to couple tests with jolokia module"
+version: "0"
