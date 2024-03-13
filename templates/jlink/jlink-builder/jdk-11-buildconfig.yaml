@@ -1,3 +1,16 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  generation: 1
+  name: ubi9-openjdk-11-jlink
+  namespace: default
+spec:
+  lookupPolicy:
+    local: false
+status:
+  dockerImageRepository: image-registry.openshift-image-registry.svc:5000/default/ubi9-openjdk-11-jlink
+  publicDockerImageRepository: default-route-openshift-image-registry.apps-crc.testing/default/ubi9-openjdk-11-jlink
+---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata: 
