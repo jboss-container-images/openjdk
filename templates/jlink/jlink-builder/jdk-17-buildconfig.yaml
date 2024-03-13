@@ -6,14 +6,11 @@ metadata:
     app: jlink-builder-jdk-17
 spec:
   source:
-    type: Git
-    git:
-      uri: https://github.com/jmtd/quarkus-quickstarts.git
-    contextDir: getting-started
     dockerfile: |
       FROM registry.access.redhat.com/ubi9/openjdk-17 AS ubi9-openjdk-17-jmods
       USER 0
       RUN microdnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y java-17-openjdk-jmods
+      USER 185
   strategy:
     type: Docker
   output:
