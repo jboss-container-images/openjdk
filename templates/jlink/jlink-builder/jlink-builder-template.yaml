@@ -5,20 +5,15 @@ metadata:
   annotations:
     description: Template to produce an imagestream and buildconfig for a Jlink builder image
   name: jlink-builder-template
-  namespace: openshift
 objects:
 - apiVersion: image.openshift.io/v1
   kind: ImageStream
   metadata:
     generation: 1
     name: ubi9-openjdk-${JDK_VERSION}-jlink
-    namespace: default
   spec:
     lookupPolicy:
       local: false
-  status:
-    dockerImageRepository: image-registry.openshift-image-registry.svc:5000/default/ubi9-openjdk-${JDK_VERSION}-jlink
-    publicDockerImageRepository: default-route-openshift-image-registry.apps-crc.testing/default/ubi9-openjdk-${JDK_VERSION}-jlink
 - apiVersion: build.openshift.io/v1
   kind: BuildConfig
   metadata: 
