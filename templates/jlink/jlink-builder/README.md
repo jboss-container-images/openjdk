@@ -7,12 +7,14 @@ Try it out:
 You need:
 
 1. Access to an OpenShift instance, such as crc
+2. UBI9 OpenJDK ImageStreams. You can load them from this repository with
+
+    oc create -f templates/ubi9-community-image-streams.json
 
 Steps to produce the imagestream and image:
 
-1. Switch to the openshift project and install the template
+1. install the template
 
-    oc project openshift
     oc create -f templates/jlink/jlink-builder/jlink-builder-template.yaml
 
 This will create a Template called jlink-builder-template, you should see
@@ -34,7 +36,7 @@ The template for now defines a single parameter, JDK_VERSION. Setting this will 
 
 In order to set the JDK version, you will need to use the -p flag of oc process. To process the template and create the imagestreams, simply run 
 
-    oc process -n openshift jlink-builder-template -p JDK_VERSION=11 | oc create -f -
+    oc process jlink-builder-template -p JDK_VERSION=11 | oc create -f -
     
     imagestream.image.openshift.io/ubi9-openjdk-11-jlink created
     buildconfig.build.openshift.io/jlink-builder-jdk-11 created
