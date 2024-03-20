@@ -10,6 +10,10 @@ spec:
 status:
   dockerImageRepository: image-registry.openshift-image-registry.svc:5000/default/ubi9-openjdk-11-jlink
   publicDockerImageRepository: default-route-openshift-image-registry.apps-crc.testing/default/ubi9-openjdk-11-jlink
+parameters:
+- description: JDK version to produce a jmods image for
+  name: JDK_VERSION
+  value: 11
 ---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
@@ -25,7 +29,10 @@ spec:
       RUN microdnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y java-11-openjdk-jmods
       USER 185
   strategy:
-    type: Docker
+    dockerStrategy:
+      from: 
+        kind: ImageStreamTag
+        name: ubi9-openjdk-11:1.13
   output:
     to:
       kind: ImageStreamTag
