@@ -1,0 +1,42 @@
+---
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  annotations:
+    description: Template to produce an imagestream and buildconfig for a Jlink builder image
+  name: jlink-builder-template
+parameters:
+- description: JDK version to produce a jmods image and imagestream for
+  name: JDK_VERSION
+  value: "11"
+  required: true
+objects:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    name: ubi9-openjdk-${JDK_VERSION}-jlink
+  spec:
+    lookupPolicy:
+      local: false
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata: 
+    name: jlink-builder-jdk-${JDK_VERSION}
+    labels:
+      app: jlink-builder-jdk-${JDK_VERSION}
+  spec:
+    source:
+      dockerfile: |
+        FROM -
+        USER 0
+        RUN microdnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y java-${JDK_VERSION}-openjdk-jmods
+        USER 185
+    strategy:
+      dockerStrategy:
+        from: 
+          kind: ImageStreamTag
+          name: ubi9-openjdk-${JDK_VERSION}:1.18
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ubi9-openjdk-${JDK_VERSION}-jlink:latest
