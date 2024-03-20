@@ -5,6 +5,11 @@ metadata:
   annotations:
     description: Template to produce an imagestream and buildconfig for a Jlink builder image
   name: jlink-builder-template
+parameters:
+- description: JDK version to produce a jmods image and imagestream for
+  name: JDK_VERSION
+  value: "11"
+  required: true
 objects:
 - apiVersion: image.openshift.io/v1
   kind: ImageStream
@@ -35,8 +40,3 @@ objects:
       to:
         kind: ImageStreamTag
         name: ubi9-openjdk-${JDK_VERSION}-jlink:latest
-parameters:
-- description: JDK version to produce a jmods image and imagestream for
-  name: JDK_VERSION
-  value: "11"
-  required: true
