@@ -1,0 +1,36 @@
+---
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  annotations:
+    description: Template to produce a light weight imagestream and buildconfig for a multistage build
+  name: multistage-build-template
+objects:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    name: lightweight-image
+  spec:
+    lookupPolicy:
+      local: false
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata: 
+    name: multistage-buildconfig
+  spec:
+    source:
+      type: Git
+      git:
+        uri: https://github.com/jhuttana/openjdk.git
+        ref: phase-4
+      contextDir: templates/jlink/
+    strategy:
+      type: Docker
+      dockerStrategy:
+        dockerfilePath: Dockerfile
+    output:
+      to:
+        kind: ImageStreamTag
+        name: lightweight-image:latest  # Tag for the final output image
+    triggers:
+      - type: ConfigChange
