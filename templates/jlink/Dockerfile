@@ -2,7 +2,7 @@
 
 #Stage-1: ubi9-jlinked-image is builder image + application + jlinked JVM
 # install additional system dependencies (for ubi-micro) to /mnt/jrootfs
-FROM ubi9-jlinked-image AS ubi9-jlinked-image
+FROM quay.io/jdowland/jlink:ubi9-jlinked-image AS ubi9-jlinked-image
 USER 0
 RUN mkdir -p /mnt/jrootfs
 RUN microdnf install --installroot /mnt/jrootfs --releasever 9 --setopt install_weak_deps=0 --nodocs -y \
