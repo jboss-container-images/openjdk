@@ -29,7 +29,8 @@ function maven_s2i_custom_binary_build() {
     binary_dir="${S2I_SOURCE_DIR}"
   fi
   log_info "Copying binaries from ${binary_dir} to ${S2I_TARGET_DEPLOYMENTS_DIR} ..."
-  rsync --archive --out-format='%n' "${binary_dir}"/ "${S2I_TARGET_DEPLOYMENTS_DIR}"
+  # Don't try to set times on S2I_TARGET_DEPLOYMENTS_DIR (OPENJDK-2824)
+  rsync --archive --omit-dir-times --out-format='%n' "${binary_dir}"/ "${S2I_TARGET_DEPLOYMENTS_DIR}"
 }
 
 function maven_s2i_deploy_artifacts_override() {
