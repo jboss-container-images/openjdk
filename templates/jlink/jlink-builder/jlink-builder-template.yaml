@@ -30,6 +30,15 @@ objects:
         FROM -
         USER 0
         RUN microdnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y java-${JDK_VERSION}-openjdk-jmods
+        RUN mkdir -p /mnt/jrootfs
+        RUN microdnf install --installroot /mnt/jrootfs --releasever 9 --setopt install_weak_deps=0 --nodocs -y \
+        --config=/etc/dnf/dnf.conf \
+        --noplugins \
+        --setopt=cachedir=/var/cache \
+        --setopt=reposdir=/etc/yum.repos.d \
+        --setopt=varsdir=/etc/dnf/vars \
+        grep gawk
+        RUN rm -rf /mnt/jrootfs/var/cache/* /mnt/jrootfs/var/lib/rpm /mnt/jrootfs/var/lib/dnf
         USER 185
     strategy:
       dockerStrategy:
