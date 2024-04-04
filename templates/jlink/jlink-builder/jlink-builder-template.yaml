@@ -58,6 +58,13 @@ objects:
       to:
         kind: ImageStreamTag
         name: ubi9-openjdk-${JDK_VERSION}-jlink:latest
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    name: intermediate
+  spec:
+    lookupPolicy:
+      local: false
 - apiVersion: build.openshift.io/v1
   kind: BuildConfig
   metadata:
@@ -85,4 +92,4 @@ objects:
   output:
     to:
       kind: ImageStreamTag
-      name: ubi9-openjdk-${JDK_VERSION}-jlink:latest
+      name: intermediate:latest
