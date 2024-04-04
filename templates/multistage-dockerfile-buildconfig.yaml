@@ -56,7 +56,7 @@ objects:
         FROM registry.access.redhat.com/ubi9/ubi-micro
         ARG JAVA_HOME=/usr/lib/jvm/java
 
-        COPY jrootfs/    /
+        COPY jrootfs/*    /
         COPY deployments /
         COPY customJVM   ${JAVA_HOME}
         COPY runScripts  /opt/jboss/container/
