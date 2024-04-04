@@ -74,21 +74,21 @@ objects:
   spec:
     source:
       type: Git
-        git: 
-          uri: ${APPLICATION}
-          ref: ${REF}
-        contextDir: ${CONTEXT_DIR}
-  strategy:
-    sourceStrategy:
-      from:
-        kind: ImageStreamTag
-        name: ubi9-openjdk-${JDK_VERSION}-jlink:latest # Output Imagestream for Stage 1
-        pullPolicy: Always
-      env:
-        - name: S2I_ENABLE_JLINK
-          value: true
-        - name: LOGGING_SCRIPT_DEBUG
-          value: true
+      git:
+        uri: ${APPLICATION}
+        ref: ${REF}
+      contextDir: ${CONTEXT_DIR}
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: ubi9-openjdk-${JDK_VERSION}-jlink:latest # Output Imagestream for Stage 1
+          pullPolicy: Always
+        env:
+          - name: S2I_ENABLE_JLINK
+            value: "true"
+          - name: LOGGING_SCRIPT_DEBUG
+            value: "true"
   output:
     to:
       kind: ImageStreamTag
