@@ -10,6 +10,15 @@ parameters:
   name: JDK_VERSION
   value: "11"
   required: true
+- description: Application to run the jlink workflow on
+  name: APPLICATION
+  required: true
+- description: Git Ref to run the jlink workflow on
+  name: REF
+  required: true
+- description: Context Dir to use for the jlink workflow
+  name: CONTEXT_DIR
+  required: true
 objects:
 - apiVersion: image.openshift.io/v1
   kind: ImageStream
@@ -49,3 +58,31 @@ objects:
       to:
         kind: ImageStreamTag
         name: ubi9-openjdk-${JDK_VERSION}-jlink:latest
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    name: jlink-s2i-jdk-${JDK_VERSION}
+    labels:
+      app: jlink-s2i-jdk-${JDK_VERSION}
+  spec:
+    source:
+      type: Git
+        git: 
+          uri: ${APPLICATION}
+          ref: ${REF}
+        contextDir: ${CONTEXT_DIR}
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: ubi9-openjdk-${JDK_VERSION}-jlink:latest # Output Imagestream for Stage 1
+        pullPolicy: Always
+      env:
+        - name: S2I_ENABLE_JLINK
+          value: true
+        - name: LOGGING_SCRIPT_DEBUG
+          value: true
+  output:
+    to:
+      kind: ImageStreamTag
+      name: ubi9-openjdk-${JDK_VERSION}-jlink:latest
