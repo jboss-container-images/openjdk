@@ -23,6 +23,22 @@ objects:
       referencePolicy:
         type: Local
 ##############################################################################
+# the ubi-micro ImageStream
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    name: ubimicro
+  spec:
+    lookupPolicy:
+      local: true
+    tags:
+    - from:
+        kind: DockerImage
+        name: registry.access.redhat.com/ubi9/ubi-micro
+      name: latest
+      referencePolicy:
+        type: Local
+##############################################################################
 # the OUTPUT ImageStream
 - apiVersion: image.openshift.io/v1
   kind: ImageStream
@@ -53,7 +69,7 @@ objects:
           destinationDir: runScripts
       type: Dockerfile
       dockerfile: |
-        FROM registry.access.redhat.com/ubi9/ubi-micro
+        FROM -
         ARG JAVA_HOME=/usr/lib/jvm/java
 
         COPY jrootfs/*    /
@@ -68,9 +84,23 @@ objects:
         CMD /opt/jboss/container/java/run/run-java.sh
     strategy:
       type: Docker
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: ubimicro:latest
     output:
       to:
         kind: ImageStreamTag
         name: lightweight-image:latest  # Tag for the final output image
     triggers:
       - type: ConfigChange
+      - type: ImageChange
+        imageChange:
+          from:
+            kind: ImageStreamTag
+            name: intermediate:latest  # ImageStreamTag for phase-2 output
+      - type: ImageChange
+        imageChange:
+          from:
+            kind: ImageStreamTag
+            name: ubimicro:latest  # ImageStreamTag for registry.access.redhat.com/ubi9/ubi-micro
