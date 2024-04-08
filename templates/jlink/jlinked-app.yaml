@@ -1,0 +1,190 @@
+---
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  annotations:
+    description: Template to produce imagestreams and buildconfigs for jlinked application 
+  name: jlink-app-template
+##############################################################################
+# List of parameters required to create template
+parameters:
+- description: JDK version to produce a jmods image and imagestream for
+  name: JDK_VERSION
+  value: "11"
+  required: true
+- description: Application to run the jlink workflow on
+  name: APP_URI
+  required: true
+- description: Git Ref to run the jlink workflow on
+  name: REF
+  required: true
+- description: Context Dir to use for the jlink workflow
+  name: CONTEXT_DIR
+  required: true
+##############################################################################
+# Following are the objects(imagestream and buildconfigs) for all the 3-stages
+objects:
+##############################################################################
+# stage-1: Output ImageStream
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    name: ubi9-openjdk-${JDK_VERSION}-jlink
+  spec:
+    lookupPolicy:
+      local: false
+##############################################################################
+# stage-1: BuildConfig
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata: 
+    name: jlink-builder-jdk-${JDK_VERSION}
+    labels:
+      app: jlink-builder-jdk-${JDK_VERSION}
+  spec:
+    source:
+      dockerfile: |
+        FROM -
+        USER 0
+        RUN microdnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y java-${JDK_VERSION}-openjdk-jmods
+        RUN mkdir -p /mnt/jrootfs
+        RUN microdnf install --installroot /mnt/jrootfs --releasever 9 --setopt install_weak_deps=0 --nodocs -y \
+        --config=/etc/dnf/dnf.conf \
+        --noplugins \
+        --setopt=cachedir=/var/cache \
+        --setopt=reposdir=/etc/yum.repos.d \
+        --setopt=varsdir=/etc/dnf/vars \
+        grep gawk
+        RUN rm -rf /mnt/jrootfs/var/cache/* /mnt/jrootfs/var/lib/rpm /mnt/jrootfs/var/lib/dnf
+        USER 185
+    strategy:
+      dockerStrategy:
+        from: 
+          kind: ImageStreamTag
+          name: ubi9-openjdk-${JDK_VERSION}:1.18  # Refer README.md to create this ImageStream
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ubi9-openjdk-${JDK_VERSION}-jlink:latest
+##############################################################################
+# stage-2: Output ImageStream
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    name: intermediate
+  spec:
+    lookupPolicy:
+      local: false
+##############################################################################
+# stage-2: BuildConfig
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    name: jlink-s2i-jdk-${JDK_VERSION}
+    labels:
+      app: jlink-s2i-jdk-${JDK_VERSION}
+  spec:
+    source:
+      type: Git
+      git:
+        uri: ${APP_URI}
+        ref: ${REF}
+      contextDir: ${CONTEXT_DIR}
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: ubi9-openjdk-${JDK_VERSION}-jlink:latest # Output Imagestream from stage-1
+          pullPolicy: Always
+        env:
+          - name: S2I_ENABLE_JLINK
+            value: "true"
+          - name: LOGGING_SCRIPT_DEBUG
+            value: "true"
+  output:
+    to:
+      kind: ImageStreamTag
+      name: intermediate:latest
+##############################################################################
+# stage-3: The ubi-micro ImageStream
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    name: ubimicro
+  spec:
+    lookupPolicy:
+      local: true
+    tags:
+    - from:
+        kind: DockerImage
+        name: registry.access.redhat.com/ubi9/ubi-micro
+      name: latest
+      referencePolicy:
+        type: Local      
+##############################################################################
+# stage-3: Output ImageStream
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    name: lightweight-image
+  spec:
+    lookupPolicy:
+      local: false
+##############################################################################
+# stage-3: BuildConfig
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata: 
+    name: multistage-buildconfig
+  spec:
+    source:
+      images:
+      - from:
+          kind: ImageStreamTag
+          name: intermediate:latest
+        paths:
+        - sourcePath:     /mnt/jrootfs
+          destinationDir: jrootfs
+        - sourcePath:     /deployments
+          destinationDir: deployments
+        - sourcePath:     /tmp/jre/.
+          destinationDir: customJVM
+        - sourcePath:     /opt/jboss/container/.
+          destinationDir: runScripts
+      type: Dockerfile
+      dockerfile: |
+        FROM -
+        ARG JAVA_HOME=/usr/lib/jvm/java
+
+        COPY jrootfs/*    /
+        COPY deployments /
+        COPY customJVM   ${JAVA_HOME}
+        COPY runScripts  /opt/jboss/container/
+        # these are in the micro image
+        RUN rm -rf /var/lib/dnf /var/lib/rpm
+
+        ENV JAVA_HOME="${JAVA_HOME}" PATH="${JAVA_HOME}/bin:$PATH"
+        USER 185
+        CMD /opt/jboss/container/java/run/run-java.sh
+    strategy:
+      type: Docker
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: ubimicro:latest
+    output:
+      to:
+        kind: ImageStreamTag
+        name: lightweight-image:latest  # Tag for the final output image
+#    triggers:
+#      - type: ConfigChange
+#      - type: ImageChange
+#        imageChange:
+#          from:
+#            kind: ImageStreamTag
+#            name: intermediate:latest  # output of stage-2
+#      - type: ImageChange
+#        imageChange:
+#          from:
+#            kind: ImageStreamTag
+#            name: ubimicro:latest  # ImageStreamTag for registry.access.redhat.com/ubi9/ubi-micro  
