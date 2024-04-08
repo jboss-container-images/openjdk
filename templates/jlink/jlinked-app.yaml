@@ -101,10 +101,10 @@ objects:
             value: "true"
           - name: LOGGING_SCRIPT_DEBUG
             value: "true"
-  output:
-    to:
-      kind: ImageStreamTag
-      name: intermediate:latest
+    output:
+      to:
+        kind: ImageStreamTag
+        name: intermediate:latest
 ##############################################################################
 # stage-3: The ubi-micro ImageStream
 - apiVersion: image.openshift.io/v1
@@ -176,15 +176,15 @@ objects:
       to:
         kind: ImageStreamTag
         name: lightweight-image:latest  # Tag for the final output image
-#    triggers:
-#      - type: ConfigChange
-#      - type: ImageChange
-#        imageChange:
-#          from:
-#            kind: ImageStreamTag
-#            name: intermediate:latest  # output of stage-2
-#      - type: ImageChange
-#        imageChange:
-#          from:
-#            kind: ImageStreamTag
-#            name: ubimicro:latest  # ImageStreamTag for registry.access.redhat.com/ubi9/ubi-micro  
+    triggers:
+      - type: ConfigChange
+      - type: ImageChange
+        imageChange:
+          from:
+            kind: ImageStreamTag
+            name: intermediate:latest  # output of stage-2
+      - type: ImageChange
+        imageChange:
+          from:
+            kind: ImageStreamTag
+            name: ubimicro:latest  # ImageStreamTag for registry.access.redhat.com/ubi9/ubi-micro

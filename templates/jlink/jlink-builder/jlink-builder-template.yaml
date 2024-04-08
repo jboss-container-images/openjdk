@@ -89,7 +89,7 @@ objects:
             value: "true"
           - name: LOGGING_SCRIPT_DEBUG
             value: "true"
-  output:
-    to:
-      kind: ImageStreamTag
-      name: intermediate:latest
+    output:
+      to:
+        kind: ImageStreamTag
+        name: intermediate:latest
