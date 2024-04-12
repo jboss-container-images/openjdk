@@ -1,58 +1,67 @@
-# OpenShift-JLink PoC
+# OpenShift Jlink integration (Tech Preview)
 
-Try it out:
+To try it out,
+you need:
 
-## Stage 1: create ubi9 jlink imagestream and push a ubi9 image with jmods installed to it.
+1. Access to an OpenShift instance, such as [OpenShift Local](https://developers.redhat.com/products/openshift-local/overview)
+2. UBI9 OpenJDK ImageStreams that include `jlink-dev` changes (see below)
+3. The template [jlinked-app.yaml](jlinked-app.yaml).
 
-You need:
+## Stage 0: UBI9 OpenJDK ImageStreams with jlink-dev changes
 
-1. Access to an OpenShift instance, such as crc
-2. UBI9 OpenJDK ImageStreams. You can load them from this repository with
+Until the `jlink-dev` work is merged, prior to trying out the template, we must first
+prepare UBI9 OpenJDK ImageStreams with `jlink-dev` support.
 
-    oc create -f templates/ubi9-community-image-streams.json
+1. Build a suitable OpenJDK container image from [this
+   repository](https://github.com/jboss-container-images/openjdk),
+   branch `jlink-dev`. e.g.
 
-Steps to produce the imagestream and image:
+        cekit --descriptor ubi9-openjdk-17.yaml build docker
 
-1. install the template
+2. Within your OpenShift project,
 
-    oc create -f templates/jlink/jlink-builder/jlink-builder-template.yaml
+        oc create imagestream ubi9-openjdk-17
 
-This will create a Template called jlink-builder-template, you should see
+3. Log into the OpenShift registry, e.g.
 
-    template.template.openshift.io/jlink-builder-template created
+        REGISTRY_AUTH_PREFERENCE=docker oc registry login
 
-and after running oc get template, it should be in the list as
+4. tag and push the dev image into it. The OpenShift console gives you the
+   exact URI for your instance
 
-    jlink-builder-template                        Template to produce an imagestream and buildconfig for a Jlink builder image       1 (all set)       2
+        docker tag ubi9/openjdk-17:1.18 default-route-openshift-image-registry.apps-crc.testing/jlink1/ubi9-openjdk-17:1.18
+        docker push default-route-openshift-image-registry.apps-crc.testing/jlink1/ubi9-openjdk-17:1.18
 
-2. Set the parameters and create the imagestream and buildconfig from the template.
+## Stage 1: Load the template into OpenShift and instantiate it
 
-The template for now defines a single parameter, JDK_VERSION. Setting this will set the version of the builder image used in the BuildConfig. Currently suppoted values are 11, 17, and 21. By default this will be 11.
+Create an OpenShift template `templates/jlink-app-template` from the jlinked-app template file
 
-    oc process --parameters jlink-builder-template
-    
-    NAME                DESCRIPTION                                GENERATOR           VALUE
-    JDK_VERSION         JDK version to produce a jmods image for                       11
+        oc create -f templates/jlink/jlinked-app.yaml 
 
-In order to set the JDK version, you will need to use the -p flag of oc process. To process the template and create the imagestreams, simply run 
+Process it to create the needed objects. You can list the parameters using
 
-    oc process jlink-builder-template -p JDK_VERSION=11 | oc create -f -
-    
-    imagestream.image.openshift.io/ubi9-openjdk-11-jlink created
-    buildconfig.build.openshift.io/jlink-builder-jdk-11 created
+        oc process --parameters jlink-builder-template
 
-3. Start and observe the build
+Some suitable test values for the parameters are
 
-Start the build using
+ * JDK_VERSION: 17
+ * APP_URI: https://github.com/jboss-container-images/openjdk-test-applications
+ * REF: master
+ * CONTEXT_DIR: quarkus-quickstarts/getting-started-3.9.2-uberjar
 
-    oc start-build jlink-builder-jdk-11
-    
-    build.build.openshift.io/jlink-builder-jdk-11-1 started
+        oc process \
+            -p JDK_VERSION=17 \
+            -p APP_URI=https://github.com/jboss-container-images/openjdk-test-applications \
+            -p REF=master \
+            -p CONTEXT_DIR=quarkus-quickstarts/getting-started-3.9.2-uberjar \
+            templates/jlink-app-template \
+            | oc create -f -
 
-Then observe it by using
+## Stage 2: Observe the results
 
-    oc logs -f bc/jlink-builder-jdk-11
+See all the OpenShift objects that were created:
 
-## Stage 2: build and analyse application with OpenShift source-to-image (S2I)
+        oc get all
 
-TODO
+Visit the Topology page within the D eveloper perspective, OpenShift web console,
+and inspect the App.
