@@ -2,55 +2,57 @@
 
 Try it out:
 
-## Stage 1: build and analyse application with OpenShift source-to-image (S2I)
+## Stage 1: create ubi9 jlink imagestream and push a ubi9 image with jmods installed to it.
 
 You need:
 
-1. Access to an OpenShift instance, or, use [the s2i standalone program](https://github.com/openshift/source-to-image)
-    * _([you might need to use an old version](https://github.com/openshift/source-to-image/issues/1135))_
-2. The OpenJDK builder image (with the customisations from the `jlink-dev` branch).
-   There's one at `quay.io/jdowland/jlink:latest`
-3. A quickstart ([there's a specially-prepared Quarkus quickstart](https://github.com/jmtd/quarkus-quickstarts/tree/OPENJDK-631-fastjar-layout);
-   in the future [the mainline Quarkus quickstarts will be suitable](https://github.com/quarkusio/quarkus-quickstarts/pull/1359))
+1. Access to an OpenShift instance, such as crc
+2. UBI9 OpenJDK ImageStreams. You can load them from this repository with
 
-Here's a recipe using local `s2i`
+    oc create -f templates/ubi9-community-image-streams.json
 
-```
-BASEIMG=quay.io/jdowland/jlink:latest
-APPSRC=https://github.com/jmtd/quarkus-quickstarts.git
-CONTEXTDIR=getting-started
-REV=OPENJDK-631-fastjar-layout
-OUTIMG=ubi9-jlinked-image
+Steps to produce the imagestream and image:
 
-s2i build --pull-policy never --context-dir=${CONTEXTDIR} -r=${REV} \
-    -e QUARKUS_PACKAGE_TYPE=uber-jar \
-    -e S2I_ENABLE_JLINK=true \
-    ${APPSRC} \
-    ${BASEIMG} \
-    ${OUTIMG}
-```
+1. install the template
 
-## Stage 2: multi-stage build to assemble micro runtime
+    oc create -f templates/jlink/jlink-builder/jlink-builder-template.yaml
 
-You need:
+This will create a Template called jlink-builder-template, you should see
 
-1. The output image from the first stage
-    * _here's one we made earlier: `quay.io/jdowland/jlink:quarkus-getting-started`_
-2. OpenShift, or a container runtime (e.g. Docker)
-3. [this Dockerfile](Dockerfile) (In future this is an OpenShift template)
+    template.template.openshift.io/jlink-builder-template created
 
-With docker, from a clone of this repository, in this directory:
+and after running oc get template, it should be in the list as
 
-```
-docker build -t myapp -f .
-```
+    jlink-builder-template                        Template to produce an imagestream and buildconfig for a Jlink builder image       1 (all set)       2
 
-## Stage 3: try it out!
+2. Set the parameters and create the imagestream and buildconfig from the template.
 
-Does it work?
+The template for now defines a single parameter, JDK_VERSION. Setting this will set the version of the builder image used in the BuildConfig. Currently suppoted values are 11, 17, and 21. By default this will be 11.
 
-    docker run --rm -ti -p 8080 myapp
+    oc process --parameters jlink-builder-template
+    
+    NAME                DESCRIPTION                                GENERATOR           VALUE
+    JDK_VERSION         JDK version to produce a jmods image for                       11
 
-How big is it?
+In order to set the JDK version, you will need to use the -p flag of oc process. To process the template and create the imagestreams, simply run 
 
-    docker inspect -f '{{.Size}}' myapp
+    oc process jlink-builder-template -p JDK_VERSION=11 | oc create -f -
+    
+    imagestream.image.openshift.io/ubi9-openjdk-11-jlink created
+    buildconfig.build.openshift.io/jlink-builder-jdk-11 created
+
+3. Start and observe the build
+
+Start the build using
+
+    oc start-build jlink-builder-jdk-11
+    
+    build.build.openshift.io/jlink-builder-jdk-11-1 started
+
+Then observe it by using
+
+    oc logs -f bc/jlink-builder-jdk-11
+
+## Stage 2: build and analyse application with OpenShift source-to-image (S2I)
+
+TODO
