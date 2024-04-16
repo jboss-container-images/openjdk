@@ -22,11 +22,19 @@ prepare UBI9 OpenJDK ImageStreams with `jlink-dev` support.
 
         oc create imagestream ubi9-openjdk-17
 
-3. Log into the OpenShift registry, e.g.
+3. You may need to configure your container engine to not TLS-verify the OpenShift
+   registry. For Docker, add the following to `/etc/docker/daemon.json` and restart
+   the daemon:
+
+        {
+          "insecure-registries": [ "default-route-openshift-image-registry.apps-crc.testing" ]
+        }
+
+4. Log into the OpenShift registry, e.g.
 
         REGISTRY_AUTH_PREFERENCE=docker oc registry login
 
-4. tag and push the dev image into it. The OpenShift console gives you the
+5. tag and push the dev image into it. The OpenShift console gives you the
    exact URI for your instance
 
         docker tag ubi9/openjdk-17:1.18 default-route-openshift-image-registry.apps-crc.testing/jlink1/ubi9-openjdk-17:1.18
