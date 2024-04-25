@@ -48,7 +48,7 @@ Create an OpenShift template `templates/jlink-app-template` from the jlinked-app
 
 Process it to create the needed objects. You can list the parameters using
 
-        oc process --parameters jlink-builder-template
+        oc process --parameters jlink-app-template
 
 Some suitable test values for the parameters are
 
@@ -71,5 +71,25 @@ See all the OpenShift objects that were created:
 
         oc get all
 
-Visit the Topology page within the D eveloper perspective, OpenShift web console,
-and inspect the App.
+## Stage 3: Kick off builds
+
+There will be three BuildConfigs, called something like
+
+1. jlink-builder-jdk-17
+2. jlink-s2i-jdk-17
+3. multistage-buildconfig
+
+Start a build for (1), wait for it to complete successfully; then start (2).
+Once (2) completes, (3) should be automatically triggered.
+
+## Stage 4: create deployment
+
+The ImageStreamTag `lightweight-image:latest` will be populated with the new
+application container image.
+
+Create a deployment to see it work. E.g., in the Developer Perspective, select
+"+Add", "Container Images", "Image stream tag from internal registry", ...,
+"Create"
+
+Then from "Topology", select the "Open URL" icon to open the newly deployed
+App.
