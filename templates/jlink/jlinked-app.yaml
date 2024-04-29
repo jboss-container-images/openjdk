@@ -66,6 +66,13 @@ objects:
       to:
         kind: ImageStreamTag
         name: ubi9-openjdk-${JDK_VERSION}-jlink:latest
+    triggers:
+      - type: ConfigChange
+      - type: ImageChange
+        imageChange:
+          from:
+            kind: ImageStreamTag
+            name: ubi9-openjdk-${JDK_VERSION}:1.18  # UBI9 OpenJDK ImageStreams with `jlink-dev` support
 ##############################################################################
 # stage-2: Output ImageStream
 - apiVersion: image.openshift.io/v1
