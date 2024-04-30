@@ -21,6 +21,12 @@ parameters:
 - description: Context Dir to use for the jlink workflow
   name: CONTEXT_DIR
   required: true
+- description: A secret string used to configure the GitHub webhook
+  name: GITHUB_WEBHOOK_SECRET
+  generate: expression
+  from: "[a-zA-Z0-9]{16}"
+  required: true
+message: "... The GitHub webhook secret is ${GITHUB_WEBHOOK_SECRET} ..."
 ##############################################################################
 # Following are the objects(imagestream and buildconfigs) for all the 3-stages
 objects:
@@ -114,7 +120,7 @@ objects:
             name: ubi9-openjdk-${JDK_VERSION}-jlink:latest  # Output of stage-1 which serves as input to stage-2
       - type: GitHub
         github:
-          secret: Gvw2O0tXuaAUxleJ
+          secret: ${GITHUB_WEBHOOK_SECRET}
           event: push
 ##############################################################################
 # stage-3: The ubi-micro ImageStream
