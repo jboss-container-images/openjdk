@@ -79,8 +79,8 @@ There will be three BuildConfigs, called something like
 2. jlink-s2i-jdk-17
 3. multistage-buildconfig
 
-Start a build for (1), wait for it to complete successfully; then start (2).
-Once (2) completes, (3) should be automatically triggered.
+Start a build for (1). Once complete, builds for (2) and (3) should be
+automatically triggered in sequence.
 
 ## Stage 4: create deployment
 
