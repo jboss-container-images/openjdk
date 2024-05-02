@@ -1,4 +1,5 @@
-# Red Hat UBI OpenJDK container images
+= Red Hat UBI OpenJDK container images
+:toc: right
 
 This is auto-generated documentation for the
 link:https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image[Red
