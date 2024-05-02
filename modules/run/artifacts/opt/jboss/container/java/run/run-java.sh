@@ -264,9 +264,9 @@ startup() {
 
   local procname="${JAVA_APP_NAME-java}"
 
-  local masked_args=$(mask_passwords "${args}")
+  local masked_opts=$(mask_passwords "$(get_java_options)")
 
-  log_info "exec -a \"${procname}\" java $(get_java_options) -cp \"$(get_classpath)\" ${masked_args} $*"
+  log_info "exec -a \"${procname}\" java ${masked_opts} -cp \"$(get_classpath)\" ${args} $*"
   log_info "running in $PWD"
   exec -a "${procname}" java $(get_java_options) -cp "$(get_classpath)" ${args} $*
 }
