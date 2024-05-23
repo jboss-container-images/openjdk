@@ -225,6 +225,7 @@ function configure_passwd() {
   if [ -w "$HOME/passwd" ]; then
     sed "/^jboss/s/[^:]*/$(id -u)/3" /etc/passwd > "$HOME/passwd"
   fi
+}
 
 # Mask secrets before printing
 mask_passwords() {
