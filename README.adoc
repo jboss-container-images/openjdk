@@ -24,7 +24,7 @@ Older RHEL7 and RHEL8-based image sources are in the `rhel7` and `ubi8` branches
 
 ## How to build the images
 
-You need to https://cekit.readthedocs.io/en/develop/installation.html[install Cekit] to build these images.
+You need to https://docs.cekit.io/en/latest/handbook/installation/index.html[install Cekit] to build these images.
 
 These sources are prepared and tested for Cekit 4.1.1.
 
